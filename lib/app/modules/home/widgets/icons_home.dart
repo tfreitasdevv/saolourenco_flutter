@@ -20,10 +20,18 @@ class IconsHome extends StatelessWidget {
           ? CachedNetworkImage(
               color: Colors.white,
               imageUrl: icone,
+              errorWidget: (context, url, error) => Icon(
+                Icons.image_not_supported,
+                color: Colors.white,
+              ),
             )
           : Image.network(
               icone,
               color: Colors.white,
+              errorBuilder: (context, error, stackTrace) => Icon(
+                Icons.image_not_supported,
+                color: Colors.white,
+              ),
             ),
       iconSize: 20,
       onPressed: funcao,

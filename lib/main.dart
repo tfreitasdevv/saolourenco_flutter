@@ -18,9 +18,16 @@ void main() async {
     debugPrint("⚠️ Arquivo .env não encontrado, usando configuração padrão: $e");
   }
   
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    debugPrint("✅ Firebase inicializado com sucesso");
+    debugPrint("📋 Plataforma: ${DefaultFirebaseOptions.currentPlatform.projectId}");
+  } catch (e) {
+    debugPrint("❌ Erro ao inicializar Firebase: $e");
+  }
+  
   runApp(ModularApp(
     module: AppModule(),
     child: AppWidget(),
