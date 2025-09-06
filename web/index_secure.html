@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="App para uso gerencial e comunitário da Paróquia São Lourenço.">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="paroquia_sao_lourenco">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>paroquia_sao_lourenco</title>
+  <link rel="manifest" href="manifest.json">
+  
+  <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-analytics.js"></script>
+
+</head>
+<body>
+  <script>
+    window.addEventListener('load', function(ev) {
+      // Download main.dart.js
+      _flutter.loader.loadEntrypoint({
+        serviceWorker: {
+          serviceWorkerVersion: serviceWorkerVersion,
+        }
+      }).then(function(engineInitializer) {
+        return engineInitializer.initializeEngine();
+      }).then(function(appRunner) {
+        return appRunner.runApp();
+      });
+    });
+  </script>
+  <script>
+    // ⚠️ CONFIGURAÇÃO DO FIREBASE DEVE SER FORNECIDA ATRAVÉS DE VARIÁVEIS DE AMBIENTE
+    // OU SCRIPT DE BUILD PARA PRODUÇÃO
+    
+    // Para desenvolvimento local, crie um arquivo .env com as configurações
+    // e use um processo de build que substitua essas variáveis
+    var firebaseConfig = {
+      apiKey: "CONFIGURE_SUA_CHAVE_API_WEB",
+      authDomain: "SEU_PROJETO.firebaseapp.com", 
+      databaseURL: "https://SEU_PROJETO.firebaseio.com",
+      projectId: "SEU_PROJETO_ID",
+      storageBucket: "SEU_PROJETO.appspot.com",
+      messagingSenderId: "SEU_SENDER_ID",
+      appId: "SEU_APP_ID_WEB",
+      measurementId: "SEU_MEASUREMENT_ID"
+    };
+    
+    // Verifica se as configurações foram fornecidas
+    if (firebaseConfig.apiKey === "CONFIGURE_SUA_CHAVE_API_WEB") {
+      console.error("🔥 Firebase não configurado! Configure as variáveis de ambiente.");
+      console.log("📖 Consulte SECURITY_SETUP.md para instruções de configuração.");
+    } else {
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    }
+  </script>
+  <script src="main.dart.js" type="application/javascript"></script>
+</body>
+</html>

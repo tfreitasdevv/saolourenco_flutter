@@ -1,0 +1,95 @@
+name: paroquia_sao_lourenco
+description: App para uso gerencial e comunitário da Paróquia São Lourenço.
+
+version: 2.0.2+18
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter_mobx: ^2.2.1+1
+  mobx: ^2.5.0
+  flutter_modular: ^6.3.4
+  expandable: ^5.0.1
+  flutter_staggered_animations: ^1.1.1
+  firebase_core: ^3.6.0
+  firebase_auth: ^5.3.1
+  firebase_storage: ^12.3.2
+  cloud_firestore: ^5.4.3
+  cached_network_image: ^3.4.1
+  url_launcher: ^6.2.6
+  intl: ^0.19.0
+  mask_text_input_formatter: ^2.9.0
+  flutter_dotenv: ^5.1.0
+  flutter_markdown: ^0.7.3
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  mockito: ^5.4.4
+  mobx_codegen: ^2.6.1
+  build_runner: ^2.4.11
+  flutter_test:
+    sdk: flutter
+
+flutter:
+
+  uses-material-design: true
+
+
+  fonts:
+    - family: Raleway
+      fonts:
+        - asset: assets/fonts/Raleway-Regular.ttf
+        - asset: assets/fonts/Raleway-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Raleway-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Raleway-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Raleway-Black.ttf
+          weight: 900
+
+    - family: CinzelDecorative
+      fonts:
+        - asset: assets/fonts/CinzelDecorative-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/CinzelDecorative-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/CinzelDecorative-Black.ttf
+          weight: 900
+        
+          
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/images/
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/assets-and-images/#resolution-aware.
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/assets-and-images/#from-packages
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages
+
+scripts:
+  watch: flutter pub run build_runner watch --delete-conflicting-outputs

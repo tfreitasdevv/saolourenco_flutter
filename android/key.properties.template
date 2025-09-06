@@ -1,0 +1,8 @@
+# Android Keystore Properties Template
+# Copie este arquivo para key.properties e preencha com os valores reais
+# NUNCA commite o arquivo key.properties com valores reais
+
+storePassword=YOUR_STORE_PASSWORD_HERE
+keyPassword=YOUR_KEY_PASSWORD_HERE
+keyAlias=upload
+storeFile=C:/src/upload-keystore.jks
