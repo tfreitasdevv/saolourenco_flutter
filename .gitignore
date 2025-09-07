@@ -43,5 +43,10 @@ web/index.html
 .env.production
 *.env
 
+# Service Account e credenciais Firebase
+*service-account*.json
+*firebase-adminsdk*.json
+serviceAccountKey.json
+
 # Exceptions to above rules.
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
