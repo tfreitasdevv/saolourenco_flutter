@@ -10,23 +10,15 @@ class PushNotificationService {
 
   bool _isInitialized = false;
 
-  /// ID do app OneSignal (configurado via .env ou valor padrão)
+  /// ID do app OneSignal (configurado via .env)
   String get _appId {
-    try {
-      // Primeiro tenta ler do .env
-      final envAppId = dotenv.env['ONESIGNAL_APP_ID'];
-      if (envAppId != null && envAppId.isNotEmpty && envAppId != 'your_onesignal_app_id_here') {
-        debugPrint('🔑 OneSignal App ID do .env carregado com sucesso');
-        return envAppId;
-      }
-    } catch (e) {
-      debugPrint('⚠️ Erro ao ler .env: $e');
+    final envAppId = dotenv.env['ONESIGNAL_APP_ID'];
+    
+    if (envAppId != null && envAppId.isNotEmpty && envAppId != 'your_onesignal_app_id_here') {
+      return envAppId;
     }
     
-    // ERRO: App ID não configurado
-    // Configure o ONESIGNAL_APP_ID no arquivo .env
-    debugPrint('❌ ONESIGNAL_APP_ID não encontrado no .env');
-    throw Exception('OneSignal App ID não configurado. Configure ONESIGNAL_APP_ID no arquivo .env');
+    throw Exception('ONESIGNAL_APP_ID não encontrado ou inválido no arquivo .env');
   }
 
   /// Inicializa o OneSignal
@@ -34,33 +26,25 @@ class PushNotificationService {
     if (_isInitialized) return;
 
     try {
-      debugPrint('🚀 Iniciando OneSignal...');
-      
       // Obter App ID
       final appId = _appId;
-      debugPrint('🔑 App ID configurado via .env');
       
       // Configuração básica do OneSignal
       OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
-      debugPrint('📊 OneSignal debug logs ativados');
       
       // Inicializa com o App ID
       OneSignal.initialize(appId);
-      debugPrint('🎯 OneSignal.initialize() chamado');
 
       // Aguarda um pouco para garantir inicialização
       await Future.delayed(const Duration(milliseconds: 500));
 
       // Configura os handlers de eventos
       _setupNotificationHandlers();
-      debugPrint('🔧 Handlers configurados');
 
       // Solicita permissão para notificações
       await _requestPermission();
-      debugPrint('🔔 Permissão solicitada');
 
       _isInitialized = true;
-      debugPrint('✅ OneSignal inicializado com sucesso');
     } catch (e) {
       debugPrint('❌ Erro ao inicializar OneSignal: $e');
     }
@@ -96,7 +80,6 @@ class PushNotificationService {
   Future<bool> _requestPermission() async {
     try {
       final permission = await OneSignal.Notifications.requestPermission(true);
-      debugPrint('🔔 Permissão para notificações: $permission');
       return permission;
     } catch (e) {
       debugPrint('❌ Erro ao solicitar permissão: $e');
@@ -108,7 +91,6 @@ class PushNotificationService {
   Future<String?> getPlayerId() async {
     try {
       final userId = OneSignal.User.pushSubscription.id;
-      debugPrint('🆔 Player ID: $userId');
       return userId;
     } catch (e) {
       debugPrint('❌ Erro ao obter Player ID: $e');

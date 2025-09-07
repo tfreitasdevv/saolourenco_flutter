@@ -10,21 +10,17 @@ import 'firebase_options_env.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
-  // Carrega variáveis de ambiente (arquivo opcional)
+  // Carrega variáveis de ambiente
   try {
     await dotenv.load(fileName: ".env");
-    debugPrint("✅ Arquivo .env carregado com sucesso");
   } catch (e) {
-    // Se não encontrar o .env, continue com valores padrão
-    debugPrint("⚠️ Arquivo .env não encontrado, usando configuração padrão: $e");
+    debugPrint("❌ Erro ao carregar arquivo .env: $e");
   }
   
   try {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    debugPrint("✅ Firebase inicializado com sucesso");
-    debugPrint("📋 Plataforma: ${DefaultFirebaseOptions.currentPlatform.projectId}");
   } catch (e) {
     debugPrint("❌ Erro ao inicializar Firebase: $e");
   }
@@ -33,7 +29,6 @@ void main() async {
   try {
     final pushService = PushNotificationService();
     await pushService.initialize();
-    debugPrint("✅ Push notifications inicializadas com sucesso");
   } catch (e) {
     debugPrint("❌ Erro ao inicializar push notifications: $e");
   }
