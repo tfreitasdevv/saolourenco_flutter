@@ -110,7 +110,65 @@ flutter build apk --release
 flutter build web
 ```
 
-## 📱 Estrutura do Projeto
+## � Deploy e Publicação
+
+### 📱 Android (Google Play Store)
+```bash
+# Build para produção
+flutter build appbundle --release
+
+# O arquivo será gerado em: build/app/outputs/bundle/release/app-release.aab
+```
+
+### 🌐 Web (Firebase Hosting)
+A aplicação web está disponível gratuitamente em: **https://sao-lourenco.web.app**
+
+```bash
+# Build para web
+flutter build web --release
+
+# Deploy para Firebase Hosting
+firebase deploy --only hosting
+```
+
+### 🔄 Updates Futuros
+
+#### Método Automático (Recomendado)
+Execute o script de deploy automático:
+```bash
+# Windows
+./deploy-web.bat
+
+# Linux/macOS
+chmod +x deploy-web.sh
+./deploy-web.sh
+```
+
+#### Método Manual
+Para atualizações na versão web:
+```bash
+# 1. Faça as alterações no código
+# 2. Gere o build para produção
+flutter build web --release
+
+# 3. Faça o deploy
+firebase deploy --only hosting
+
+# 4. Confirme no console: https://console.firebase.google.com/project/sao-lourenco/overview
+```
+
+#### URLs da Aplicação Web
+- **Principal**: https://sao-lourenco.web.app
+- **Alternativa**: https://sao-lourenco.firebaseapp.com
+- **Console Firebase**: https://console.firebase.google.com/project/sao-lourenco/overview
+
+#### ⚠️ Importante
+- ✅ Updates na web **NÃO** afetam o app Android em produção
+- ✅ Dados do Firestore são compartilhados entre Android e Web
+- ✅ Usuários podem usar a mesma conta em ambas plataformas
+- ✅ Deploy web é instantâneo e gratuito
+
+## �📱 Estrutura do Projeto
 
 ```
 lib/
