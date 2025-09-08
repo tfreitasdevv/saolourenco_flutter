@@ -5,6 +5,7 @@ import 'package:paroquia_sao_lourenco/app/shared/constants/constants.dart';
 import 'eventos_controller.dart';
 import 'widgets/evento_card.dart';
 import 'widgets/eventos_estados.dart';
+import 'widgets/eventos_estatisticas.dart';
 import 'widgets/eventos_filtros.dart';
 
 class EventosPage extends StatefulWidget {
@@ -57,9 +58,9 @@ class _EventosPageState extends State<EventosPage> {
           child: Column(
             children: [
               // Estatísticas dos eventos
-              // Observer(
-              //   builder: (_) => EventosEstatisticas(controller: controller),
-              // ),
+              Observer(
+                builder: (_) => EventosEstatisticas(controller: controller),
+              ),
               
               // Filtros e busca
               EventosFiltros(controller: controller),

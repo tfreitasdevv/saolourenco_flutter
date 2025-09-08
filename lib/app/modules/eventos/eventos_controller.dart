@@ -34,7 +34,7 @@ abstract class _EventosBase with Store {
   String filtroTitulo = '';
 
   @observable
-  TipoVisualizacao visualizacao = TipoVisualizacao.todos;
+  TipoVisualizacao visualizacao = TipoVisualizacao.futuros;
 
   @observable
   int totalEventos = 0;
