@@ -6,8 +6,8 @@ import 'package:paroquia_sao_lourenco/app/modules/home/widgets/app_bar_home.dart
 import 'package:paroquia_sao_lourenco/app/modules/home/widgets/button_home.dart';
 import 'package:paroquia_sao_lourenco/app/modules/home/widgets/icons_home.dart';
 import 'package:paroquia_sao_lourenco/app/shared/constants/constants.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../shared/auth/local_user.dart';
+import '../../shared/utils/url_launcher_utils.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
@@ -101,28 +101,23 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _instagram() async {
-    final Uri url = Uri.parse("https://www.instagram.com/paroquia_sl_nit/");
-    await launchUrl(url);
+    await UrlLauncherUtils.abrirUrl("https://www.instagram.com/paroquia_sl_nit/", context: context);
   }
 
   void _telefone() async {
-    final Uri url = Uri.parse("tel:02126215742");
-    await launchUrl(url);
+    await UrlLauncherUtils.abrirTelefone("02126215742", context: context);
   }
 
   void _map() async {
-    final Uri url = Uri.parse("https://maps.app.goo.gl/3KzX2KxvfMrD3fQy8");
-    await launchUrl(url);
+    await UrlLauncherUtils.abrirUrl("https://maps.app.goo.gl/3KzX2KxvfMrD3fQy8", context: context);
   }
 
   void _youtube() async {
-    final Uri url = Uri.parse("https://www.youtube.com/channel/UCl7QjDbKSR5CXQE732ihoRg");
-    await launchUrl(url);
+    await UrlLauncherUtils.abrirUrl("https://www.youtube.com/channel/UCl7QjDbKSR5CXQE732ihoRg", context: context);
   }
 
   void _cnbb() async {
-    final Uri url = Uri.parse("https://www.cnbb.org.br/liturgia-diaria/");
-    await launchUrl(url);
+    await UrlLauncherUtils.abrirUrl("https://www.cnbb.org.br/liturgia-diaria/", context: context);
   }
 
   Widget _buildListaBotoes(double alturaTela) {

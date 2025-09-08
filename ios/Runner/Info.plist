@@ -41,5 +41,21 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	
+	<!-- Configurações para url_launcher -->
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>https</string>
+		<string>http</string>
+		<string>tel</string>
+		<string>mailto</string>
+		<string>sms</string>
+		<string>fb</string>
+		<string>instagram</string>
+		<string>youtube</string>
+		<string>whatsapp</string>
+		<string>maps</string>
+		<string>comgooglemaps</string>
+	</array>
 </dict>
 </plist>

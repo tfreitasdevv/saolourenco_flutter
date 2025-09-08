@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:paroquia_sao_lourenco/app/shared/constants/constants.dart';
-import 'package:url_launcher/url_launcher.dart';
+import '../../shared/utils/url_launcher_utils.dart';
 
 class CapelasPage extends StatefulWidget {
   final String title;
@@ -152,11 +152,16 @@ class _CapelasPageState extends State<CapelasPage> {
   }
 
   Future<void> _mapa(String url) async {
-    final Uri uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-    } else {
-      throw 'Não foi possível abrir o mapa';
+    final sucesso = await UrlLauncherUtils.abrirUrl(url, context: context);
+    if (!sucesso) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Não foi possível abrir o mapa'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     }
   }
 }

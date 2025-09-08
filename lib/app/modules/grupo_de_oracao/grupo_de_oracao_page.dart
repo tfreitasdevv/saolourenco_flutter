@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../shared/constants/constants.dart';
+import '../../shared/utils/url_launcher_utils.dart';
 
 class GrupoDeOracaoPage extends StatefulWidget {
   final String title;
@@ -218,7 +218,6 @@ class _GrupoDeOracaoPageState extends State<GrupoDeOracaoPage> {
   }
 
   void _grupoFacebook() async {
-    final Uri url = Uri.parse('https://www.facebook.com/groups/381160881938654');
-    await launchUrl(url);
+    await UrlLauncherUtils.abrirUrl('https://www.facebook.com/groups/381160881938654', context: context);
   }
 }

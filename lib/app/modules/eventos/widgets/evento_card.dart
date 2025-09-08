@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../models/evento_model.dart';
 import '../../../shared/constants/constants.dart';
+import '../../../shared/utils/url_launcher_utils.dart';
 
 /// Widget para exibir um evento individual
 class EventoCard extends StatelessWidget {
@@ -251,26 +251,8 @@ class EventoCard extends StatelessWidget {
 
   void _abrirLink(BuildContext context) async {
     if (evento.link == null) return;
-
-    try {
-      final Uri url = Uri.parse(evento.link!);
-      if (await canLaunchUrl(url)) {
-        await launchUrl(url, mode: LaunchMode.externalApplication);
-      } else {
-        _mostrarErroLink(context);
-      }
-    } catch (e) {
-      _mostrarErroLink(context);
-    }
-  }
-
-  void _mostrarErroLink(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Não foi possível abrir o link'),
-        backgroundColor: Colors.red,
-      ),
-    );
+    
+    await UrlLauncherUtils.abrirUrl(evento.link!, context: context);
   }
 }
 
