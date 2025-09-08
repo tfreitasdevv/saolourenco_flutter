@@ -126,16 +126,6 @@ class _EventosPageState extends State<EventosPage> {
           ),
         ),
       ),
-      floatingActionButton: Observer(
-        builder: (_) => controller.temProximosEventos
-            ? FloatingActionButton.extended(
-                onPressed: () => _mostrarProximosEventos(),
-                backgroundColor: t2,
-                icon: const Icon(Icons.upcoming),
-                label: const Text('Próximos'),
-              )
-            : const SizedBox.shrink(),
-      ),
     );
   }
 
