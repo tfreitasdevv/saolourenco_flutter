@@ -1,16 +1,35 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:paroquia_sao_lourenco/app/shared/constants/constants.dart';
+import 'eventos_controller.dart';
+import 'widgets/evento_card.dart';
+import 'widgets/eventos_estados.dart';
+import 'widgets/eventos_filtros.dart';
 
 class EventosPage extends StatefulWidget {
   final String title;
-  const EventosPage({Key? key, this.title = "Pastoral de Eventos"}) : super(key: key);
+  const EventosPage({Key? key, this.title = "Eventos"}) : super(key: key);
 
   @override
   _EventosPageState createState() => _EventosPageState();
 }
 
 class _EventosPageState extends State<EventosPage> {
+  final EventosController controller = Modular.get<EventosController>();
+
+  @override
+  void initState() {
+    super.initState();
+    controller.inicializar();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,173 +37,200 @@ class _EventosPageState extends State<EventosPage> {
         backgroundColor: t2,
         title: Text(widget.title),
         centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () => controller.carregarEventos(),
+            tooltip: 'Atualizar eventos',
+          ),
+        ],
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
-            image: DecorationImage(image: AssetImage(bg), fit: BoxFit.cover)),
+          image: DecorationImage(
+            image: AssetImage(bg),
+            fit: BoxFit.cover,
+          ),
+        ),
         child: SafeArea(
+          child: Column(
+            children: [
+              // Estatísticas dos eventos
+              Observer(
+                builder: (_) => EventosEstatisticas(controller: controller),
+              ),
+              
+              // Filtros e busca
+              EventosFiltros(controller: controller),
+              
+              // Lista de eventos
+              Expanded(
+                child: Observer(
+                  builder: (_) {
+                    if (controller.carregandoEventos) {
+                      return const EventosCarregando(
+                        mensagem: 'Carregando eventos...',
+                      );
+                    }
+
+                    if (controller.erroEventos != null) {
+                      return EventosVazios.erro(
+                        onRecarregar: () => controller.carregarEventos(),
+                      );
+                    }
+
+                    final eventos = controller.eventosFiltrados;
+
+                    if (eventos.isEmpty) {
+                      if (controller.temFiltroAtivo) {
+                        return EventosVazios.busca(
+                          onRecarregar: () => controller.limparFiltros(),
+                        );
+                      }
+
+                      switch (controller.visualizacao) {
+                        case TipoVisualizacao.futuros:
+                          return EventosVazios.semEventosFuturos(
+                            onRecarregar: () => controller.carregarEventos(),
+                          );
+                        case TipoVisualizacao.passados:
+                          return EventosVazios.semEventosPassados(
+                            onRecarregar: () => controller.carregarEventos(),
+                          );
+                        default:
+                          return EventosVazios(
+                            onRecarregar: () => controller.carregarEventos(),
+                          );
+                      }
+                    }
+
+                    return RefreshIndicator(
+                      onRefresh: () async => controller.carregarEventos(),
+                      child: ListView.builder(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        itemCount: eventos.length,
+                        itemBuilder: (context, index) {
+                          final evento = eventos[index];
+                          return EventoCard(
+                            evento: evento,
+                            onTap: () => _mostrarDetalhesEvento(evento),
+                          );
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      floatingActionButton: Observer(
+        builder: (_) => controller.temProximosEventos
+            ? FloatingActionButton.extended(
+                onPressed: () => _mostrarProximosEventos(),
+                backgroundColor: t2,
+                icon: const Icon(Icons.upcoming),
+                label: const Text('Próximos'),
+              )
+            : const SizedBox.shrink(),
+      ),
+    );
+  }
+
+  void _mostrarDetalhesEvento(evento) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) => DraggableScrollableSheet(
+        initialChildSize: 0.7,
+        maxChildSize: 0.95,
+        minChildSize: 0.5,
+        expand: false,
+        builder: (context, scrollController) => Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
           child: SingleChildScrollView(
-          child: FutureBuilder<DocumentSnapshot>(
-              future: FirebaseFirestore.instance
-                  .collection('conteudo_pagina_pastoral')
-                  .doc('eventos')
-                  .get(),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                String contato = snapshot.data!["contato"];
-                String contatoF = contato.replaceAll("\\n", "\n");
-                String texto = snapshot.data!["texto"];
-                String textoF = texto.replaceAll("\\n", "\n");
-                return Container(
-                  padding: EdgeInsets.all(28),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        child: Text(
-                          textoF,
-                          style: TextStyle(
-                              fontSize: MediaQuery.of(context).size.width > 400
-                                  ? 18
-                                  : 16,
-                              color: Colors.white),
-                          textAlign: TextAlign.justify,
-                        ),
-                      ),
-                      SizedBox(height: 22),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        // color: Colors.red,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              "Coordenação",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize:
-                                      MediaQuery.of(context).size.width > 400
-                                          ? 22
-                                          : 20,
-                                  color: Colors.white),
-                            ),
-                            Text(
-                              snapshot.data!["coordenacao"],
-                              style: TextStyle(
-                                  fontSize:
-                                      MediaQuery.of(context).size.width > 400
-                                          ? 18
-                                          : 16,
-                                  color: Colors.white),
-                            ),
-                            SizedBox(
-                              height: 12,
-                            ),
-                            Text(
-                              "Contato",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize:
-                                      MediaQuery.of(context).size.width > 400
-                                          ? 22
-                                          : 20,
-                                  color: Colors.white),
-                            ),
-                            Text(
-                              contatoF,
-                              style: TextStyle(
-                                  fontSize:
-                                      MediaQuery.of(context).size.width > 400
-                                          ? 18
-                                          : 16,
-                                  color: Colors.white),
-                            )
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 22),
-                      // AcessoMembrosButton(funcao: () {
-                      //   var localUser;
-                      //   if (localUser.firebaseUser == null) {
-                      //     showDialog(
-                      //         barrierDismissible: false,
-                      //         context: context,
-                      //         builder: (context) {
-                      //           return WillPopScope(
-                      //             onWillPop: () async => false,
-                      //             child: AlertDialog(
-                      //               scrollable: true,
-                      //               titleTextStyle: TextStyle(
-                      //                   color: t1,
-                      //                   fontWeight: FontWeight.bold,
-                      //                   fontSize:
-                      //                       MediaQuery.of(context).size.width >
-                      //                               400
-                      //                           ? 20
-                      //                           : 18),
-                      //               elevation: 8,
-                      //               contentTextStyle: TextStyle(
-                      //                   color: t1,
-                      //                   fontSize:
-                      //                       MediaQuery.of(context).size.width >
-                      //                               400
-                      //                           ? 16
-                      //                           : 14),
-                      //               actions: <Widget>[
-                      //                 FlatButton(
-                      //                     onPressed: () {
-                      //                       Modular.to
-                      //                           .pushReplacementNamed('/login');
-                      //                       // Navigator.of(context).pop();
-                      //                     },
-                      //                     child: Text(
-                      //                       "LOGIN",
-                      //                       style: TextStyle(
-                      //                           color: t1,
-                      //                           fontWeight: FontWeight.bold),
-                      //                     )),
-                      //                 FlatButton(
-                      //                     onPressed: () {
-                      //                       Modular.to.pushReplacementNamed(
-                      //                           '/signup');
-                      //                     },
-                      //                     child: Text(
-                      //                       "CRIAR USUÁRIO",
-                      //                       style: TextStyle(
-                      //                           color: t1,
-                      //                           fontWeight: FontWeight.bold),
-                      //                     )),
-                      //                 FlatButton(
-                      //                     onPressed: () {
-                      //                       Navigator.of(context).pop();
-                      //                     },
-                      //                     child: Text(
-                      //                       "VOLTAR",
-                      //                       style: TextStyle(
-                      //                           color: t1,
-                      //                           fontWeight: FontWeight.bold),
-                      //                     )),
-                      //               ],
-                      //               title: Text(
-                      //                   "ACESSO RESTRITO A MEMBROS CADASTRADOS",
-                      //                   textAlign: TextAlign.center),
-                      //               content: Text(
-                      //                   "Esta área é de acesso restrito a membros cadastrados no aplicativo.\n\nCaso você já possua cadastro, basta fazer o Login.\n\nCaso você ainda não possua, basta criar o seu cadastro."),
-                      //             ),
-                      //           );
-                      //         });
-                      //   } else {
-                      //     Modular.to.pushNamed('/musica/membros_musica');
-                      //   }
-                      // })
-                    ],
+            controller: scrollController,
+            child: EventoCard(
+              evento: evento,
+              mostrarDataCompleta: true,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _mostrarProximosEventos() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) => DraggableScrollableSheet(
+        initialChildSize: 0.6,
+        maxChildSize: 0.9,
+        minChildSize: 0.4,
+        expand: false,
+        builder: (context, scrollController) => Container(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Cabeçalho
+              Row(
+                children: [
+                  Icon(Icons.upcoming, color: t2),
+                  const SizedBox(width: 8),
+                  Text(
+                    'Próximos Eventos',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: t2,
+                    ),
                   ),
-                );
-              }),
+                ],
+              ),
+              const SizedBox(height: 16),
+              
+              // Lista de próximos eventos
+              Expanded(
+                child: Observer(
+                  builder: (_) {
+                    if (controller.carregandoProximosEventos) {
+                      return const EventosCarregando(
+                        mensagem: 'Carregando próximos eventos...',
+                      );
+                    }
+
+                    if (controller.proximosEventos.isEmpty) {
+                      return const EventosVazios.semEventosFuturos();
+                    }
+
+                    return ListView.builder(
+                      controller: scrollController,
+                      itemCount: controller.proximosEventos.length,
+                      itemBuilder: (context, index) {
+                        final evento = controller.proximosEventos[index];
+                        return EventoCardCompacto(
+                          evento: evento,
+                          onTap: () {
+                            Navigator.pop(context);
+                            _mostrarDetalhesEvento(evento);
+                          },
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
         ),
       ),

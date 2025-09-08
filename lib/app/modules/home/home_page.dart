@@ -151,6 +151,15 @@ class _HomePageState extends State<HomePage> {
             height: _alturaSizedBox,
           ),
           ButtonHome(
+            texto: "Eventos",
+            funcao: () {
+              Modular.to.pushNamed('/eventos');
+            },
+          ),
+          SizedBox(
+            height: _alturaSizedBox,
+          ),
+          ButtonHome(
             texto: "Horários das Missas",
             funcao: () {
               Modular.to.pushNamed('/horarios');
