@@ -77,18 +77,18 @@ class EventoCard extends StatelessWidget {
       ),
       child: CachedNetworkImage(
         imageUrl: evento.imagem!,
-        height: 200,
+        height: 300,
         width: double.infinity,
         fit: BoxFit.cover,
         placeholder: (context, url) => Container(
-          height: 200,
+          height: 300,
           color: Colors.grey[300],
           child: const Center(
             child: CircularProgressIndicator(),
           ),
         ),
         errorWidget: (context, url, error) => Container(
-          height: 200,
+          height: 300,
           color: Colors.grey[300],
           child: const Center(
             child: Icon(
