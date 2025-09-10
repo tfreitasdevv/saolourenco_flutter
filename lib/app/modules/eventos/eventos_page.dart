@@ -41,11 +41,6 @@ class _EventosPageState extends State<EventosPage> {
         title: Text(widget.title),
         centerTitle: true,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: () => controller.carregarEventos(),
-            tooltip: 'Atualizar eventos',
-          ),
         ],
       ),
       body: Container(
