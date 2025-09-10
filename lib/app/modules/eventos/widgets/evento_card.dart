@@ -70,35 +70,48 @@ class EventoCard extends StatelessWidget {
   }
 
   Widget _buildImagemEvento() {
+    // Widget base da imagem
+    final imagemWidget = CachedNetworkImage(
+      imageUrl: evento.imagem!,
+      height: 300,
+      width: double.infinity,
+      fit: BoxFit.cover,
+      placeholder: (context, url) => Container(
+        height: 300,
+        color: Colors.grey[300],
+        child: const Center(
+          child: CircularProgressIndicator(),
+        ),
+      ),
+      errorWidget: (context, url, error) => Container(
+        height: 300,
+        color: Colors.grey[300],
+        child: const Center(
+          child: Icon(
+            Icons.error,
+            color: Colors.grey,
+            size: 40,
+          ),
+        ),
+      ),
+    );
+
     return ClipRRect(
       borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(12),
         topRight: Radius.circular(12),
       ),
-      child: CachedNetworkImage(
-        imageUrl: evento.imagem!,
-        height: 300,
-        width: double.infinity,
-        fit: BoxFit.cover,
-        placeholder: (context, url) => Container(
-          height: 300,
-          color: Colors.grey[300],
-          child: const Center(
-            child: CircularProgressIndicator(),
-          ),
-        ),
-        errorWidget: (context, url, error) => Container(
-          height: 300,
-          color: Colors.grey[300],
-          child: const Center(
-            child: Icon(
-              Icons.error,
-              color: Colors.grey,
-              size: 40,
-            ),
-          ),
-        ),
-      ),
+      child: evento.jaPassou
+          ? ColorFiltered(
+              colorFilter: const ColorFilter.matrix(<double>[
+                0.2126, 0.7152, 0.0722, 0, 0, // Red channel
+                0.2126, 0.7152, 0.0722, 0, 0, // Green channel  
+                0.2126, 0.7152, 0.0722, 0, 0, // Blue channel
+                0,      0,      0,      1, 0, // Alpha channel
+              ]),
+              child: imagemWidget,
+            )
+          : imagemWidget,
     );
   }
 
@@ -273,26 +286,28 @@ class EventoCardCompacto extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       elevation: 2,
       child: ListTile(
-        leading: CircleAvatar(
-          backgroundColor: evento.eHoje 
-              ? Colors.orange 
-              : evento.eProximo 
-                  ? Colors.blue 
-                  : evento.jaPassou 
-                      ? Colors.grey 
-                      : Colors.green,
-          child: Icon(
-            evento.eHoje 
-                ? Icons.today 
-                : evento.eProximo 
-                    ? Icons.upcoming 
-                    : evento.jaPassou 
-                        ? Icons.history 
-                        : Icons.event,
-            color: Colors.white,
-            size: 20,
-          ),
-        ),
+        leading: evento.temImagem
+            ? _buildAvatarComImagem()
+            : CircleAvatar(
+                backgroundColor: evento.eHoje 
+                    ? Colors.orange 
+                    : evento.eProximo 
+                        ? Colors.blue 
+                        : evento.jaPassou 
+                            ? Colors.grey 
+                            : Colors.green,
+                child: Icon(
+                  evento.eHoje 
+                      ? Icons.today 
+                      : evento.eProximo 
+                          ? Icons.upcoming 
+                          : evento.jaPassou 
+                              ? Icons.history 
+                              : Icons.event,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              ),
         title: Text(
           evento.titulo,
           style: const TextStyle(
@@ -323,6 +338,52 @@ class EventoCardCompacto extends StatelessWidget {
           ],
         ),
         onTap: onTap,
+      ),
+    );
+  }
+
+  /// Constrói um avatar circular com a imagem do evento
+  Widget _buildAvatarComImagem() {
+    // Widget base da imagem
+    final imagemWidget = CachedNetworkImage(
+      imageUrl: evento.imagem!,
+      fit: BoxFit.cover,
+      placeholder: (context, url) => Container(
+        color: Colors.grey[300],
+        child: const Center(
+          child: SizedBox(
+            width: 20,
+            height: 20,
+            child: CircularProgressIndicator(strokeWidth: 2),
+          ),
+        ),
+      ),
+      errorWidget: (context, url, error) => Container(
+        color: Colors.grey[300],
+        child: const Center(
+          child: Icon(
+            Icons.error,
+            color: Colors.grey,
+            size: 20,
+          ),
+        ),
+      ),
+    );
+
+    return CircleAvatar(
+      backgroundColor: Colors.transparent,
+      child: ClipOval(
+        child: evento.jaPassou
+            ? ColorFiltered(
+                colorFilter: const ColorFilter.matrix(<double>[
+                  0.2126, 0.7152, 0.0722, 0, 0, // Red channel
+                  0.2126, 0.7152, 0.0722, 0, 0, // Green channel  
+                  0.2126, 0.7152, 0.0722, 0, 0, // Blue channel
+                  0,      0,      0,      1, 0, // Alpha channel
+                ]),
+                child: imagemWidget,
+              )
+            : imagemWidget,
       ),
     );
   }

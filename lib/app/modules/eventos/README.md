@@ -84,6 +84,21 @@ A coleção "eventos" no Firestore contém documentos com os seguintes campos:
 - **Suporte a Markdown**: Título e descrição com formatação
 - **Links externos**: Abrir URLs em app externo
 - **Imagens do Storage**: Carregamento com cache e placeholder
+- **Efeito Visual para Eventos Passados**: Imagens ficam automaticamente em tons de cinza
+
+## Efeito Visual para Eventos Passados
+
+A partir da implementação atual, as imagens dos eventos que já passaram são automaticamente exibidas em tons de cinza, proporcionando uma indicação visual clara de que o evento já ocorreu.
+
+### Como funciona:
+- O sistema verifica a propriedade `evento.jaPassou` do modelo
+- Se verdadeiro, aplica um `ColorFilter.matrix` com escala de cinza na imagem
+- Funciona tanto no `EventoCard` (imagem principal) quanto no `EventoCardCompacto` (avatar circular)
+- Não afeta eventos futuros, atuais ou sem imagem
+- Utiliza a matriz de conversão padrão para tons de cinza: (0.2126, 0.7152, 0.0722)
+
+### Demonstração:
+Para ver o efeito em ação, consulte o arquivo `demo_efeito_cinza.dart` que contém exemplos visuais comparando eventos futuros e passados.
 
 ## Dependências
 
