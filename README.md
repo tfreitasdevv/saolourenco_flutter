@@ -67,6 +67,18 @@ App oficial para uso gerencial e comunitário da **Paróquia São Lourenço**. E
 - Conta Firebase ativa
 - Git para controle de versão
 
+## Versões utilizadas
+
+- Flutter 3.22.0
+- Node 22.19.0
+- Java 17.0.12
+- Firebase 14.15.1
+- Google Cloud SDK 537.0.0
+- bq 2.1.22
+- core 2025.08.29
+- gcloud-crc32c 1.0.0
+- gsutil 5.35
+
 ## 🛠️ Instalação e Configuração
 
 ### 1. Clone o Repositório
