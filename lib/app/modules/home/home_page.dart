@@ -65,37 +65,44 @@ class _HomePageState extends State<HomePage> {
   }
 
   Container _buildIconesBottom(double alturaTela, bool web) {
+    double largura = MediaQuery.of(context).size.width;
+    
     return Container(
       height: alturaTela * 0.08,
       padding: EdgeInsets.symmetric(vertical: 8), // Adiciona padding interno
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          IconsHome(
-              icone: instagram,
-              funcao: () {
-                _instagram();
-              },
-              web: web),
-          IconsHome(
-              icone: youtube,
-              funcao: () {
-                _youtube();
-              },
-              web: web),
-          IconsHome(
-              icone: telefone,
-              funcao: () {
-                _telefone();
-              },
-              web: web),
-          IconsHome(
-              icone: mapa,
-              funcao: () {
-                _map();
-              },
-              web: web),
-        ],
+      child: Center(
+        child: SizedBox(
+          width: largura * 0.80, // 80% da largura da tela (igual aos botões)
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              IconsHome(
+                  icone: instagram,
+                  funcao: () {
+                    _instagram();
+                  },
+                  web: web),
+              IconsHome(
+                  icone: youtube,
+                  funcao: () {
+                    _youtube();
+                  },
+                  web: web),
+              IconsHome(
+                  icone: telefone,
+                  funcao: () {
+                    _telefone();
+                  },
+                  web: web),
+              IconsHome(
+                  icone: mapa,
+                  funcao: () {
+                    _map();
+                  },
+                  web: web),
+            ],
+          ),
+        ),
       ),
     );
   }
