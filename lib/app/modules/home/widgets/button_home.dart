@@ -15,18 +15,22 @@ class ButtonHome extends StatelessWidget {
   Widget build(BuildContext context) {
     var largura = MediaQuery.of(context).size.width;
 
-    return ElevatedButton(
-      onPressed: funcao,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: t2,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
-        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-      ),
-      child: Text(
-        texto,
-        style: TextStyle(
-          fontSize: largura < 400 ? 16 : 20,
-          color: Colors.white,
+    return SizedBox(
+      width: largura * 0.80, // 80% da largura da tela
+      height: 50,
+      child: ElevatedButton(
+        onPressed: funcao,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: t2,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+        ),
+        child: Text(
+          texto,
+          style: TextStyle(
+            fontSize: largura < 400 ? 16 : 20,
+            color: Colors.white,
+          ),
         ),
       ),
     );
