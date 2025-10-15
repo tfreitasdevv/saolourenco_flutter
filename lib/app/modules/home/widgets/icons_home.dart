@@ -33,7 +33,7 @@ class IconsHome extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
-      iconSize: 20,
+      iconSize: 40,
       onPressed: funcao,
     );
   }
