@@ -38,9 +38,6 @@
   <!-- Permissões básicas -->
   <uses-permission android:name="android.permission.INTERNET" />
   
-  <!-- Permissões para url_launcher -->
-  <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
-  
   <!-- Permissões para notificações push -->
   <uses-permission android:name="android.permission.WAKE_LOCK" />
   <uses-permission android:name="android.permission.VIBRATE" />
