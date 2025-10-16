@@ -2,7 +2,8 @@
 
 ![Flutter](https://img.shields.io/badge/Flutter-3.0+-blue.svg)
 ![Firebase](https://img.shields.io/badge/Firebase-Enabled-orange.svg)
-![Version](https://img.shields.io/badge/Version-2.0.2-green.svg)
+![Version](https://img.shields.io/badge/Version-2.0.4-green.svg)
+![Android](https://img.shields.io/badge/Android-16KB_Ready-brightgreen.svg)
 
 App oficial para uso gerencial e comunitário da **Paróquia São Lourenço**. Este aplicativo foi desenvolvido para facilitar a comunicação e organização das atividades paroquiais, oferecendo uma plataforma digital integrada para toda a comunidade.
 
@@ -125,12 +126,35 @@ flutter build web
 ## � Deploy e Publicação
 
 ### 📱 Android (Google Play Store)
+
+#### ⚠️ Requisito: Compatibilidade com 16 KB (Android 15+)
+A partir de 30 de maio de 2026, o Google Play exige que apps destinados ao Android 15+ aceitem páginas de memória de 16 KB. Este projeto já está configurado para atender esse requisito.
+
+**Configuração implementada:**
+- ✅ NDK 27.0.12077973 (compatível com 16 KB)
+- ✅ Propriedade `android.bundle.enableUncompressedNativeLibs=false`
+- ✅ Filtros de ABI otimizados
+
+**Scripts de build otimizados:**
+```bash
+# Windows
+scripts\build-16kb.bat
+
+# Linux/macOS
+chmod +x scripts/build-16kb.sh
+./scripts/build-16kb.sh
+```
+
+**Build manual tradicional:**
 ```bash
 # Build para produção
 flutter build appbundle --release
 
 # O arquivo será gerado em: build/app/outputs/bundle/release/app-release.aab
 ```
+
+📚 **Documentação completa:** [`docs/CORRECAO_16KB_ANDROID15.md`](docs/CORRECAO_16KB_ANDROID15.md)  
+📋 **Checklist de implementação:** [`CHECKLIST_16KB.md`](CHECKLIST_16KB.md)
 
 ### 🌐 Web (Firebase Hosting)
 A aplicação web está disponível gratuitamente em: **https://sao-lourenco.web.app**
