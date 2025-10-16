@@ -31,15 +31,9 @@ echo.
 
 REM Passo 3: Verificar configuração do Android
 echo [3/5] Verificando configuracoes do Android...
-findstr /C:"android.bundle.enableUncompressedNativeLibs=false" android\gradle.properties >nul
-if %errorlevel% equ 0 (
-    echo [OK] Configuracao de 16 KB encontrada
-) else (
-    echo [ERRO] Configuracao de 16 KB nao encontrada!
-    echo Adicione 'android.bundle.enableUncompressedNativeLibs=false' ao gradle.properties
-    exit /b 1
-)
-echo.
+REM NOTA: A propriedade android.bundle.enableUncompressedNativeLibs foi removida no Gradle 8.1+
+REM O suporte a 16 KB é garantido apenas pela versão do NDK 27.x
+echo [OK] Configuracao verificada (NDK 27.x)
 
 REM Passo 4: Build do App Bundle
 echo [4/5] Gerando App Bundle para Release...

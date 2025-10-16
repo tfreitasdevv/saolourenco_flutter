@@ -12,12 +12,13 @@ O Google Play Console exige que todos os apps destinados ao Android 15 ou versõ
 A versão 27.x do NDK inclui suporte completo para páginas de memória de 16 KB.
 
 ### 2. Configuração no gradle.properties
-Adicionada a propriedade:
+~~Adicionada a propriedade:~~
 ```properties
-android.bundle.enableUncompressedNativeLibs=false
+~~android.bundle.enableUncompressedNativeLibs=false~~
 ```
 
-Esta configuração garante que as bibliotecas nativas sejam empacotadas de forma compatível com diferentes tamanhos de página de memória.
+**ATUALIZAÇÃO**: Esta propriedade foi removida no Gradle 8.1+. Não é mais necessária!
+O suporte a 16 KB é garantido apenas pela versão correta do NDK (27.x).
 
 ### 3. Filtros de ABI no defaultConfig
 Adicionada configuração explícita de ABIs suportadas:

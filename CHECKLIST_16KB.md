@@ -78,12 +78,22 @@ build/app/outputs/bundle/release/app-release.aab
 
 Garantir que o app apareça como compatível com 16 KB no Google Play Console, permitindo publicação de atualizações após 30/05/2026.
 
-## 📞 Suporte
+## 📞 Suporte e Documentação
 
-Em caso de dúvidas ou problemas, consulte:
-- `docs/CORRECAO_16KB_ANDROID15.md` - Documentação completa
-- [Guia Oficial do Google](https://developer.android.com/guide/practices/page-sizes)
+### 📚 Guias Disponíveis
+
+**Para desenvolvedores VS Code:**
+- 🚀 [`docs/GUIA_RAPIDO_10_PASSOS.md`](docs/GUIA_RAPIDO_10_PASSOS.md) - **COMECE AQUI!** Guia rápido em 10 passos
+- 📘 [`docs/GUIA_IMPLEMENTACAO_VSCODE.md`](docs/GUIA_IMPLEMENTACAO_VSCODE.md) - Guia completo passo a passo para VS Code
+- 📄 [`docs/CORRECAO_16KB_ANDROID15.md`](docs/CORRECAO_16KB_ANDROID15.md) - Documentação técnica detalhada
+
+**Para desenvolvedores Android Studio:**
+- 📄 [`docs/CORRECAO_16KB_ANDROID15.md`](docs/CORRECAO_16KB_ANDROID15.md) - Documentação completa
+
+### 🔗 Links Externos
+- [Guia Oficial do Google - 16 KB](https://developer.android.com/guide/practices/page-sizes)
 - [Documentação Flutter](https://docs.flutter.dev/deployment/android)
+- [NDK Downloads](https://developer.android.com/ndk/downloads)
 
 ---
 **Última atualização**: 15/10/2025
