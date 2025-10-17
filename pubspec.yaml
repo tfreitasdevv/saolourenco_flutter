@@ -1,7 +1,7 @@
 name: paroquia_sao_lourenco
 description: App para uso gerencial e comunitário da Paróquia São Lourenço.
 
-version: 2.0.5+22
+version: 2.0.6+23
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
