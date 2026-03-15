@@ -84,9 +84,9 @@ class _HomePageState extends State<HomePage> {
               },
               web: web),
           IconsHome(
-              icone: telefone,
+              icone: whatsapp,
               funcao: () {
-                _telefone();
+                _whatsapp();
               },
               web: web),
           IconsHome(
@@ -104,8 +104,8 @@ class _HomePageState extends State<HomePage> {
     await UrlLauncherUtils.abrirUrl("https://www.instagram.com/paroquia_sl_nit/", context: context);
   }
 
-  void _telefone() async {
-    await UrlLauncherUtils.abrirTelefone("02126215742", context: context);
+  void _whatsapp() async {
+    await UrlLauncherUtils.abrirWhatsApp("552126215742", context: context);
   }
 
   void _map() async {
