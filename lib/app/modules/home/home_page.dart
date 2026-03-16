@@ -183,6 +183,13 @@ class _HomePageState extends State<HomePage> {
           ),
           SizedBox(height: _alturaSizedBox),
           ButtonHome(
+            texto: "Como Ajudar",
+            funcao: () {
+              Modular.to.pushNamed('/como_ajudar');
+            },
+          ),
+          SizedBox(height: _alturaSizedBox),
+          ButtonHome(
             texto: "Liturgia Diária (CNBB)",
             funcao: () {
               _cnbb();

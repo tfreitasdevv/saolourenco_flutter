@@ -4,6 +4,7 @@ import 'package:paroquia_sao_lourenco/app/modules/avisos/avisos_module.dart';
 import 'package:paroquia_sao_lourenco/app/modules/batismo/batismo_module.dart';
 import 'package:paroquia_sao_lourenco/app/modules/capelas/capelas_module.dart';
 import 'package:paroquia_sao_lourenco/app/modules/catequese/catequese_module.dart';
+import 'package:paroquia_sao_lourenco/app/modules/como_ajudar/como_ajudar_module.dart';
 import 'package:paroquia_sao_lourenco/app/modules/conferencia_sao_vicente/conferencia_sao_vicente_module.dart';
 import 'package:paroquia_sao_lourenco/app/modules/confissoes/confissoes_module.dart';
 import 'package:paroquia_sao_lourenco/app/modules/cor/cor_module.dart';
@@ -69,5 +70,6 @@ class HomeModule extends Module {
     r.module('/conferencia_sao_vicente', module: ConferenciaSaoVicenteModule());
     r.module('/familiar', module: FamiliarModule());
     r.module('/promocao_humana', module: PromocaoHumanaModule());
+    r.module('/como_ajudar', module: ComoAjudarModule());
   }
 }
