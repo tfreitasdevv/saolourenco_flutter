@@ -176,13 +176,6 @@ class _HomePageState extends State<HomePage> {
           ),
           SizedBox(height: _alturaSizedBox),
           ButtonHome(
-            texto: "Capelas",
-            funcao: () {
-              Modular.to.pushNamed('/capelas');
-            },
-          ),
-          SizedBox(height: _alturaSizedBox),
-          ButtonHome(
             texto: "Como Ajudar",
             funcao: () {
               Modular.to.pushNamed('/como_ajudar');
