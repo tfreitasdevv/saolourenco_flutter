@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:paroquia_sao_lourenco/app/modules/sobre/tabs/clero.dart';
+import 'package:paroquia_sao_lourenco/app/modules/sobre/tabs/atendimento.dart';
 import 'package:paroquia_sao_lourenco/app/modules/sobre/tabs/historia.dart';
 import 'package:paroquia_sao_lourenco/app/shared/constants/constants.dart';
 
@@ -29,7 +30,7 @@ class _SobrePageState extends State<SobrePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: t2,
@@ -41,14 +42,20 @@ class _SobrePageState extends State<SobrePage> {
             indicatorColor: Colors.white,
             tabs: [
             Tab(
+              child: Text("Atendimento", textAlign: TextAlign.center),
+            ),
+            Tab(
               child: Text("História", textAlign: TextAlign.center),
             ),
             Tab(
               child: Text("Clero", textAlign: TextAlign.center),
             ),
+            // Tab(
+            //   child: Text("Atendimento", textAlign: TextAlign.center),
+            // ),
           ]),
         ),
-        body: TabBarView(children: [Historia(), Clero()]),
+        body: TabBarView(children: [Atendimento(), Historia(), Clero()]),
       ),
     );
   }
