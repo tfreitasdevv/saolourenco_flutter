@@ -28,7 +28,10 @@ class _ComoAjudarPageState extends State<ComoAjudarPage> {
           image: DecorationImage(image: AssetImage(bg), fit: BoxFit.cover),
         ),
         child: FutureBuilder<QuerySnapshot>(
-          future: FirebaseFirestore.instance.collection("como_ajudar").get(),
+          future: FirebaseFirestore.instance
+              .collection("como_ajudar")
+              .orderBy('ordem')
+              .get(),
           builder: (context, snapshot) {
             // Carregando
             if (snapshot.connectionState == ConnectionState.waiting) {
