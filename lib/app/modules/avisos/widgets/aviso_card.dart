@@ -3,6 +3,7 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:paroquia_sao_lourenco/app/shared/constants/constants.dart';
+import 'package:paroquia_sao_lourenco/app/shared/utils/url_launcher_utils.dart';
 
 class AvisoCard extends StatelessWidget {
   final DocumentSnapshot snapshot;
@@ -19,6 +20,8 @@ class AvisoCard extends StatelessWidget {
     String descricaoForm = data['descricao'];
     String nD = descricaoForm.replaceAll("\\n", "\n");
     String image = data["imagem"];
+    String? linkTitulo = data["link_titulo"];
+    String? linkUrl = data["link_url"];
 
     return Card(
         child: Padding(
@@ -55,6 +58,39 @@ class AvisoCard extends StatelessWidget {
                 children: [
                   Text(nD, softWrap: true),
                   SizedBox(height: 10),
+                  // Link opcional
+                  if (linkTitulo != null &&
+                      linkTitulo.isNotEmpty &&
+                      linkUrl != null &&
+                      linkUrl.isNotEmpty)
+                    Padding(
+                      padding: EdgeInsets.only(top: 4, bottom: 16),
+                      child: InkWell(
+                        onTap: () {
+                          UrlLauncherUtils.abrirUrl(linkUrl, context: context);
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(Icons.open_in_new_rounded,
+                                color: t3, size: 18),
+                            SizedBox(width: 8),
+                            Flexible(
+                              child: Text(
+                                linkTitulo,
+                                style: TextStyle(
+                                  color: t3,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: t5,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   // Verificar se a imagem existe antes de exibir
                   if (image.isNotEmpty && image != "")
                     Container(
