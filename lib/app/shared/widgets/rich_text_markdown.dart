@@ -16,6 +16,7 @@ class RichTextMarkdown extends StatelessWidget {
   final Color? textColor;
   final String? fontFamily;
   final TextAlign? textAlign;
+  final void Function(String text, String? href, String title)? onTapLink;
 
   const RichTextMarkdown({
     Key? key,
@@ -24,6 +25,7 @@ class RichTextMarkdown extends StatelessWidget {
     this.textColor,
     this.fontFamily = 'Raleway',
     this.textAlign = TextAlign.justify,
+    this.onTapLink,
   }) : super(key: key);
 
   @override
@@ -110,6 +112,7 @@ class RichTextMarkdown extends StatelessWidget {
       // Configurações adicionais
       selectable: true, // Permite seleção do texto
       shrinkWrap: true,
+      onTapLink: onTapLink,
     );
   }
 }

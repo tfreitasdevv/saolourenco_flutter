@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/constants/constants.dart';
+import '../../shared/utils/url_launcher_utils.dart';
 import '../../shared/widgets/rich_text_markdown.dart';
 
 class EacPage extends StatefulWidget {
@@ -33,6 +34,22 @@ class _EacPageState extends State<EacPage> {
 
     secoes.sort((a, b) => (a['ordem'] as int).compareTo(b['ordem'] as int));
     return secoes;
+  }
+
+  /// Regex para detectar números de telefone brasileiros no texto
+  static final _regexTelefone = RegExp(
+    r'(?:\+55\s?)?'
+    r'(?:\(?\d{2}\)?[\s.-]?)'
+    r'\d{4,5}[\s.-]?\d{4}',
+  );
+
+  /// Converte números de telefone no texto em links Markdown de WhatsApp
+  String _converterTelefonesEmLinks(String texto) {
+    return texto.replaceAllMapped(_regexTelefone, (match) {
+      final numero = match.group(0)!;
+      final soDigitos = numero.replaceAll(RegExp(r'[^\d]'), '');
+      return '[$numero](whatsapp:$soDigitos)';
+    });
   }
 
   @override
@@ -98,10 +115,18 @@ class _EacPageState extends State<EacPage> {
                           SizedBox(height: 8),
                         ],
                         RichTextMarkdown(
-                          markdownText: secoes[i]['texto'],
+                          markdownText: _converterTelefonesEmLinks(secoes[i]['texto']),
                           fontSize: isWide ? 18 : 16,
                           textColor: Colors.white,
                           textAlign: TextAlign.justify,
+                          onTapLink: (text, href, title) {
+                            if (href != null && href.startsWith('whatsapp:')) {
+                              final telefone = href.replaceFirst('whatsapp:', '');
+                              UrlLauncherUtils.abrirWhatsApp(telefone, context: context);
+                            } else if (href != null) {
+                              UrlLauncherUtils.abrirUrl(href, context: context);
+                            }
+                          },
                         ),
                         if (i < secoes.length - 1) SizedBox(height: 22),
                       ],
