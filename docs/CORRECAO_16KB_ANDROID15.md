@@ -5,30 +5,46 @@ O Google Play Console exige que todos os apps destinados ao Android 15 ou versõ
 
 ## Solução Implementada
 
-### 1. Atualização do NDK Version
+### 1. Atualização do AGP (Android Gradle Plugin) para 8.5.1+
+- **Anterior:** `8.3.0`
+- **Novo:** `8.5.2`
+
+O AGP 8.5.1+ garante o alinhamento ZIP de 16 KB (`PAGE_ALIGNMENT_16K`) das bibliotecas
+nativas no App Bundle, que é o requisito principal do Google Play.
+
+**Arquivo alterado:** `android/settings.gradle`
+```gradle
+id "com.android.application" version "8.5.2" apply false
+```
+
+### 2. Atualização do Gradle Wrapper para 8.7
+- **Anterior:** `8.4`
+- **Novo:** `8.7`
+
+Necessário pois o AGP 8.5.x requer Gradle 8.7+.
+
+**Arquivo alterado:** `android/gradle/wrapper/gradle-wrapper.properties`
+```properties
+distributionUrl=https\://services.gradle.org/distributions/gradle-8.7-all.zip
+```
+
+### 3. Atualização do NDK Version (etapa anterior)
 - **Anterior:** `25.1.8937393`
 - **Novo:** `27.0.12077973`
 
 A versão 27.x do NDK inclui suporte completo para páginas de memória de 16 KB.
 
-### 2. Configuração no gradle.properties
-~~Adicionada a propriedade:~~
-```properties
-~~android.bundle.enableUncompressedNativeLibs=false~~
-```
-
-**ATUALIZAÇÃO**: Esta propriedade foi removida no Gradle 8.1+. Não é mais necessária!
-O suporte a 16 KB é garantido apenas pela versão correta do NDK (27.x).
-
-### 3. Filtros de ABI no defaultConfig
-Adicionada configuração explícita de ABIs suportadas:
+### 4. Filtros de ABI no defaultConfig
+Configuração explícita de ABIs suportadas:
 ```gradle
 ndk {
     abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64'
 }
 ```
 
-Isso garante que apenas as arquiteturas compatíveis com 16 KB sejam incluídas no build.
+### Nota sobre gradle.properties
+~~A propriedade `android.bundle.enableUncompressedNativeLibs=false` foi removida no Gradle 8.1+.~~
+O suporte a 16 KB é garantido pela combinação do AGP 8.5.1+ com NDK 27.x.
 
 ## Próximos Passos
 
