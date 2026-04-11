@@ -24,11 +24,13 @@ class _EacPageState extends State<EacPage> {
       if (entry.value is Map) {
         final map = entry.value as Map<String, dynamic>;
         final ehBotao = entry.key.startsWith('>botao');
+        final ehImagem = entry.key.startsWith('>imagem');
         secoes.add({
           'titulo': entry.key,
-          'tipo': ehBotao ? 'botao' : 'texto',
+          'tipo': ehBotao ? 'botao' : ehImagem ? 'imagem' : 'texto',
           'texto': (map['texto'] ?? '').toString(),
           if (ehBotao) 'link': (map['link'] ?? '').toString(),
+          if (ehImagem) 'url': (map['url'] ?? '').toString(),
           'ordem': (map['ordem'] ?? 999) is int
               ? map['ordem']
               : int.tryParse(map['ordem'].toString()) ?? 999,
@@ -107,7 +109,30 @@ class _EacPageState extends State<EacPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       for (int i = 0; i < secoes.length; i++) ...[
-                        if (secoes[i]['tipo'] == 'botao') ...[
+                        if (secoes[i]['tipo'] == 'imagem') ...[
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.network(
+                              secoes[i]['url'] as String,
+                              width: double.infinity,
+                              fit: BoxFit.fitWidth,
+                              loadingBuilder: (context, child, progress) {
+                                if (progress == null) return child;
+                                return Center(
+                                  child: CircularProgressIndicator(
+                                    value: progress.expectedTotalBytes != null
+                                        ? progress.cumulativeBytesLoaded /
+                                            progress.expectedTotalBytes!
+                                        : null,
+                                  ),
+                                );
+                              },
+                              errorBuilder: (context, error, stackTrace) =>
+                                  Icon(Icons.broken_image,
+                                      color: Colors.white54, size: 48),
+                            ),
+                          ),
+                        ] else if (secoes[i]['tipo'] == 'botao') ...[
                           Center(
                             child: ElevatedButton(
                               onPressed: () {
