@@ -90,6 +90,7 @@ class _EjcPageState extends State<EjcPage> {
 
                 if (secoes.isEmpty) {
                   return Container(
+                    width: double.infinity,
                     padding: EdgeInsets.all(28),
                     child: Center(
                       child: Text(
@@ -104,6 +105,7 @@ class _EjcPageState extends State<EjcPage> {
                 }
 
                 return Container(
+                  width: double.infinity,
                   padding: EdgeInsets.all(28),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

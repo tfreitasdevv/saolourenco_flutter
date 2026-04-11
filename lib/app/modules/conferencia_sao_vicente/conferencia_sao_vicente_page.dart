@@ -92,6 +92,7 @@ class _ConferenciaSaoVicentePageState extends State<ConferenciaSaoVicentePage> {
 
                 if (secoes.isEmpty) {
                   return Container(
+                    width: double.infinity,
                     padding: EdgeInsets.all(28),
                     child: Center(
                       child: Text(
@@ -106,6 +107,7 @@ class _ConferenciaSaoVicentePageState extends State<ConferenciaSaoVicentePage> {
                 }
 
                 return Container(
+                  width: double.infinity,
                   padding: EdgeInsets.all(28),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

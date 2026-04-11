@@ -91,6 +91,7 @@ class _AlfabetizacaoPageState extends State<AlfabetizacaoPage> {
 
                 if (secoes.isEmpty) {
                   return Container(
+                    width: double.infinity,
                     padding: EdgeInsets.all(28),
                     child: Center(
                       child: Text(
@@ -105,6 +106,7 @@ class _AlfabetizacaoPageState extends State<AlfabetizacaoPage> {
                 }
 
                 return Container(
+                  width: double.infinity,
                   padding: EdgeInsets.all(28),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

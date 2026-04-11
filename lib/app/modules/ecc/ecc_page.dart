@@ -90,6 +90,7 @@ class _EccPageState extends State<EccPage> {
 
                 if (secoes.isEmpty) {
                   return Container(
+                    width: double.infinity,
                     padding: EdgeInsets.all(28),
                     child: Center(
                       child: Text(
@@ -104,6 +105,7 @@ class _EccPageState extends State<EccPage> {
                 }
 
                 return Container(
+                  width: double.infinity,
                   padding: EdgeInsets.all(28),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

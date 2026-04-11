@@ -111,6 +111,41 @@ Foi adicionado o parâmetro `onTapLink` ao widget rich_text_markdown.dart (callb
 
 ---
 
+### 8. Correção de largura do background (`width: double.infinity`)
+
+**Problema:** Quando o texto não ocupava toda a largura da tela, o background não cobria toda a largura disponível — ficava restrito à área do texto.
+
+**Causa:** Os `Container` internos do `FutureBuilder` (tanto o de conteúdo vazio quanto o de conteúdo com seções) não tinham largura explícita. Dentro de um `SingleChildScrollView`, o `Column` com `CrossAxisAlignment.start` dimensionava sua largura apenas pelo filho mais largo, fazendo o container encolher.
+
+**Correção:** Adicionado `width: double.infinity` nos dois `Container` retornados pelo builder do `FutureBuilder`:
+
+1. **Container de seções vazias:**
+```dart
+return Container(
+  width: double.infinity,  // ← adicionado
+  padding: EdgeInsets.all(28),
+  child: Center(
+    child: Text('Nenhum conteúdo disponível.', ...),
+  ),
+);
+```
+
+2. **Container de conteúdo:**
+```dart
+return Container(
+  width: double.infinity,  // ← adicionado
+  padding: EdgeInsets.all(28),
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    ...
+  ),
+);
+```
+
+Isso garante que o conteúdo sempre ocupe toda a largura da tela, independentemente da quantidade de texto.
+
+---
+
 ### Resumo para preparar prompts
 
 Para aplicar a cada módulo, as mudanças necessárias são:
@@ -120,3 +155,4 @@ Para aplicar a cada módulo, as mudanças necessárias são:
 4. Substituir o corpo do `FutureBuilder` (leitura fixa de campos → loop dinâmico)
 5. Manter o `.doc('nome_do_documento')` correto de cada módulo
 6. Manter quaisquer funcionalidades extras do módulo (ex: botão de Facebook no grupo_de_oracao, botão de acesso de membros no musica)
+7. Adicionar `width: double.infinity` nos `Container` internos do `FutureBuilder` (tanto o de seções vazias quanto o de conteúdo) para garantir que o background ocupe toda a largura da tela
