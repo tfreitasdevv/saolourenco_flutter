@@ -22,7 +22,7 @@ const String crisma =
 const String dizimo =
     'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FPastorais%2Fdizimo.jpg?alt=media&token=6dc0c44d-e2c1-44ed-baff-7daf6f7bdfc5';
 const String eac =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FPastorais%2Feac.jpg?alt=media&token=4cd40c29-86b2-4de0-a49a-5747a456a7e1';
+    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FPastorais%2Feac2.jpg?alt=media&token=e5088d4d-a032-4201-a41d-184eece8096d';
 const String ecc =
     'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FPastorais%2Fecc.jpg?alt=media&token=7df5420c-d773-4872-98cb-fcf36adfff8d';
 const String ejc =

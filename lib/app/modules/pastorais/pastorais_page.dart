@@ -83,7 +83,9 @@ class _PastoraisPageState extends State<PastoraisPage> {
         funcao: () {
           Modular.to.pushNamed('/ecc');
         }),
-    PastoralItemModel(titulo: 'EAC', image: eac, textColor: t1, funcao: () {}),
+    PastoralItemModel(titulo: 'EAC', image: eac, textColor: t1, funcao: () {
+      Modular.to.pushNamed('/eac');
+    }),
     // PastoralItemModel(
     //     titulo: 'EJC',
     //     image: ejc2,

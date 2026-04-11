@@ -11,6 +11,7 @@ import 'package:paroquia_sao_lourenco/app/modules/cor/cor_module.dart';
 import 'package:paroquia_sao_lourenco/app/modules/coroinhas/coroinhas_module.dart';
 import 'package:paroquia_sao_lourenco/app/modules/crisma/crisma_module.dart';
 import 'package:paroquia_sao_lourenco/app/modules/dizimo/dizimo_module.dart';
+import 'package:paroquia_sao_lourenco/app/modules/eac/eac_module.dart';
 import 'package:paroquia_sao_lourenco/app/modules/ecc/ecc_module.dart';
 import 'package:paroquia_sao_lourenco/app/modules/ejc/ejc_module.dart';
 import 'package:paroquia_sao_lourenco/app/modules/eventos/eventos_module.dart';
@@ -60,6 +61,7 @@ class HomeModule extends Module {
     r.module('/alfabetizacao', module: AlfabetizacaoModule());
     r.module('/mae_tres_vezes', module: MaeTresVezesModule());
     r.module('/dizimo', module: DizimoModule());
+    r.module('/eac', module: EacModule());
     r.module('/ecc', module: EccModule());
     r.module('/coroinhas', module: CoroinhasModule());
     r.module('/ejc', module: EjcModule());
