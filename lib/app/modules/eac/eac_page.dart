@@ -14,7 +14,8 @@ class EacPage extends StatefulWidget {
 }
 
 class _EacPageState extends State<EacPage> {
-  /// Extrai as seções do documento Firebase e ordena pelo campo "ordem"
+  /// Extrai as seções do documento Firebase e ordena pelo campo "ordem".
+  /// Maps cujo nome começa com ">botao" são tratados como botões.
   List<Map<String, dynamic>> _extrairSecoes(DocumentSnapshot snapshot) {
     final data = snapshot.data() as Map<String, dynamic>? ?? {};
     final secoes = <Map<String, dynamic>>[];
@@ -22,9 +23,12 @@ class _EacPageState extends State<EacPage> {
     for (final entry in data.entries) {
       if (entry.value is Map) {
         final map = entry.value as Map<String, dynamic>;
+        final ehBotao = entry.key.startsWith('>botao');
         secoes.add({
           'titulo': entry.key,
+          'tipo': ehBotao ? 'botao' : 'texto',
           'texto': (map['texto'] ?? '').toString(),
+          if (ehBotao) 'link': (map['link'] ?? '').toString(),
           'ordem': (map['ordem'] ?? 999) is int
               ? map['ordem']
               : int.tryParse(map['ordem'].toString()) ?? 999,
@@ -103,31 +107,62 @@ class _EacPageState extends State<EacPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       for (int i = 0; i < secoes.length; i++) ...[
-                        if (secoes[i]['titulo'] != '_') ...[
-                          Text(
-                            secoes[i]['titulo'],
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: isWide ? 22 : 20,
-                              color: Colors.white,
+                        if (secoes[i]['tipo'] == 'botao') ...[
+                          Center(
+                            child: ElevatedButton(
+                              onPressed: () {
+                                final link = secoes[i]['link'] as String;
+                                if (link.isNotEmpty) {
+                                  UrlLauncherUtils.abrirUrl(link, context: context);
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: t2,
+                                foregroundColor: Colors.white,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 28,
+                                  vertical: 14,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                              child: Text(
+                                secoes[i]['texto'],
+                                style: TextStyle(
+                                  fontSize: isWide ? 18 : 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
                           ),
-                          SizedBox(height: 8),
+                        ] else ...[
+                          if (secoes[i]['titulo'] != '_') ...[
+                            Text(
+                              secoes[i]['titulo'],
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: isWide ? 22 : 20,
+                                color: Colors.white,
+                              ),
+                            ),
+                            SizedBox(height: 8),
+                          ],
+                          RichTextMarkdown(
+                            markdownText: _converterTelefonesEmLinks(secoes[i]['texto']),
+                            fontSize: isWide ? 18 : 16,
+                            textColor: Colors.white,
+                            textAlign: TextAlign.justify,
+                            onTapLink: (text, href, title) {
+                              if (href != null && href.startsWith('whatsapp:')) {
+                                final telefone = href.replaceFirst('whatsapp:', '');
+                                UrlLauncherUtils.abrirWhatsApp(telefone, context: context);
+                              } else if (href != null) {
+                                UrlLauncherUtils.abrirUrl(href, context: context);
+                              }
+                            },
+                          ),
                         ],
-                        RichTextMarkdown(
-                          markdownText: _converterTelefonesEmLinks(secoes[i]['texto']),
-                          fontSize: isWide ? 18 : 16,
-                          textColor: Colors.white,
-                          textAlign: TextAlign.justify,
-                          onTapLink: (text, href, title) {
-                            if (href != null && href.startsWith('whatsapp:')) {
-                              final telefone = href.replaceFirst('whatsapp:', '');
-                              UrlLauncherUtils.abrirWhatsApp(telefone, context: context);
-                            } else if (href != null) {
-                              UrlLauncherUtils.abrirUrl(href, context: context);
-                            }
-                          },
-                        ),
                         if (i < secoes.length - 1) SizedBox(height: 22),
                       ],
                       SizedBox(height: 22),
