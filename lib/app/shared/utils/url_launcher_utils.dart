@@ -132,8 +132,15 @@ class UrlLauncherUtils {
   
   /// Abre WhatsApp
   static Future<bool> abrirWhatsApp(String telefone, {String? mensagem, BuildContext? context}) async {
-    // Limpar formatação do telefone
-    final telefoneNormalizado = telefone.replaceAll(RegExp(r'[^\d+]'), '');
+    // Limpar formatação do telefone (remove tudo exceto dígitos)
+    var telefoneNormalizado = telefone.replaceAll(RegExp(r'[^\d]'), '');
+
+    // Adicionar código do país Brasil (55) se não estiver presente.
+    // Números brasileiros sem código: 10 dígitos (fixo) ou 11 dígitos (celular).
+    if (telefoneNormalizado.length <= 11) {
+      telefoneNormalizado = '55$telefoneNormalizado';
+    }
+
     String url = 'https://wa.me/$telefoneNormalizado';
     
     if (mensagem != null) {
