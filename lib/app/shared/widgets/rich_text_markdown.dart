@@ -89,6 +89,7 @@ class RichTextMarkdown extends StatelessWidget {
         a: TextStyle(
           color: textColor ?? t2,
           decoration: TextDecoration.underline,
+          decorationColor: textColor ?? t2,
           fontFamily: fontFamily,
         ),
         
