@@ -5,4 +5,4 @@
 storePassword=YOUR_STORE_PASSWORD_HERE
 keyPassword=YOUR_KEY_PASSWORD_HERE
 keyAlias=upload
-storeFile=C:/src/upload-keystore.jks
+storeFile=/home/tfreitas/.android/upload-keystore.jks
