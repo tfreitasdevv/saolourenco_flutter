@@ -565,6 +565,28 @@ No celular Android:
 - ative Depuracao sem fio
 - emparelhe com ADB
 
+Como localizar os dados de conexao no celular:
+
+1. abra `Configuracoes -> Opcoes do desenvolvedor -> Depuracao sem fio`
+2. toque em `Parear dispositivo com codigo de pareamento`
+3. anote o `Endereco IP e porta` exibido nessa janela, por exemplo `192.168.1.50:37123`
+4. use esse valor no comando `adb pair`; aqui voce tambem vai informar o codigo numerico mostrado na mesma tela
+5. volte para a tela principal de `Depuracao sem fio`
+6. anote o outro `Endereco IP e porta` mostrado ali, por exemplo `192.168.1.50:43567`
+7. use esse segundo valor no comando `adb connect`
+
+Resumo dos valores:
+
+- `IP_DO_CELULAR`: e o IP mostrado na tela de `Depuracao sem fio`
+- `PORTA_DE_PAREAMENTO`: e a porta que aparece na janela `Parear dispositivo com codigo de pareamento`
+- `PORTA_ADB`: e a porta mostrada na tela principal de `Depuracao sem fio` depois do pareamento
+
+Observacoes importantes:
+
+- a porta de pareamento e a porta ADB normalmente sao diferentes
+- essas portas podem mudar quando a depuracao sem fio e reiniciada
+- celular e WSL precisam estar na mesma rede
+
 No WSL:
 
 ```bash
@@ -707,6 +729,129 @@ Confira se `ONESIGNAL_APP_ID` foi preenchido no `.env`.
 ### Build release Android falha por assinatura
 
 Revise `android/key.properties` e o caminho Linux da keystore.
+
+### `flutter run` ou `flutter build apk` falha com `org.gradle.java.home` apontando para `C:\...`
+
+Esse erro indica que o arquivo `android/gradle.properties` ficou com um caminho local do Windows versionado ou reaproveitado no WSL.
+
+Exemplo de erro:
+
+```text
+Value 'C:\Program Files\Java\jdk-17' given for org.gradle.java.home Gradle property is invalid
+```
+
+Passos para corrigir:
+
+1. Abra `android/gradle.properties`.
+2. Procure a linha `org.gradle.java.home=...`.
+3. Se ela apontar para `C:\...`, remova a linha inteira.
+4. Garanta que o Java do WSL esteja configurado no shell.
+
+Comandos uteis:
+
+```bash
+grep -n "org.gradle.java.home" android/gradle.properties
+echo "$JAVA_HOME"
+java -version
+```
+
+O esperado no WSL e algo como:
+
+```bash
+/usr/lib/jvm/java-17-openjdk-amd64
+```
+
+Se precisar recriar a configuracao do shell:
+
+```bash
+echo 'export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64' >> ~/.bashrc
+echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
+```
+
+Depois valide com:
+
+```bash
+cd android
+./gradlew -version
+```
+
+Se o comando acima mostrar `JVM: 17...` em Linux, o bloqueio de Java foi resolvido.
+
+### `flutter run` falha com `Cannot convert URL 'C:/...upload-keystore.jks' to a file`
+
+Esse erro indica que o arquivo `android/key.properties` esta apontando a keystore para um caminho Windows, o que nao funciona no WSL.
+
+Exemplo de erro:
+
+```text
+Cannot convert URL 'C:/src/upload-keystore.jks' to a file
+```
+
+Passos para corrigir:
+
+1. Abra `android/key.properties`.
+2. Localize a chave `storeFile`.
+3. Troque o caminho Windows por um caminho Linux real da sua keystore.
+
+Exemplo correto no WSL:
+
+```properties
+storeFile=/home/tfreitas/.android/upload-keystore.jks
+```
+
+Cheque tambem o template para nao reintroduzir o erro depois:
+
+```bash
+grep -n "storeFile" android/key.properties android/key.properties.template
+```
+
+Se a sua keystore ainda nao existir nesse caminho, ajuste para o local Linux correto do seu ambiente.
+
+### `flutter run` falha com erro do Kotlin daemon ou com `Unable to delete directory` dentro de `build/`
+
+Se o build Android comecar a falhar com mensagens como estas:
+
+```text
+Could not close incremental caches in .../build/firebase_analytics/kotlin/...
+Unable to delete directory '.../build/sqflite/intermediates/javac/...'
+```
+
+o problema normalmente e cache local corrompido ou artefato travado por um daemon antigo do Gradle/Kotlin.
+
+Passos de recuperacao usados neste projeto:
+
+1. Pare os daemons do Gradle.
+2. Apague os caches locais do projeto.
+3. Rebaixe os pacotes do Flutter.
+4. Refaça o build Android debug.
+
+Comandos:
+
+```bash
+cd /home/tfreitas/projetos/saolourenco_flutter/android
+./gradlew --stop
+
+rm -rf /home/tfreitas/projetos/saolourenco_flutter/build \
+	/home/tfreitas/projetos/saolourenco_flutter/android/.gradle \
+	/home/tfreitas/projetos/saolourenco_flutter/.dart_tool
+
+cd /home/tfreitas/projetos/saolourenco_flutter
+flutter pub get
+flutter build apk --debug
+```
+
+Se o `flutter build apk --debug` concluir com sucesso, tente novamente:
+
+```bash
+flutter run
+```
+
+Observacoes importantes:
+
+- esse procedimento limpa apenas caches locais e artefatos gerados
+- ele nao remove dependencias do sistema nem altera arquivos fonte do app
+- e o caminho mais rapido quando o Android build no WSL para de compilar por travamento de cache
 
 ### Imagens nao aparecem no Flutter Web rodando no WSL
 
