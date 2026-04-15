@@ -6,12 +6,16 @@ import 'package:paroquia_sao_lourenco/app/modules/login/profile/profile_page.dar
 import 'package:paroquia_sao_lourenco/app/modules/login/signup_page.dart';
 import 'package:paroquia_sao_lourenco/app/shared/auth/auth_repository.dart';
 import 'package:paroquia_sao_lourenco/app/shared/auth/local_user.dart';
+import 'package:paroquia_sao_lourenco/app/shared/auth/strapi_auth_service.dart';
 import 'package:paroquia_sao_lourenco/app/shared/services/push_notification_service.dart';
+import 'package:paroquia_sao_lourenco/app/shared/services/strapi_client.dart';
 import 'package:paroquia_sao_lourenco/app/modules/notifications/notification_settings_page.dart';
 
 class AppModule extends Module {
   @override
   void binds(Injector i) {
+    i.addLazySingleton(StrapiClient.new);
+    i.addLazySingleton(StrapiAuthService.new);
     i.addLazySingleton(LocalUser.new);
     i.addLazySingleton(AuthRepository.new);
     i.addLazySingleton(PushNotificationService.new);
