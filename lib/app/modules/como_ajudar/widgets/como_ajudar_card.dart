@@ -1,21 +1,25 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:paroquia_sao_lourenco/app/shared/constants/constants.dart';
 import 'package:paroquia_sao_lourenco/app/shared/utils/url_launcher_utils.dart';
 
-/// Card para exibir cada documento da coleção "como ajudar"
+/// Card para exibir cada item da API "como ajudar"
 class ComoAjudarCard extends StatelessWidget {
-  final DocumentSnapshot snapshot;
+  final Map<String, dynamic> data;
 
-  const ComoAjudarCard({Key? key, required this.snapshot}) : super(key: key);
+  const ComoAjudarCard({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final data = snapshot.data() as Map<String, dynamic>;
     final String titulo = data['titulo'] ?? '';
     final String comoAtuamos = data['como_atuamos'] ?? '';
     final String comoAjudar = data['como_ajudar'] ?? '';
-    final String imagem = data['imagem'] ?? '';
+    final imagem = data['imagem'];
+    String imagemUrl = '';
+    if (imagem is Map<String, dynamic>) {
+      imagemUrl = imagem['url'] ?? '';
+    } else if (imagem is String) {
+      imagemUrl = imagem;
+    }
     final String link = data['link'] ?? '';
     final String contato = data['contato'] ?? '';
 
@@ -81,7 +85,7 @@ class ComoAjudarCard extends StatelessWidget {
             ],
 
             // Imagem
-            if (imagem.isNotEmpty) ...[
+            if (imagemUrl.isNotEmpty) ...[
               SizedBox(height: 12),
               Center(
                 child: ConstrainedBox(
@@ -91,7 +95,7 @@ class ComoAjudarCard extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Image.network(
-                      imagem,
+                      imagemUrl,
                       fit: BoxFit.contain,
                       errorBuilder: (context, error, stackTrace) {
                         return Container();

@@ -1,11 +1,24 @@
 # Migração Firebase → Strapi v5 — Guia de Referência Completo
 
+> **⚠️ INSTRUÇÃO OBRIGATÓRIA PARA AGENTES:**
+> Este documento deve ser a **única fonte de verdade** para dar continuidade à migração em qualquer sessão futura.
+> Ao final de cada sessão de trabalho, o agente **DEVE** atualizar este arquivo com:
+> 1. Todas as alterações realizadas (arquivos criados, modificados, removidos).
+> 2. O estado atualizado de cada módulo (migrado / pendente / em andamento).
+> 3. Código-fonte de referência atualizado para refletir os padrões vigentes.
+> 4. Quaisquer decisões técnicas tomadas, problemas encontrados e soluções aplicadas.
+> 5. Próximos passos claros e acionáveis.
+> O objetivo é que **qualquer agente consiga retomar o trabalho sem acesso ao contexto da sessão anterior**.
+> Esta instrução deve ser preservada em todas as atualizações futuras deste documento.
+
 > **Documento de referência para sessão de implementação.**
 > Criado em: 11/04/2026
 > Atualizado em: 12/04/2026 — Fase 1 concluída (ImageKit substituiu Cloudinary)
 > Atualizado em: 12/04/2026 — PostgreSQL local com Docker (substituiu SQLite), migração para WSL
 > Atualizado em: 14/04/2026 — Ambiente WSL configurado (Docker Engine + PostgreSQL + Strapi rodando)
 > Atualizado em: 14/04/2026 — Fase 2 concluída (camada de abstração Flutter: StrapiClient, StrapiAuthService, ApiConfig)
+> Atualizado em: 14/04/2026 — Fase 3 parcial (módulos 3.1–3.6 migrados: Horários, Confissões, Avisos, Como Ajudar, Eventos, PastoralPage)
+> Atualizado em: 15/04/2026 — Fase 3 continuação (3.7a Avisos Música, 3.7b Clero, limpeza confissoes_controller, remoção firebase_markdown_text)
 > Contém: arquitetura atual, decisões, plano de migração, mapeamento de coleções, código-fonte de referência.
 
 ---
@@ -130,6 +143,9 @@ class AppModule extends Module {
 ---
 
 ## 3. Código-Fonte de Referência (Padrões Atuais)
+
+> **Nota**: As seções 3.1–3.8 mostram o código **original Firebase** como referência histórica.
+> Para os padrões **já migrados para Strapi**, consulte a seção 3.9 abaixo.
 
 ### 3.1 main.dart — Inicialização Firebase
 
@@ -453,6 +469,94 @@ const double confissoesBlurIntensity = 0.5;
 const double confissoesOverlayOpacity = 0.15;
 ```
 
+### 3.9 Padrões de Código Strapi (referência para migração dos módulos restantes)
+
+Os módulos 3.1–3.6 e 3.7a/3.7b já foram migrados. Abaixo estão os padrões aplicados.
+
+**Padrão 1: Página com FutureBuilder simples (ex: Horários, Avisos, Avisos Música)**
+
+```dart
+// Substituir: cloud_firestore → strapi_client + api_config + flutter_modular
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:paroquia_sao_lourenco/app/shared/config/api_config.dart';
+import 'package:paroquia_sao_lourenco/app/shared/services/strapi_client.dart';
+
+// StatefulWidget com Future no initState (evitar rebuilds)
+class _PageState extends State<Page> {
+  late final Future<List<Map<String, dynamic>>> _dataFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    final strapi = Modular.get<StrapiClient>();
+    _dataFuture = strapi
+        .get(ApiConfig.avisos, queryParameters: {'sort': 'data:desc', 'populate': 'imagem'})
+        .then((r) => List<Map<String, dynamic>>.from(r.data['data'] ?? []));
+  }
+
+  // FutureBuilder<List<Map<String, dynamic>>> em vez de FutureBuilder<QuerySnapshot>
+}
+```
+
+**Padrão 2: Card widgets (ex: AvisoCard, ComoAjudarCard, AvisoMusicaCard)**
+
+```dart
+// ANTES: final DocumentSnapshot snapshot;
+// DEPOIS: final Map<String, dynamic> data;
+
+// ANTES: Timestamp → DateTime
+//   Timestamp dataTS = data["data"];
+//   DateTime dataDT = DateTime.fromMillisecondsSinceEpoch(dataTS.seconds * 1000);
+// DEPOIS: ISO 8601 string → DateTime
+//   DateTime dataDT = DateTime.parse(data['data']);
+
+// ANTES: imagem como URL string direta
+// DEPOIS: imagem como objeto media Strapi (popular com ?populate=imagem)
+//   final imagem = data['imagem'];
+//   final imagemUrl = imagem is Map ? imagem['url'] ?? '' : '';
+```
+
+**Padrão 3: Repository com filtros (ex: EventosRepository)**
+
+```dart
+// Filtros Strapi equivalentes a queries Firestore:
+//   .where('data', isGreaterThanOrEqualTo: ...)  →  'filters[data][\$gte]': isoString
+//   .where('data', isLessThan: ...)               →  'filters[data][\$lt]': isoString
+//   .where('titulo', contains: ...)               →  'filters[titulo][\$containsi]': texto
+//   .orderBy('data', descending: false)           →  'sort': 'data:asc'
+//   .limit(n)                                     →  'pagination[pageSize]': n
+//   .count()                                      →  response.data['meta']['pagination']['total']
+
+// Streams → Futures (sem real-time no Strapi)
+// Stream<List<Model>>  →  Future<List<Model>>
+// StreamSubscription removido do controller
+```
+
+**Padrão 4: PastoralPage (componente repetível Strapi)**
+
+```dart
+// Query: filters[slug][$eq]=<slug>&populate=secoes,secoes.url_imagem
+// Extração de seções:
+final pastoralData = (response.data['data'] as List).first;
+final secoesList = pastoralData['secoes'] as List? ?? [];
+for (final secao in secoesList) {
+  final tipo = secao['tipo'] ?? 'texto';  // enum: texto, botao, imagem
+  final urlImagem = secao['url_imagem'];   // pode ser Map (media) ou null
+  // ...
+}
+```
+
+**Padrão 5: Busca por filtro único (ex: Clero)**
+
+```dart
+// ANTES: FirebaseFirestore.instance.collection('clero').doc('paroco').get()
+// DEPOIS: StrapiClient.get(ApiConfig.cleros, queryParameters: {
+//   'filters[funcao][\$eq]': 'paroco',
+//   'populate': 'imagem',
+// })
+// Resultado: lista com 1 item → .first
+```
+
 ---
 
 ## 4. Coleções Firestore — Estrutura Completa
@@ -663,16 +767,18 @@ dependencies:
 
 | Passo | Módulo            | Arquivo(s) Principal(is)                                                                              | Endpoint Strapi                                                                 | Notas                                           |
 | ----- | ----------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ----------------------------------------------- |
-| 3.1   | Horários          | `lib/app/modules/horarios/horarios_page.dart`                                                         | `GET /api/horario-missas?sort=ordem:asc`                                        | Mais simples, bom para validar o client         |
-| 3.2   | Confissões        | `lib/app/modules/confissoes/confissoes_controller.dart`                                               | `GET /api/confissoes?sort=ordem:asc`                                            | MobX controller, boa validação do padrão        |
-| 3.3   | Avisos            | `lib/app/modules/avisos/avisos_page.dart`                                                             | `GET /api/avisos?sort=data:desc&populate=imagem`                                | Tem imagem (testar ImageKit)                    |
-| 3.4   | Como Ajudar       | `lib/app/modules/como_ajudar/como_ajudar_page.dart`                                                   | `GET /api/como-ajudars?sort=ordem:asc&populate=imagem`                          |                                                 |
-| 3.5   | Eventos           | `lib/app/modules/eventos/repositories/eventos_repository.dart`, `evento_model.dart`                   | `GET /api/eventos?filters[data][$gte]=2026-01-01&sort=data:asc&populate=imagem` | Maior complexidade (filtros, model)             |
-| 3.6   | **PastoralPage**  | `lib/app/shared/widgets/pastoral_page.dart`                                                           | `GET /api/pastoral-conteudos?filters[slug][$eq]=eac&populate=secoes`            | **Maior impacto**: uma mudança migra 23 módulos |
-| 3.7   | Música            | `lib/app/modules/musica/repositories/escala_musica_repository.dart`                                   | Definir endpoints conforme escalas                                              | Sem `musica_mes_corrente`                       |
-| 3.8   | Login/Auth        | `auth_repository.dart`, `local_user.dart`, `login_page.dart`, `signup_page.dart`, `profile_page.dart` | `/api/auth/local`, `/api/auth/local/register`, `/api/users/me`                  | Mais complexo, alterar por último               |
-| 3.9   | Imagens/Constants | `lib/app/shared/constants/constants.dart`                                                             | URLs do ImageKit via Media Library                                              | 30+ URLs para atualizar                         |
-| 3.10  | Home              | `lib/app/modules/home/home_page.dart`                                                                 | Verificar dados buscados                                                        |                                                 |
+| 3.1   | Horários          | `lib/app/modules/horarios/horarios_page.dart`                                                         | `GET /api/horario-missas?sort=ordem:asc`                                        | ✅ Migrado                                       |
+| 3.2   | Confissões        | `lib/app/modules/confissoes/confissoes_page.dart`                                                     | `GET /api/confissoes?sort=ordem:asc`                                            | ✅ Migrado                                       |
+| 3.3   | Avisos            | `lib/app/modules/avisos/avisos_page.dart`                                                             | `GET /api/avisos?sort=data:desc&populate=imagem`                                | ✅ Migrado                                       |
+| 3.4   | Como Ajudar       | `lib/app/modules/como_ajudar/como_ajudar_page.dart`                                                   | `GET /api/como-ajudars?sort=ordem:asc&populate=imagem`                          | ✅ Migrado                                       |
+| 3.5   | Eventos           | `lib/app/modules/eventos/repositories/eventos_repository.dart`, `evento_model.dart`                   | `GET /api/eventos?filters[data][$gte]=2026-01-01&sort=data:asc&populate=imagem` | ✅ Migrado                                       |
+| 3.6   | **PastoralPage**  | `lib/app/shared/widgets/pastoral_page.dart`                                                           | `GET /api/pastoral-conteudos?filters[slug][$eq]=eac&populate=secoes`            | ✅ Migrado (migra 23 módulos)                    |
+| 3.7a  | Avisos Música     | `avisos_musica_page.dart`, `aviso_musica_card.dart`                                                   | `GET /api/aviso-musicas?sort=data:desc`                                         | ✅ Migrado                                       |
+| 3.7b  | Clero             | `lib/app/modules/sobre/tabs/clero.dart`                                                               | `GET /api/cleros?filters[funcao][$eq]=paroco&populate=imagem`                   | ✅ Migrado                                       |
+| 3.7c  | Confissões Ctrl   | `lib/app/modules/confissoes/confissoes_controller.dart`                                               | `GET /api/confissoes?filters[secao][$eq]=texto_confissoes`                      | ✅ Migrado (era dead code, atualizado por consistência) |
+| 3.8   | Login/Auth        | `auth_repository.dart`, `local_user.dart`, `login_page.dart`, `signup_page.dart`, `profile_page.dart` | `/api/auth/local`, `/api/auth/local/register`, `/api/users/me`                  | ⬜ Pendente — mais complexo                      |
+| 3.9   | Imagens/Constants | `lib/app/shared/constants/constants.dart`                                                             | URLs do ImageKit via Media Library                                              | ⬜ Pendente — 30+ URLs                           |
+| 3.10  | Home              | `lib/app/modules/home/home_page.dart`                                                                 | Verificar dados buscados                                                        | ⬜ Pendente — sem deps Firestore diretas         |
 
 ---
 
@@ -714,19 +820,19 @@ dependencies:
 
 ## 7. Verificação por Fase
 
-| Verificação                                         | Quando                    | Status                |
-| --------------------------------------------------- | ------------------------- | --------------------- |
-| Strapi admin acessível, content types criados       | Após Fase 1               | ✅ Verificado (11/04) |
-| Build do Strapi sem erros                           | Após Fase 1               | ✅ Verificado (11/04) |
-| Permissões públicas configuradas                    | Após Fase 1               | ✅ Verificado (11/04) |
-| Dados inseridos manualmente no painel Strapi        | Após população manual     | ✅ Feito (14/04)      |
-| Imagens carregando do ImageKit                      | Após upload de imagens    | ⬜ Pendente           |
-| StrapiClient fazendo GET com sucesso                | Após Fase 2               | ✅ Verificado (14/04) |
-| Cada módulo exibindo dados do Strapi                | Após cada passo da Fase 3 | ⬜ Pendente           |
-| Cadastro, login, logout, perfil funcionando         | Após 3.8                  | ⬜ Pendente           |
-| 23 páginas de pastorais carregando                  | Após 3.6                  | ⬜ Pendente           |
-| `flutter build apk` e `flutter build web` sem erros | Após Fase 4               | ⬜ Pendente           |
-| App completo funcionando sem Firebase               | Final                     | ⬜ Pendente           |
+| Verificação                                         | Quando                    | Status                                  |
+| --------------------------------------------------- | ------------------------- | --------------------------------------- |
+| Strapi admin acessível, content types criados       | Após Fase 1               | ✅ Verificado (11/04)                   |
+| Build do Strapi sem erros                           | Após Fase 1               | ✅ Verificado (11/04)                   |
+| Permissões públicas configuradas                    | Após Fase 1               | ✅ Verificado (11/04)                   |
+| Dados inseridos manualmente no painel Strapi        | Após população manual     | ✅ Feito (14/04)                        |
+| Imagens carregando do ImageKit                      | Após upload de imagens    | ⬜ Pendente                             |
+| StrapiClient fazendo GET com sucesso                | Após Fase 2               | ✅ Verificado (14/04)                   |
+| Cada módulo exibindo dados do Strapi                | Após cada passo da Fase 3 | 🟡 3.1–3.6, 3.7a/b migrados (15/04) |
+| Cadastro, login, logout, perfil funcionando         | Após 3.8                  | ⬜ Pendente                             |
+| 23 páginas de pastorais carregando                  | Após 3.6                  | 🟡 Código migrado, aguarda teste manual |
+| `flutter build apk` e `flutter build web` sem erros | Após Fase 4               | ⬜ Pendente                             |
+| App completo funcionando sem Firebase               | Final                     | ⬜ Pendente                             |
 
 ---
 
@@ -1216,4 +1322,113 @@ cd /home/tfreitas/projetos/saolourenco-cms && sudo docker compose up -d && npm r
 
 Na nova sessão, diga:
 
-> "Leia `docs/MIGRACAO_FIREBASE_STRAPI.md` e vamos implementar a Fase 3 começando pelo passo 3.1 (Horários)."
+> "Leia `docs/MIGRACAO_FIREBASE_STRAPI.md` e vamos continuar a migração pela Fase 3, passo 3.8 (Login/Auth)."
+
+---
+
+### ✅ Fase 3 (parcial) — Migração de Módulos Flutter (14/04/2026)
+
+**Ambiente**: WSL (projetos no filesystem Linux)
+**Branch**: `preparacao-migracao-strapi`
+
+#### Módulos migrados (3.1 a 3.6)
+
+| Passo | Módulo       | Arquivos alterados                                                                                     | Status     |
+| ----- | ------------ | ------------------------------------------------------------------------------------------------------ | ---------- |
+| 3.1   | Horários     | `horarios_page.dart` — Firestore → StrapiClient (`GET /api/horario-missas?sort=ordem:asc`)             | ✅ Migrado |
+| 3.2   | Confissões   | `confissoes_page.dart` — 4 queries Firestore → 1 chamada Strapi (`GET /api/confissoes?sort=ordem:asc`) | ✅ Migrado |
+| 3.3   | Avisos       | `avisos_page.dart`, `aviso_card.dart`, `aviso_card_markdown.dart` — Firestore → Strapi + ImageKit      | ✅ Migrado |
+| 3.4   | Como Ajudar  | `como_ajudar_page.dart`, `como_ajudar_card.dart` — Firestore → Strapi + ImageKit                       | ✅ Migrado |
+| 3.5   | Eventos      | `evento_model.dart`, `eventos_repository.dart`, `eventos_controller.dart`, `eventos_page.dart`         | ✅ Migrado |
+| 3.6   | PastoralPage | `pastoral_page.dart` — migra 23 módulos de pastorais de uma vez                                        | ✅ Migrado |
+
+#### Módulos migrados (3.7a, 3.7b, 3.7c — 15/04/2026)
+
+| Passo | Módulo          | Arquivos alterados                                                                                        | Status     |
+| ----- | --------------- | --------------------------------------------------------------------------------------------------------- | ---------- |
+| 3.7a  | Avisos Música   | `avisos_musica_page.dart`, `aviso_musica_card.dart` — Firestore → StrapiClient (`GET /api/aviso-musicas`) | ✅ Migrado |
+| 3.7b  | Clero           | `sobre/tabs/clero.dart` — Firestore → StrapiClient (`GET /api/cleros?filters[funcao][$eq]=paroco`)       | ✅ Migrado |
+| 3.7c  | Confissões Ctrl | `confissoes_controller.dart` — Firestore → StrapiClient (dead code migrado por consistência)              | ✅ Migrado |
+
+**Limpeza de dead code (15/04/2026):**
+- `firebase_markdown_text.dart` — **removido** (nunca importado por nenhum arquivo do projeto)
+
+#### Detalhes técnicos das mudanças
+
+**Padrão geral aplicado:**
+
+- `cloud_firestore` (Firestore) → `StrapiClient` (Dio HTTP) via `Modular.get<StrapiClient>()`
+- `DocumentSnapshot` → `Map<String, dynamic>` (formato flat Strapi v5)
+- `Timestamp` → `DateTime.parse()` (ISO 8601 strings)
+- Imagens: campo `imagem` pode ser `Map` (populado) ou `null` — extração de `url` do objeto media
+- FutureBuilder inicializado no `initState` para evitar rebuilds desnecessários
+
+**Eventos (3.5) — mudanças significativas:**
+
+- Repository: Streams → Futures (sem real-time, conforme decisão do projeto)
+- Controller: removidas `StreamSubscription` e método `dispose()`
+- Model: `fromDocument(DocumentSnapshot)` → `fromJson(Map<String, dynamic>)`
+- Filtros Strapi: `$gte`, `$lt`, `$containsi` substituem queries Firestore
+- Contagem via `meta.pagination.total` em vez de `.count()`
+
+**PastoralPage (3.6) — maior impacto:**
+
+- `StatelessWidget` → `StatefulWidget` (Future no `initState`)
+- Extração de seções: maps dinâmicos do Firestore → componente repetível `secoes` do Strapi
+- Query: `filters[slug][$eq]` + `populate=secoes,secoes.url_imagem`
+- Referências `title`/`bottomWidget` → `widget.title`/`widget.bottomWidget`
+
+**Compilação validada:** `flutter analyze lib/` — 0 erros, 1 info (elemento não usado em eventos_page).
+
+#### Próximos passos (pendentes)
+
+| Passo | Módulo                    | Status      | Detalhes                                                                                                |
+| ----- | ------------------------- | ----------- | ------------------------------------------------------------------------------------------------------- |
+| 3.8   | Login/Auth                | ⬜ Pendente | Mais complexo. Requer migrar `auth_repository.dart`, `local_user.dart`, login, signup, profile pages.   |
+| 3.9   | Imagens/Constants         | ⬜ Pendente | 30+ URLs Firebase Storage em `constants.dart` → ImageKit.                                                |
+| 3.10  | Home                      | ⬜ Pendente | Sem dependências Firestore diretas. Usa `LocalUser` (pendente 3.8).                                    |
+| —     | Escalas Música            | 🔒 Adiado  | Coleção `musica_mes_corrente` não migrar neste momento (decisão de projeto).                            |
+
+**Arquivos que ainda usam Firebase (inventário atualizado em 15/04/2026):**
+
+| Arquivo                                                              | Dependência Firebase       | Próximo passo                                      |
+| -------------------------------------------------------------------- | -------------------------- | -------------------------------------------------- |
+| `lib/app/shared/auth/auth_repository.dart`                           | FirebaseAuth + Firestore   | Fase 3.8 — substituir por StrapiAuthService         |
+| `lib/app/shared/auth/local_user.dart`                                | FirebaseAuth + Firestore   | Fase 3.8 — substituir User por dados Strapi         |
+| `lib/app/modules/login/login_page.dart`                              | FirebaseAuth (sign-out)    | Fase 3.8                                            |
+| `lib/app/modules/login/signup_page.dart`                             | Firestore                  | Fase 3.8                                            |
+| `lib/app/modules/login/profile/profile_page.dart`                    | Firestore                  | Fase 3.8                                            |
+| `lib/app/modules/musica/repositories/escala_musica_repository.dart`  | Firestore                  | 🔒 Adiado (musica_mes_corrente)                     |
+| `lib/app/modules/musica/models/escala_musica_domingo_model.dart`     | Firestore (DocumentSnapshot) | 🔒 Adiado                                           |
+| `lib/app/modules/musica/models/escala_musica_sabado_model.dart`      | Firestore (DocumentSnapshot) | 🔒 Adiado                                           |
+| `lib/app/modules/musica/funcoes_auxiliares/preencher_dados.dart`     | Firestore                  | 🔒 Adiado (script de teste)                         |
+| `lib/app/shared/constants/constants.dart`                            | Firebase Storage URLs      | Fase 3.9 — trocar URLs para ImageKit                |
+| `lib/scripts/criar_confissoes_firebase.dart`                         | Firestore                  | Fase 4 — remover (script de inicialização obsoleto) |
+| `lib/firebase_options_env.dart`                                      | Config Firebase             | Fase 4 — remover (config, sem lógica)               |
+| `lib/firebase_options_env.template.dart`                             | Config Firebase             | Fase 4 — remover                                    |
+
+**Detalhes da Fase 3.8 — Login/Auth (guia para o próximo agente):**
+
+Arquivos a migrar nesta ordem:
+
+1. **`lib/app/shared/auth/local_user.dart`** — Remover `User? firebaseUser` e `FirebaseAuth.instance.currentUser`. Substituir por estado baseado em token JWT do Strapi. Usar `StrapiClient.hasToken` para verificar login e `StrapiAuthService.getMe()` para obter dados do usuário. Manter todos os `@observable` e `@action` do MobX.
+
+2. **`lib/app/shared/auth/auth_repository.dart`** — Substituir `FirebaseAuth` por `StrapiAuthService`. Métodos:
+   - `criarUsuario()` → `StrapiAuthService.register()`
+   - `logar()` → `StrapiAuthService.login()`
+   - `logout()` → `StrapiAuthService.logout()`
+   - `obterUsuarioAtual()` → `StrapiAuthService.getMe()`
+   - `atualizarDadosUsuario()` → `StrapiAuthService.updateProfile()`
+   - `recuperarSenha()` → Strapi não tem endpoint nativo para recuperação de senha. Opções: (a) plugin `strapi-plugin-users-permissions` com configuração de email, (b) endpoint customizado no Strapi, ou (c) manter Firebase Auth apenas para recuperação de senha (menos ideal).
+
+3. **`lib/app/modules/login/login_page.dart`** — Atualizar para usar `AuthRepository` migrado. Remover import `firebase_auth`.
+
+4. **`lib/app/modules/login/signup_page.dart`** — Atualizar para usar `AuthRepository` migrado.
+
+5. **`lib/app/modules/login/profile/profile_page.dart`** — Atualizar para usar `AuthRepository` migrado.
+
+**⚠️ Atenção sobre `StrapiAuthService` (já criado na Fase 2):**
+- Localização: `lib/app/shared/auth/strapi_auth_service.dart`
+- Já registrado como singleton no `AppModule`
+- Métodos: `register()`, `login()`, `logout()`, `getMe()`, `updateProfile()`
+- JWT salvo automaticamente no `FlutterSecureStorage` via `StrapiClient.saveToken()`

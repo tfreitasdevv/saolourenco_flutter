@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -8,21 +7,30 @@ import 'package:paroquia_sao_lourenco/app/shared/widgets/rich_text_markdown.dart
 
 /// Card de aviso com suporte a formatação Markdown
 class AvisoCardMarkdown extends StatelessWidget {
-  final DocumentSnapshot snapshot;
+  final Map<String, dynamic> data;
 
-  const AvisoCardMarkdown({Key? key, required this.snapshot}) : super(key: key);
+  const AvisoCardMarkdown({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final data = snapshot.data() as Map<String, dynamic>;
-    Timestamp dataTS = data["data"];
-    DateTime dataDT =
-        DateTime.fromMillisecondsSinceEpoch(dataTS.seconds * 1000);
-    var dataFormatada = DateFormat('dd/MM/yyyy').format(dataDT);
+    final String? dataStr = data["data"];
+    String dataFormatada = '';
+    if (dataStr != null && dataStr.isNotEmpty) {
+      final dataDT = DateTime.tryParse(dataStr);
+      if (dataDT != null) {
+        dataFormatada = DateFormat('dd/MM/yyyy').format(dataDT);
+      }
+    }
     
     // O campo descrição agora pode conter Markdown
     String descricaoMarkdown = data['descricao'] ?? '';
-    String image = data["imagem"] ?? '';
+    final imagem = data["imagem"];
+    String image = '';
+    if (imagem is Map<String, dynamic>) {
+      image = imagem['url'] ?? '';
+    } else if (imagem is String) {
+      image = imagem;
+    }
     String? linkTitulo = data["link_titulo"];
     String? linkUrl = data["link_url"];
 

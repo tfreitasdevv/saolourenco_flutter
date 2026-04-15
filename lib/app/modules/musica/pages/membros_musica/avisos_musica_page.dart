@@ -1,8 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:paroquia_sao_lourenco/app/modules/musica/widgets/aviso_musica_card.dart';
+import 'package:paroquia_sao_lourenco/app/shared/config/api_config.dart';
 import 'package:paroquia_sao_lourenco/app/shared/constants/constants.dart';
+import 'package:paroquia_sao_lourenco/app/shared/services/strapi_client.dart';
 
 class AvisosMusicaPage extends StatefulWidget {
   @override
@@ -10,7 +11,17 @@ class AvisosMusicaPage extends StatefulWidget {
 }
 
 class _AvisosMusicaPageState extends State<AvisosMusicaPage> {
-  bool web = kIsWeb;
+  late final Future<List<Map<String, dynamic>>> _avisosFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    final strapi = Modular.get<StrapiClient>();
+    _avisosFuture = strapi
+        .get(ApiConfig.avisosMusica,
+            queryParameters: {'sort': 'data:desc'})
+        .then((r) => List<Map<String, dynamic>>.from(r.data['data'] ?? []));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +31,8 @@ class _AvisosMusicaPageState extends State<AvisosMusicaPage> {
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               color: t2,
-              child: FutureBuilder<QuerySnapshot>(
-                future: FirebaseFirestore.instance
-                    .collection("avisos_musica")
-                    .orderBy('data', descending: true)
-                    .get(),
+              child: FutureBuilder<List<Map<String, dynamic>>>(
+                future: _avisosFuture,
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
                     return Center(
@@ -34,8 +42,8 @@ class _AvisosMusicaPageState extends State<AvisosMusicaPage> {
                     return ListView(
                       addAutomaticKeepAlives: true,
                       padding: EdgeInsets.fromLTRB(10, 5, 10, 100),
-                      children: (snapshot.data?.docs ?? []).map((doc) {
-                        return AvisoMusicaCard(snapshot: doc);
+                      children: (snapshot.data ?? []).map((item) {
+                        return AvisoMusicaCard(data: item);
                       }).toList(),
                     );
                   }

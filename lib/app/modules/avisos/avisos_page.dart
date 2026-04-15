@@ -1,8 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:paroquia_sao_lourenco/app/modules/avisos/widgets/aviso_card.dart';
+import 'package:paroquia_sao_lourenco/app/shared/config/api_config.dart';
 import 'package:paroquia_sao_lourenco/app/shared/constants/constants.dart';
+import 'package:paroquia_sao_lourenco/app/shared/services/strapi_client.dart';
 
 class AvisosPage extends StatefulWidget {
   final String title;
@@ -14,9 +15,26 @@ class AvisosPage extends StatefulWidget {
 }
 
 class _AvisosPageState extends State<AvisosPage> {
-  //use 'controller' variable to access controller
+  late final Future<List<Map<String, dynamic>>> _avisosFuture;
 
-  bool web = kIsWeb;
+  @override
+  void initState() {
+    super.initState();
+    _avisosFuture = _carregarAvisos();
+  }
+
+  Future<List<Map<String, dynamic>>> _carregarAvisos() async {
+    final client = Modular.get<StrapiClient>();
+    final response = await client.get(
+      ApiConfig.avisos,
+      queryParameters: {
+        'sort': 'data:desc',
+        'populate': 'imagem',
+      },
+    );
+    final List data = response.data['data'] ?? [];
+    return data.cast<Map<String, dynamic>>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +51,8 @@ class _AvisosPageState extends State<AvisosPage> {
               decoration: BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage(bg), fit: BoxFit.cover)),
-              child: FutureBuilder<QuerySnapshot>(
-                future: FirebaseFirestore.instance
-                    .collection("avisos")
-                    .orderBy('data', descending: true)
-                    .get(),
+              child: FutureBuilder<List<Map<String, dynamic>>>(
+                future: _avisosFuture,
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
                     return Center(
@@ -47,8 +62,8 @@ class _AvisosPageState extends State<AvisosPage> {
                     return ListView(
                       addAutomaticKeepAlives: true,
                       padding: EdgeInsets.fromLTRB(10, 5, 10, 100),
-                      children: (snapshot.data?.docs ?? []).map((doc) {
-                        return AvisoCard(snapshot: doc);
+                      children: snapshot.data!.map((item) {
+                        return AvisoCard(data: item);
                       }).toList(),
                     );
                   }

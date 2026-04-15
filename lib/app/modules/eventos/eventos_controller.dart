@@ -1,5 +1,4 @@
 import 'package:mobx/mobx.dart';
-import 'dart:async';
 import 'models/evento_model.dart';
 import 'repositories/eventos_repository.dart';
 
@@ -9,8 +8,6 @@ class EventosController = _EventosBase with _$EventosController;
 
 abstract class _EventosBase with Store {
   final EventosRepository _repository = EventosRepository();
-  StreamSubscription? _eventosSubscription;
-  StreamSubscription? _proximosEventosSubscription;
 
   @observable
   List<EventoModel> eventos = [];
@@ -50,61 +47,40 @@ abstract class _EventosBase with Store {
   }
 
   @action
-  void carregarEventos() {
+  Future<void> carregarEventos() async {
     try {
       carregandoEventos = true;
       erroEventos = null;
 
-      Stream<List<EventoModel>> stream;
-      
       switch (visualizacao) {
         case TipoVisualizacao.futuros:
-          stream = _repository.obterEventosFuturos();
+          eventos = await _repository.obterEventosFuturos();
           break;
         case TipoVisualizacao.passados:
-          stream = _repository.obterEventosPassados();
+          eventos = await _repository.obterEventosPassados();
           break;
         case TipoVisualizacao.mesAtual:
-          stream = _repository.obterEventosDoMesAtual();
+          eventos = await _repository.obterEventosDoMesAtual();
           break;
         case TipoVisualizacao.todos:
         default:
-          stream = _repository.obterEventos();
+          eventos = await _repository.obterEventos();
           break;
       }
 
-      _eventosSubscription?.cancel();
-      _eventosSubscription = stream.listen(
-        (listaEventos) {
-          eventos = listaEventos;
-          carregandoEventos = false;
-        },
-        onError: (erro) {
-          erroEventos = 'Erro ao carregar eventos: $erro';
-          carregandoEventos = false;
-        },
-      );
+      carregandoEventos = false;
     } catch (e) {
-      erroEventos = 'Erro inesperado ao carregar eventos: $e';
+      erroEventos = 'Erro ao carregar eventos: $e';
       carregandoEventos = false;
     }
   }
 
   @action
-  void carregarProximosEventos() {
+  Future<void> carregarProximosEventos() async {
     try {
       carregandoProximosEventos = true;
-
-      _proximosEventosSubscription?.cancel();
-      _proximosEventosSubscription = _repository.obterProximosEventos(dias: 30).listen(
-        (listaEventos) {
-          proximosEventos = listaEventos;
-          carregandoProximosEventos = false;
-        },
-        onError: (erro) {
-          carregandoProximosEventos = false;
-        },
-      );
+      proximosEventos = await _repository.obterProximosEventos(dias: 30);
+      carregandoProximosEventos = false;
     } catch (e) {
       carregandoProximosEventos = false;
     }
@@ -129,7 +105,7 @@ abstract class _EventosBase with Store {
   }
 
   @action
-  void buscarPorTitulo(String titulo) {
+  Future<void> buscarPorTitulo(String titulo) async {
     filtroTitulo = titulo;
     
     if (titulo.isEmpty) {
@@ -140,20 +116,10 @@ abstract class _EventosBase with Store {
     try {
       carregandoEventos = true;
       erroEventos = null;
-
-      _eventosSubscription?.cancel();
-      _eventosSubscription = _repository.buscarEventosPorTitulo(titulo).listen(
-        (listaEventos) {
-          eventos = listaEventos;
-          carregandoEventos = false;
-        },
-        onError: (erro) {
-          erroEventos = 'Erro ao buscar eventos: $erro';
-          carregandoEventos = false;
-        },
-      );
+      eventos = await _repository.buscarEventosPorTitulo(titulo);
+      carregandoEventos = false;
     } catch (e) {
-      erroEventos = 'Erro inesperado ao buscar eventos: $e';
+      erroEventos = 'Erro ao buscar eventos: $e';
       carregandoEventos = false;
     }
   }
@@ -195,11 +161,6 @@ abstract class _EventosBase with Store {
 
   @computed
   bool get temFiltroAtivo => filtroTitulo.isNotEmpty || visualizacao != TipoVisualizacao.todos;
-
-  void dispose() {
-    _eventosSubscription?.cancel();
-    _proximosEventosSubscription?.cancel();
-  }
 }
 
 enum TipoVisualizacao {

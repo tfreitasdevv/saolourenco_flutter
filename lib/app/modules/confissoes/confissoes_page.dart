@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'dart:ui'; // Para ImageFilter
+import 'package:paroquia_sao_lourenco/app/shared/config/api_config.dart';
 import 'package:paroquia_sao_lourenco/app/shared/constants/constants.dart';
+import 'package:paroquia_sao_lourenco/app/shared/services/strapi_client.dart';
 import 'package:paroquia_sao_lourenco/app/shared/widgets/rich_text_markdown.dart';
 
 class ConfissoesPage extends StatefulWidget {
@@ -13,12 +15,23 @@ class ConfissoesPage extends StatefulWidget {
 }
 
 class _ConfissoesPageState extends State<ConfissoesPage> {
-  final List<String> documentIds = [
-    'primeira_secao',
-    'segunda_secao',
-    'terceira_secao',
-    'quarta_secao'
-  ];
+  late final Future<List<Map<String, dynamic>>> _confissoesFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _confissoesFuture = _carregarConfissoes();
+  }
+
+  Future<List<Map<String, dynamic>>> _carregarConfissoes() async {
+    final client = Modular.get<StrapiClient>();
+    final response = await client.get(
+      ApiConfig.confissoes,
+      queryParameters: {'sort': 'ordem:asc'},
+    );
+    final List data = response.data['data'] ?? [];
+    return data.cast<Map<String, dynamic>>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,157 +67,69 @@ class _ConfissoesPageState extends State<ConfissoesPage> {
             ),
           ),
           // Conteúdo da página
-          SingleChildScrollView(
-            padding: EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Renderiza as 4 seções
-                ...documentIds.map((docId) => _buildSecao(docId)).toList(),
-                SizedBox(height: 20), // Espaçamento final
-              ],
-            ),
+          FutureBuilder<List<Map<String, dynamic>>>(
+            future: _confissoesFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation(Colors.white),
+                  ),
+                );
+              }
+
+              if (snapshot.hasError) {
+                return Center(
+                  child: Text(
+                    'Erro ao carregar confissões.',
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                );
+              }
+
+              final confissoes = snapshot.data ?? [];
+
+              return SingleChildScrollView(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ...confissoes.map((item) => _buildSecao(item)).toList(),
+                    SizedBox(height: 20),
+                  ],
+                ),
+              );
+            },
           ),
         ],
       ),
     );
   }
 
-  Widget _buildSecao(String documentId) {
-    return FutureBuilder<DocumentSnapshot>(
-      future: FirebaseFirestore.instance
-          .collection('confissoes')
-          .doc(documentId)
-          .get(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return _buildLoadingSection();
-        }
+  Widget _buildSecao(Map<String, dynamic> item) {
+    final titulo = item['titulo'] ?? 'Título não encontrado';
+    final texto = item['texto'] ?? 'Texto não encontrado.';
 
-        if (snapshot.hasError) {
-          return _buildErrorSection(documentId, snapshot.error.toString());
-        }
-
-        if (!snapshot.hasData || !snapshot.data!.exists) {
-          return _buildNotFoundSection(documentId);
-        }
-
-        final data = snapshot.data!.data() as Map<String, dynamic>;
-        final titulo = data['titulo'] ?? 'Título não encontrado';
-        final texto = data['texto'] ?? 'Texto não encontrado.';
-
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // Título da seção
-            Text(
-              titulo,
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
-                color: Colors.white,
-                fontFamily: 'Raleway',
-              ),
-            ),
-            SizedBox(height: 12),
-            
-            // Texto da seção em Markdown
-            RichTextMarkdown(
-              markdownText: texto,
-              fontSize: 18,
-              textColor: Colors.white,
-              fontFamily: 'Raleway',
-            ),
-            
-            SizedBox(height: 40), // Espaçamento entre seções
-          ],
-        );
-      },
-    );
-  }
-
-  Widget _buildLoadingSection() {
     return Column(
-      children: [
-        Container(
-          padding: EdgeInsets.symmetric(vertical: 16),
-          child: Row(
-            children: [
-              SizedBox(
-                width: 16,
-                height: 16,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation(Colors.white),
-                ),
-              ),
-              SizedBox(width: 12),
-              Text(
-                'Carregando seção...',
-                style: TextStyle(
-                  color: Colors.white70,
-                  fontSize: 14,
-                  fontFamily: 'Raleway',
-                ),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 24),
-      ],
-    );
-  }
-
-  Widget _buildErrorSection(String documentId, String error) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'Erro ao carregar seção',
+          titulo,
           style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-            color: Colors.red[300],
-            fontFamily: 'CinzelDecorative',
-          ),
-        ),
-        SizedBox(height: 8),
-        Text(
-          'Não foi possível carregar a seção "$documentId". Erro: $error',
-          style: TextStyle(
-            color: Colors.white70,
-            fontSize: 14,
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
+            color: Colors.white,
             fontFamily: 'Raleway',
           ),
         ),
-        SizedBox(height: 24),
-      ],
-    );
-  }
-
-  Widget _buildNotFoundSection(String documentId) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Seção não encontrada',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-            color: Colors.orange[300],
-            fontFamily: 'CinzelDecorative',
-          ),
+        SizedBox(height: 12),
+        RichTextMarkdown(
+          markdownText: texto,
+          fontSize: 18,
+          textColor: Colors.white,
+          fontFamily: 'Raleway',
         ),
-        SizedBox(height: 8),
-        Text(
-          'O documento "$documentId" não foi encontrado na coleção confissoes.',
-          style: TextStyle(
-            color: Colors.white70,
-            fontSize: 14,
-            fontFamily: 'Raleway',
-          ),
-        ),
-        SizedBox(height: 24),
+        SizedBox(height: 40),
       ],
     );
   }

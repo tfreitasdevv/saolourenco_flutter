@@ -28,12 +28,6 @@ class _EventosPageState extends State<EventosPage> {
   }
 
   @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

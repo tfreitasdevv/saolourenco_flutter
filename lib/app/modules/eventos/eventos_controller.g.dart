@@ -199,12 +199,38 @@ mixin _$EventosController on _EventosBase, Store {
     });
   }
 
+  late final _$carregarEventosAsyncAction =
+      AsyncAction('_EventosBase.carregarEventos', context: context);
+
+  @override
+  Future<void> carregarEventos() {
+    return _$carregarEventosAsyncAction.run(() => super.carregarEventos());
+  }
+
+  late final _$carregarProximosEventosAsyncAction =
+      AsyncAction('_EventosBase.carregarProximosEventos', context: context);
+
+  @override
+  Future<void> carregarProximosEventos() {
+    return _$carregarProximosEventosAsyncAction
+        .run(() => super.carregarProximosEventos());
+  }
+
   late final _$obterEstatisticasAsyncAction =
       AsyncAction('_EventosBase.obterEstatisticas', context: context);
 
   @override
   Future<void> obterEstatisticas() {
     return _$obterEstatisticasAsyncAction.run(() => super.obterEstatisticas());
+  }
+
+  late final _$buscarPorTituloAsyncAction =
+      AsyncAction('_EventosBase.buscarPorTitulo', context: context);
+
+  @override
+  Future<void> buscarPorTitulo(String titulo) {
+    return _$buscarPorTituloAsyncAction
+        .run(() => super.buscarPorTitulo(titulo));
   }
 
   late final _$obterEventoPorIdAsyncAction =
@@ -230,44 +256,11 @@ mixin _$EventosController on _EventosBase, Store {
   }
 
   @override
-  void carregarEventos() {
-    final _$actionInfo = _$_EventosBaseActionController.startAction(
-        name: '_EventosBase.carregarEventos');
-    try {
-      return super.carregarEventos();
-    } finally {
-      _$_EventosBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void carregarProximosEventos() {
-    final _$actionInfo = _$_EventosBaseActionController.startAction(
-        name: '_EventosBase.carregarProximosEventos');
-    try {
-      return super.carregarProximosEventos();
-    } finally {
-      _$_EventosBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   void alterarVisualizacao(TipoVisualizacao novaVisualizacao) {
     final _$actionInfo = _$_EventosBaseActionController.startAction(
         name: '_EventosBase.alterarVisualizacao');
     try {
       return super.alterarVisualizacao(novaVisualizacao);
-    } finally {
-      _$_EventosBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void buscarPorTitulo(String titulo) {
-    final _$actionInfo = _$_EventosBaseActionController.startAction(
-        name: '_EventosBase.buscarPorTitulo');
-    try {
-      return super.buscarPorTitulo(titulo);
     } finally {
       _$_EventosBaseActionController.endAction(_$actionInfo);
     }

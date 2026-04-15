@@ -1,21 +1,23 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
+import '../config/api_config.dart';
 import '../constants/constants.dart';
+import '../services/strapi_client.dart';
 import '../utils/url_launcher_utils.dart';
 import 'rich_text_markdown.dart';
 
 /// Widget centralizado para páginas de pastorais/movimentos.
 ///
-/// Todas as páginas que exibem conteúdo dinâmico do Firestore (coleção
-/// "conteudo_pagina_pastoral") compartilham a mesma estrutura visual.
+/// Todas as páginas que exibem conteúdo dinâmico da API Strapi
+/// (content type "pastoral-conteudo") compartilham a mesma estrutura visual.
 /// Este widget elimina a duplicação de código entre os módulos.
 ///
 /// Parâmetros:
 /// - [title]: título exibido na AppBar.
-/// - [documentId]: ID do documento no Firestore.
+/// - [documentId]: slug da pastoral no Strapi (equivalente ao antigo documentId do Firestore).
 /// - [bottomWidget]: widget opcional exibido abaixo das seções (ex.: botão de acesso a membros).
-class PastoralPage extends StatelessWidget {
+class PastoralPage extends StatefulWidget {
   final String title;
   final String documentId;
   final Widget? bottomWidget;
@@ -27,6 +29,13 @@ class PastoralPage extends StatelessWidget {
     this.bottomWidget,
   }) : super(key: key);
 
+  @override
+  State<PastoralPage> createState() => _PastoralPageState();
+}
+
+class _PastoralPageState extends State<PastoralPage> {
+  late final Future<List<Map<String, dynamic>>> _secoesFuture;
+
   /// Regex para detectar números de telefone brasileiros no texto
   static final _regexTelefone = RegExp(
     r'(?:\+55\s?)?'
@@ -34,30 +43,48 @@ class PastoralPage extends StatelessWidget {
     r'\d{4,5}[\s.-]?\d{4}',
   );
 
-  /// Extrai as seções do documento Firebase e ordena pelo campo "ordem".
-  /// Maps cujo nome começa com ">botao" são tratados como botões.
-  /// Maps cujo nome começa com ">imagem" são tratados como imagens.
-  List<Map<String, dynamic>> _extrairSecoes(DocumentSnapshot snapshot) {
-    final data = snapshot.data() as Map<String, dynamic>? ?? {};
-    final secoes = <Map<String, dynamic>>[];
+  @override
+  void initState() {
+    super.initState();
+    _secoesFuture = _carregarSecoes();
+  }
 
-    for (final entry in data.entries) {
-      if (entry.value is Map) {
-        final map = entry.value as Map<String, dynamic>;
-        final ehBotao = entry.key.startsWith('>botao');
-        final ehImagem = entry.key.startsWith('>imagem');
-        secoes.add({
-          'titulo': entry.key,
-          'tipo': ehBotao ? 'botao' : ehImagem ? 'imagem' : 'texto',
-          'texto': (map['texto'] ?? '').toString(),
-          if (ehBotao) 'link': (map['link'] ?? '').toString(),
-          if (ehImagem) 'url': (map['url'] ?? '').toString(),
-          'ordem': (map['ordem'] ?? 999) is int
-              ? map['ordem']
-              : int.tryParse(map['ordem'].toString()) ?? 999,
-        });
+  /// Carrega as seções da pastoral via API Strapi.
+  /// Busca pelo slug e extrai o componente repetível "secoes".
+  Future<List<Map<String, dynamic>>> _carregarSecoes() async {
+    final client = Modular.get<StrapiClient>();
+    final response = await client.get(
+      ApiConfig.pastoralConteudos,
+      queryParameters: {
+        'filters[slug][\$eq]': widget.documentId,
+        'populate': 'secoes,secoes.url_imagem',
+      },
+    );
+    final List data = response.data['data'] ?? [];
+    if (data.isEmpty) return [];
+
+    final pastoral = data.first as Map<String, dynamic>;
+    final List secoesRaw = pastoral['secoes'] ?? [];
+
+    final secoes = secoesRaw.map<Map<String, dynamic>>((s) {
+      final map = s as Map<String, dynamic>;
+      final tipo = map['tipo'] ?? 'texto';
+      final urlImagem = map['url_imagem'];
+      String imagemUrl = '';
+      if (urlImagem is Map<String, dynamic>) {
+        imagemUrl = urlImagem['url'] ?? '';
+      } else if (urlImagem is String) {
+        imagemUrl = urlImagem;
       }
-    }
+      return {
+        'titulo': map['titulo'] ?? '',
+        'tipo': tipo,
+        'texto': (map['texto'] ?? '').toString(),
+        'link': (map['link'] ?? '').toString(),
+        'url': imagemUrl,
+        'ordem': map['ordem'] ?? 999,
+      };
+    }).toList();
 
     secoes.sort((a, b) => (a['ordem'] as int).compareTo(b['ordem'] as int));
     return secoes;
@@ -79,7 +106,7 @@ class PastoralPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: t2,
-        title: Text(title),
+        title: Text(widget.title),
         centerTitle: true,
       ),
       body: Container(
@@ -88,11 +115,8 @@ class PastoralPage extends StatelessWidget {
             image: DecorationImage(image: AssetImage(bg), fit: BoxFit.cover)),
         child: SafeArea(
           child: SingleChildScrollView(
-            child: FutureBuilder<DocumentSnapshot>(
-              future: FirebaseFirestore.instance
-                  .collection('conteudo_pagina_pastoral')
-                  .doc(documentId)
-                  .get(),
+            child: FutureBuilder<List<Map<String, dynamic>>>(
+              future: _secoesFuture,
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return Center(
@@ -100,7 +124,7 @@ class PastoralPage extends StatelessWidget {
                   );
                 }
 
-                final secoes = _extrairSecoes(snapshot.data!);
+                final secoes = snapshot.data!;
 
                 if (secoes.isEmpty) {
                   return Container(
@@ -213,7 +237,7 @@ class PastoralPage extends StatelessWidget {
                         if (i < secoes.length - 1) SizedBox(height: 22),
                       ],
                       SizedBox(height: 22),
-                      if (bottomWidget != null) bottomWidget!,
+                      if (widget.bottomWidget != null) widget.bottomWidget!,
                     ],
                   ),
                 );

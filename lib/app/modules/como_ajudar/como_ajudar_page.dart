@@ -1,7 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:paroquia_sao_lourenco/app/modules/como_ajudar/widgets/como_ajudar_card.dart';
+import 'package:paroquia_sao_lourenco/app/shared/config/api_config.dart';
 import 'package:paroquia_sao_lourenco/app/shared/constants/constants.dart';
+import 'package:paroquia_sao_lourenco/app/shared/services/strapi_client.dart';
 
 class ComoAjudarPage extends StatefulWidget {
   final String title;
@@ -13,6 +15,27 @@ class ComoAjudarPage extends StatefulWidget {
 }
 
 class _ComoAjudarPageState extends State<ComoAjudarPage> {
+  late final Future<List<Map<String, dynamic>>> _comoAjudarFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _comoAjudarFuture = _carregarComoAjudar();
+  }
+
+  Future<List<Map<String, dynamic>>> _carregarComoAjudar() async {
+    final client = Modular.get<StrapiClient>();
+    final response = await client.get(
+      ApiConfig.comoAjudar,
+      queryParameters: {
+        'sort': 'ordem:asc',
+        'populate': 'imagem',
+      },
+    );
+    final List data = response.data['data'] ?? [];
+    return data.cast<Map<String, dynamic>>();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,11 +50,8 @@ class _ComoAjudarPageState extends State<ComoAjudarPage> {
         decoration: BoxDecoration(
           image: DecorationImage(image: AssetImage(bg), fit: BoxFit.cover),
         ),
-        child: FutureBuilder<QuerySnapshot>(
-          future: FirebaseFirestore.instance
-              .collection("como_ajudar")
-              .orderBy('ordem')
-              .get(),
+        child: FutureBuilder<List<Map<String, dynamic>>>(
+          future: _comoAjudarFuture,
           builder: (context, snapshot) {
             // Carregando
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -56,8 +76,10 @@ class _ComoAjudarPageState extends State<ComoAjudarPage> {
               );
             }
 
+            final items = snapshot.data ?? [];
+
             // Sem documentos cadastrados - empty state
-            if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+            if (items.isEmpty) {
               return Center(
                 child: Padding(
                   padding: EdgeInsets.all(32),
@@ -100,8 +122,8 @@ class _ComoAjudarPageState extends State<ComoAjudarPage> {
             return ListView(
               addAutomaticKeepAlives: true,
               padding: EdgeInsets.fromLTRB(10, 5, 10, 100),
-              children: snapshot.data!.docs.map((doc) {
-                return ComoAjudarCard(snapshot: doc);
+              children: items.map((item) {
+                return ComoAjudarCard(data: item);
               }).toList(),
             );
           },

@@ -1,179 +1,150 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:paroquia_sao_lourenco/app/shared/config/api_config.dart';
+import 'package:paroquia_sao_lourenco/app/shared/services/strapi_client.dart';
 import '../models/evento_model.dart';
 
 /// Repository responsável por gerenciar as operações de dados dos eventos
-/// no Firestore Database
+/// via API Strapi
 class EventosRepository {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final String _collection = 'eventos';
+  StrapiClient get _client => Modular.get<StrapiClient>();
 
-  /// Obtém todos os eventos ordenados por data (mais recentes primeiro)
-  Stream<List<EventoModel>> obterEventos() {
-    return _firestore
-        .collection(_collection)
-        .orderBy('data', descending: false)
-        .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => EventoModel.fromDocument(doc))
-            .toList());
+  List<EventoModel> _parseEventos(dynamic responseData) {
+    final List data = responseData['data'] ?? [];
+    return data
+        .map((json) => EventoModel.fromJson(json as Map<String, dynamic>))
+        .toList();
+  }
+
+  /// Obtém todos os eventos ordenados por data
+  Future<List<EventoModel>> obterEventos() async {
+    final response = await _client.get(
+      ApiConfig.eventos,
+      queryParameters: {
+        'sort': 'data:asc',
+        'populate': 'imagem',
+        'pagination[pageSize]': '100',
+      },
+    );
+    return _parseEventos(response.data);
   }
 
   /// Obtém apenas os eventos futuros ordenados por data
-  Stream<List<EventoModel>> obterEventosFuturos() {
-    final agora = Timestamp.fromDate(DateTime.now());
-    
-    return _firestore
-        .collection(_collection)
-        .where('data', isGreaterThanOrEqualTo: agora)
-        .orderBy('data', descending: false)
-        .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => EventoModel.fromDocument(doc))
-            .toList());
+  Future<List<EventoModel>> obterEventosFuturos() async {
+    final agora = DateTime.now().toIso8601String();
+    final response = await _client.get(
+      ApiConfig.eventos,
+      queryParameters: {
+        'filters[data][\$gte]': agora,
+        'sort': 'data:asc',
+        'populate': 'imagem',
+        'pagination[pageSize]': '100',
+      },
+    );
+    return _parseEventos(response.data);
   }
 
   /// Obtém apenas os eventos passados ordenados por data (mais recentes primeiro)
-  Stream<List<EventoModel>> obterEventosPassados() {
-    final agora = Timestamp.fromDate(DateTime.now());
-    
-    return _firestore
-        .collection(_collection)
-        .where('data', isLessThan: agora)
-        .orderBy('data', descending: true)
-        .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => EventoModel.fromDocument(doc))
-            .toList());
+  Future<List<EventoModel>> obterEventosPassados() async {
+    final agora = DateTime.now().toIso8601String();
+    final response = await _client.get(
+      ApiConfig.eventos,
+      queryParameters: {
+        'filters[data][\$lt]': agora,
+        'sort': 'data:desc',
+        'populate': 'imagem',
+        'pagination[pageSize]': '100',
+      },
+    );
+    return _parseEventos(response.data);
   }
 
-  /// Obtém os próximos eventos (nos próximos 30 dias)
-  Stream<List<EventoModel>> obterProximosEventos({int dias = 30}) {
+  /// Obtém os próximos eventos (nos próximos N dias)
+  Future<List<EventoModel>> obterProximosEventos({int dias = 30}) async {
     final agora = DateTime.now();
-    final proximosPeriodo = agora.add(Duration(days: dias));
-    
-    return _firestore
-        .collection(_collection)
-        .where('data', isGreaterThanOrEqualTo: Timestamp.fromDate(agora))
-        .where('data', isLessThanOrEqualTo: Timestamp.fromDate(proximosPeriodo))
-        .orderBy('data', descending: false)
-        .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => EventoModel.fromDocument(doc))
-            .toList());
+    final limite = agora.add(Duration(days: dias));
+    final response = await _client.get(
+      ApiConfig.eventos,
+      queryParameters: {
+        'filters[data][\$gte]': agora.toIso8601String(),
+        'filters[data][\$lte]': limite.toIso8601String(),
+        'sort': 'data:asc',
+        'populate': 'imagem',
+        'pagination[pageSize]': '100',
+      },
+    );
+    return _parseEventos(response.data);
   }
 
-  /// Obtém um evento específico pelo ID
-  Future<EventoModel?> obterEventoPorId(String id) async {
-    try {
-      final doc = await _firestore.collection(_collection).doc(id).get();
-      
-      if (doc.exists) {
-        return EventoModel.fromDocument(doc);
-      }
-      return null;
-    } catch (e) {
-      throw Exception('Erro ao buscar evento: $e');
-    }
+  /// Obtém um evento específico pelo documentId
+  Future<EventoModel?> obterEventoPorId(String documentId) async {
+    final response = await _client.get(
+      '${ApiConfig.eventos}/$documentId',
+      queryParameters: {'populate': 'imagem'},
+    );
+    final data = response.data['data'];
+    if (data == null) return null;
+    return EventoModel.fromJson(data as Map<String, dynamic>);
   }
 
-  /// Busca eventos por título (case insensitive)
-  Stream<List<EventoModel>> buscarEventosPorTitulo(String titulo) {
-    return _firestore
-        .collection(_collection)
-        .orderBy('titulo')
-        .startAt([titulo.toLowerCase()])
-        .endAt([titulo.toLowerCase() + '\uf8ff'])
-        .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => EventoModel.fromDocument(doc))
-            .toList());
+  /// Busca eventos por título
+  Future<List<EventoModel>> buscarEventosPorTitulo(String titulo) async {
+    final response = await _client.get(
+      ApiConfig.eventos,
+      queryParameters: {
+        'filters[titulo][\$containsi]': titulo,
+        'sort': 'data:asc',
+        'populate': 'imagem',
+        'pagination[pageSize]': '100',
+      },
+    );
+    return _parseEventos(response.data);
   }
 
   /// Obtém eventos em um intervalo de datas específico
-  Stream<List<EventoModel>> obterEventosPorPeriodo({
+  Future<List<EventoModel>> obterEventosPorPeriodo({
     required DateTime dataInicio,
     required DateTime dataFim,
-  }) {
-    return _firestore
-        .collection(_collection)
-        .where('data', isGreaterThanOrEqualTo: Timestamp.fromDate(dataInicio))
-        .where('data', isLessThanOrEqualTo: Timestamp.fromDate(dataFim))
-        .orderBy('data', descending: false)
-        .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => EventoModel.fromDocument(doc))
-            .toList());
+  }) async {
+    final response = await _client.get(
+      ApiConfig.eventos,
+      queryParameters: {
+        'filters[data][\$gte]': dataInicio.toIso8601String(),
+        'filters[data][\$lte]': dataFim.toIso8601String(),
+        'sort': 'data:asc',
+        'populate': 'imagem',
+        'pagination[pageSize]': '100',
+      },
+    );
+    return _parseEventos(response.data);
   }
 
   /// Obtém os eventos do mês atual
-  Stream<List<EventoModel>> obterEventosDoMesAtual() {
+  Future<List<EventoModel>> obterEventosDoMesAtual() {
     final agora = DateTime.now();
     final inicioMes = DateTime(agora.year, agora.month, 1);
     final fimMes = DateTime(agora.year, agora.month + 1, 0, 23, 59, 59);
-    
-    return obterEventosPorPeriodo(
-      dataInicio: inicioMes,
-      dataFim: fimMes,
-    );
+    return obterEventosPorPeriodo(dataInicio: inicioMes, dataFim: fimMes);
   }
 
-  /// Obtém a contagem total de eventos
+  /// Obtém a contagem total de eventos (usando pagination meta)
   Future<int> obterTotalEventos() async {
-    try {
-      final snapshot = await _firestore.collection(_collection).count().get();
-      return snapshot.count ?? 0;
-    } catch (e) {
-      throw Exception('Erro ao contar eventos: $e');
-    }
+    final response = await _client.get(
+      ApiConfig.eventos,
+      queryParameters: {'pagination[pageSize]': '1'},
+    );
+    return response.data['meta']?['pagination']?['total'] ?? 0;
   }
 
   /// Obtém a contagem de eventos futuros
   Future<int> obterTotalEventosFuturos() async {
-    try {
-      final agora = Timestamp.fromDate(DateTime.now());
-      final snapshot = await _firestore
-          .collection(_collection)
-          .where('data', isGreaterThanOrEqualTo: agora)
-          .count()
-          .get();
-      return snapshot.count ?? 0;
-    } catch (e) {
-      throw Exception('Erro ao contar eventos futuros: $e');
-    }
-  }
-
-  /// Métodos para administração (caso seja necessário no futuro)
-  
-  /// Adiciona um novo evento
-  Future<String> adicionarEvento(EventoModel evento) async {
-    try {
-      final docRef = await _firestore
-          .collection(_collection)
-          .add(evento.toMap());
-      return docRef.id;
-    } catch (e) {
-      throw Exception('Erro ao adicionar evento: $e');
-    }
-  }
-
-  /// Atualiza um evento existente
-  Future<void> atualizarEvento(EventoModel evento) async {
-    try {
-      await _firestore
-          .collection(_collection)
-          .doc(evento.id)
-          .update(evento.toMap());
-    } catch (e) {
-      throw Exception('Erro ao atualizar evento: $e');
-    }
-  }
-
-  /// Remove um evento
-  Future<void> removerEvento(String id) async {
-    try {
-      await _firestore.collection(_collection).doc(id).delete();
-    } catch (e) {
-      throw Exception('Erro ao remover evento: $e');
-    }
+    final agora = DateTime.now().toIso8601String();
+    final response = await _client.get(
+      ApiConfig.eventos,
+      queryParameters: {
+        'filters[data][\$gte]': agora,
+        'pagination[pageSize]': '1',
+      },
+    );
+    return response.data['meta']?['pagination']?['total'] ?? 0;
   }
 }

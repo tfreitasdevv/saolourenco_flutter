@@ -1,8 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:paroquia_sao_lourenco/app/modules/horarios/widgets/horario_tile.dart';
+import 'package:paroquia_sao_lourenco/app/shared/config/api_config.dart';
 import 'package:paroquia_sao_lourenco/app/shared/constants/constants.dart';
+import 'package:paroquia_sao_lourenco/app/shared/services/strapi_client.dart';
 
 class HorariosPage extends StatefulWidget {
   final String title;
@@ -14,9 +15,23 @@ class HorariosPage extends StatefulWidget {
 }
 
 class _HorariosPageState extends State<HorariosPage> {
-  //use 'controller' variable to access controller
+  late final Future<List<Map<String, dynamic>>> _horariosFuture;
 
-  bool web = kIsWeb;
+  @override
+  void initState() {
+    super.initState();
+    _horariosFuture = _carregarHorarios();
+  }
+
+  Future<List<Map<String, dynamic>>> _carregarHorarios() async {
+    final client = Modular.get<StrapiClient>();
+    final response = await client.get(
+      ApiConfig.horariosMissa,
+      queryParameters: {'sort': 'ordem:asc'},
+    );
+    final List data = response.data['data'] ?? [];
+    return data.cast<Map<String, dynamic>>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,11 +58,8 @@ class _HorariosPageState extends State<HorariosPage> {
 
   SingleChildScrollView _buildScrollView(BuildContext context) {
     return SingleChildScrollView(
-        child: FutureBuilder<QuerySnapshot>(
-      future: FirebaseFirestore.instance
-          .collection('horarios_missas')
-          .orderBy('ordem')
-          .get(),
+        child: FutureBuilder<List<Map<String, dynamic>>>(
+      future: _horariosFuture,
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Container(
@@ -62,14 +74,13 @@ class _HorariosPageState extends State<HorariosPage> {
           return Container(
             width: MediaQuery.of(context).size.width,
             child: Column(
-              children: snapshot.data!.docs.map((doc) {
-                final data = doc.data() as Map<String, dynamic>?;
-                List missas = data?["missas"] ?? [];
+              children: snapshot.data!.map((item) {
+                final List missas = item["missas"] ?? [];
                 return Column(
                   children: <Widget>[
                     SizedBox(height: 8),
                     Text(
-                      doc["titulo"],
+                      item["titulo"] ?? '',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize:
@@ -82,7 +93,7 @@ class _HorariosPageState extends State<HorariosPage> {
                       shrinkWrap: true,
                       itemCount: missas.length,
                       itemBuilder: (context, index) {
-                        return HorarioTile(horario: missas[index]);
+                        return HorarioTile(horario: missas[index].toString());
                       },
                     ),
                     SizedBox(height: 30)

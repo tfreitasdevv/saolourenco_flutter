@@ -1,21 +1,18 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:paroquia_sao_lourenco/app/shared/constants/constants.dart';
 
 class AvisoMusicaCard extends StatelessWidget {
-  final DocumentSnapshot snapshot;
+  final Map<String, dynamic> data;
 
-  const AvisoMusicaCard({Key? key, required this.snapshot}) : super(key: key);
+  const AvisoMusicaCard({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final data = snapshot.data() as Map<String, dynamic>;
-    Timestamp dataTS = data["data"];
-    DateTime dataDT = DateTime.fromMillisecondsSinceEpoch(dataTS.seconds * 1000);
+    DateTime dataDT = DateTime.parse(data['data']);
     var dataFormatada = DateFormat('dd/MM/yyyy').format(dataDT);
-    String descricaoForm = data['descricao'];
+    String descricaoForm = data['descricao'] ?? '';
     String nD = descricaoForm.replaceAll("\\n", "\n");
 
     return Card(

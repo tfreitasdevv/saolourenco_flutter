@@ -1,10 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 /// Modelo que representa um evento da paróquia
 /// Cada evento contém informações básicas como título, descrição, 
 /// data de realização e opcionalmente uma imagem e link
 class EventoModel {
-  /// ID único do documento no Firestore
+  /// ID único do documento (documentId do Strapi)
   late String id;
   
   /// Data e hora do evento
@@ -16,54 +14,43 @@ class EventoModel {
   /// Descrição detalhada do evento (opcional, compatível com markdown)
   String? descricao;
   
-  /// URL da imagem do evento armazenada no Firebase Storage (opcional)
+  /// URL da imagem do evento (opcional)
   String? imagem;
   
   /// Link externo relacionado ao evento (opcional)
   String? link;
 
-  /// Construtor que cria um EventoModel a partir de um DocumentSnapshot do Firestore
-  EventoModel.fromDocument(DocumentSnapshot snapshot) {
-    final data = snapshot.data() as Map<String, dynamic>;
+  /// Construtor que cria um EventoModel a partir de um Map da API Strapi v5
+  EventoModel.fromJson(Map<String, dynamic> json) {
+    id = json['documentId'] ?? json['id'].toString();
     
-    id = snapshot.id;
-    
-    // Converte o timestamp do Firestore para DateTime
-    final Timestamp timestamp = data['data'] as Timestamp;
-    this.data = timestamp.toDate();
-    
-    titulo = data['titulo'] as String;
-    descricao = data['descricao'] as String?;
-    imagem = data['imagem'] as String?;
-    link = data['link'] as String?;
-  }
-
-  /// Construtor que cria um EventoModel a partir de um Map
-  EventoModel.fromMap(Map<String, dynamic> data, String documentId) {
-    id = documentId;
-    
-    // Converte o timestamp para DateTime
-    if (data['data'] is Timestamp) {
-      this.data = (data['data'] as Timestamp).toDate();
-    } else if (data['data'] is DateTime) {
-      this.data = data['data'] as DateTime;
+    final String? dataStr = json['data'] as String?;
+    if (dataStr != null) {
+      data = DateTime.parse(dataStr);
     } else {
-      throw ArgumentError('Campo data deve ser Timestamp ou DateTime');
+      data = DateTime.now();
     }
     
-    titulo = data['titulo'] as String;
-    descricao = data['descricao'] as String?;
-    imagem = data['imagem'] as String?;
-    link = data['link'] as String?;
+    titulo = json['titulo'] as String? ?? '';
+    descricao = json['descricao'] as String?;
+    
+    // Imagem pode ser um objeto populado ou null
+    final imagemData = json['imagem'];
+    if (imagemData is Map<String, dynamic>) {
+      imagem = imagemData['url'] as String?;
+    } else if (imagemData is String) {
+      imagem = imagemData;
+    }
+    
+    link = json['link'] as String?;
   }
 
-  /// Converte o EventoModel para um Map para salvar no Firestore
-  Map<String, dynamic> toMap() {
+  /// Converte o EventoModel para JSON para enviar à API
+  Map<String, dynamic> toJson() {
     return {
-      'data': Timestamp.fromDate(data),
+      'data': data.toIso8601String(),
       'titulo': titulo,
       'descricao': descricao,
-      'imagem': imagem,
       'link': link,
     };
   }

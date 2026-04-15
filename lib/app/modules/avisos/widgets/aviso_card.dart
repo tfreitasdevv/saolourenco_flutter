@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -6,20 +5,29 @@ import 'package:paroquia_sao_lourenco/app/shared/constants/constants.dart';
 import 'package:paroquia_sao_lourenco/app/shared/utils/url_launcher_utils.dart';
 
 class AvisoCard extends StatelessWidget {
-  final DocumentSnapshot snapshot;
+  final Map<String, dynamic> data;
 
-  const AvisoCard({Key? key, required this.snapshot}) : super(key: key);
+  const AvisoCard({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final data = snapshot.data() as Map<String, dynamic>;
-    Timestamp dataTS = data["data"];
-    DateTime dataDT =
-        DateTime.fromMillisecondsSinceEpoch(dataTS.seconds * 1000);
-    var dataFormatada = DateFormat('dd/MM/yyyy').format(dataDT);
-    String descricaoForm = data['descricao'];
+    final String? dataStr = data["data"];
+    String dataFormatada = '';
+    if (dataStr != null && dataStr.isNotEmpty) {
+      final dataDT = DateTime.tryParse(dataStr);
+      if (dataDT != null) {
+        dataFormatada = DateFormat('dd/MM/yyyy').format(dataDT);
+      }
+    }
+    String descricaoForm = data['descricao'] ?? '';
     String nD = descricaoForm.replaceAll("\\n", "\n");
-    String image = data["imagem"];
+    final imagem = data["imagem"];
+    String image = '';
+    if (imagem is Map<String, dynamic>) {
+      image = imagem['url'] ?? '';
+    } else if (imagem is String) {
+      image = imagem;
+    }
     String? linkTitulo = data["link_titulo"];
     String? linkUrl = data["link_url"];
 

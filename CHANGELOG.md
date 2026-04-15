@@ -21,6 +21,20 @@ Este documento segue a ideia de organizacao do Keep a Changelog, adaptada ao con
 ### Changed
 
 - Diretrizes do Copilot atualizadas para tornar obrigatoria a manutencao do `CHANGELOG.md`.
+- **Fase 3 da migracao Firebase → Strapi (modulos 3.1 a 3.6):**
+  - **Horarios (3.1):** modulo `horarios` migrado do Firestore para a API Strapi (`GET /api/horario-missas`). Dados carregados via `StrapiClient` em vez de `FirebaseFirestore`. Compativel com Android, iOS e Web.
+  - **Confissoes (3.2):** modulo `confissoes` migrado do Firestore para a API Strapi (`GET /api/confissoes`). Multiplas requisicoes individuais por documento substituidas por uma unica chamada paginada e ordenada.
+  - **Avisos (3.3):** modulo `avisos` migrado do Firestore para a API Strapi (`GET /api/avisos`). Widgets `AvisoCard` e `AvisoCardMarkdown` agora recebem `Map<String, dynamic>` em vez de `DocumentSnapshot`. Imagens populadas via campo de media do Strapi (ImageKit).
+  - **Como Ajudar (3.4):** modulo `como_ajudar` migrado do Firestore para a API Strapi (`GET /api/como-ajudars`). Widget `ComoAjudarCard` atualizado para trabalhar com dados JSON do Strapi.
+  - **Eventos (3.5):** modulo `eventos` migrado do Firestore para a API Strapi (`GET /api/eventos`). `EventosRepository` convertido de Streams (Firestore real-time) para Futures (HTTP sob demanda). `EventoModel.fromDocument` substituido por `EventoModel.fromJson`. `EventosController` simplificado — removidas StreamSubscriptions e metodo `dispose`.
+  - **PastoralPage (3.6):** widget centralizado `PastoralPage` migrado do Firestore para a API Strapi (`GET /api/pastoral-conteudos`). Impacta 23 modulos de pastorais simultaneamente. Extracao de secoes adaptada do formato de maps dinamicos do Firestore para o componente repetivel `secoes` do Strapi. Widget convertido de `StatelessWidget` para `StatefulWidget` para inicializacao do Future no `initState`.
+  - **Avisos Musica (3.7a):** sub-modulo `avisos_musica` do modulo Musica migrado do Firestore para a API Strapi (`GET /api/aviso-musicas`). Widget `AvisoMusicaCard` atualizado de `DocumentSnapshot` para `Map<String, dynamic>`. Timestamp convertido de `Timestamp.seconds` para `DateTime.parse` (ISO 8601).
+  - **Clero (3.7b):** modulo `sobre/tabs/clero.dart` migrado do Firestore para a API Strapi (`GET /api/cleros`). Widget convertido de `StatelessWidget` para `StatefulWidget` com Future no `initState`. Imagem extraida do objeto media populado do Strapi.
+  - **Confissoes Controller (3.7c):** `confissoes_controller.dart` migrado de Firestore para StrapiClient por consistencia (era dead code — nao importado por nenhum modulo).
+
+### Removed
+
+- `lib/app/shared/widgets/firebase_markdown_text.dart` removido — widget de dead code (nunca importado por nenhum arquivo do projeto).
 
 ### Fixed
 
