@@ -5,6 +5,7 @@
 > Atualizado em: 12/04/2026 — Fase 1 concluída (ImageKit substituiu Cloudinary)
 > Atualizado em: 12/04/2026 — PostgreSQL local com Docker (substituiu SQLite), migração para WSL
 > Atualizado em: 14/04/2026 — Ambiente WSL configurado (Docker Engine + PostgreSQL + Strapi rodando)
+> Atualizado em: 14/04/2026 — Fase 2 concluída (camada de abstração Flutter: StrapiClient, StrapiAuthService, ApiConfig)
 > Contém: arquitetura atual, decisões, plano de migração, mapeamento de coleções, código-fonte de referência.
 
 ---
@@ -644,8 +645,8 @@ Atualizar CSP em `config/middlewares.ts` — permitir `ik.imagekit.io` em `img-s
 **2.4** Atualizar modelos de dados
 
 - `EventoModel.fromDocument(DocumentSnapshot)` → `EventoModel.fromJson(Map<String, dynamic>)`
-- Tratar formato Strapi v5: `{ data: { id, attributes: { titulo, data, ... } } }`
-- Campos media são objetos: `{ data: { attributes: { url: "https://..." } } }`
+- Formato Strapi v5 é **flat**: `{ data: [{ id, documentId, titulo, data, ... }] }` (sem wrapper `attributes`)
+- Campos media populados também são flat: `{ id, url, width, height, formats: {...} }`
 - O `toMap()` → `toJson()` sem `Timestamp` (usar ISO 8601 string)
 
 **2.5** Adicionar ao pubspec.yaml
@@ -1127,7 +1128,7 @@ Após reiniciar a sessão WSL, o grupo será efetivado.
 | 6   | **Verificar dados no painel**                   | 🟡 Em andamento                 |
 | 7   | **Deploy no Render.com**                        | 🟢 Baixa (pode ser após Fase 2) |
 
-### ⏳ Fase 2 — Camada de Abstração Flutter (iniciada em 14/04/2026)
+### ✅ Fase 2 — Camada de Abstração Flutter (concluída em 14/04/2026)
 
 **Ambiente**: WSL (projetos no filesystem Linux)
 
@@ -1184,9 +1185,35 @@ O Strapi v5 usa formato **flat** — campos ficam direto em cada item de `data[]
 
 #### Próximo passo: Fase 3 — Migrar módulos
 
-Iniciar pela migração dos módulos na ordem definida na seção 5 (Fase 3).
-O passo 3.1 (Horários) é o mais simples e ideal para validar o client.
+**Estado atual do projeto:**
+
+- Fases 1 e 2 concluídas. Firebase e Strapi coexistem no projeto.
+- `StrapiClient` (Dio + JWT) e `StrapiAuthService` estão criados e registrados no DI (`AppModule`).
+- Strapi v5.42.0 rodando em `http://localhost:1337` com PostgreSQL 16 via Docker no WSL.
+- API pública funcional — testada com `curl` (formato flat v5, sem `attributes`).
+- Nenhum módulo Flutter foi migrado ainda — todos ainda usam Firebase/Firestore direto.
+- Branch: `preparacao-migracao-strapi`.
+
+**Ordem de migração (seção 5, Fase 3):**
+
+1. **Horários** (3.1) — mais simples, valida o client
+2. Confissões (3.2) — MobX controller
+3. Avisos (3.3) — testa imagens/ImageKit
+4. Como Ajudar (3.4)
+5. Eventos (3.5) — filtros, model complexo
+6. **PastoralPage (3.6)** — maior impacto, migra 23 módulos de uma vez
+7. Música (3.7)
+8. Login/Auth (3.8) — mais complexo
+9. Imagens/Constants (3.9) — 30+ URLs
+10. Home (3.10)
+
+**Para iniciar o ambiente de desenvolvimento (WSL):**
+
+```bash
+sudo service docker start
+cd /home/tfreitas/projetos/saolourenco-cms && sudo docker compose up -d && npm run develop
+```
 
 Na nova sessão, diga:
 
-> "Leia `docs/MIGRACAO_FIREBASE_STRAPI.md` e vamos implementar o passo 3.1 (Horários)."
+> "Leia `docs/MIGRACAO_FIREBASE_STRAPI.md` e vamos implementar a Fase 3 começando pelo passo 3.1 (Horários)."
