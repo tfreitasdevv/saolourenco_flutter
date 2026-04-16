@@ -57,13 +57,11 @@ class Atendimento extends StatelessWidget {
             // WhatsApp
             _buildCardAcao(
               context: context,
-              iconeWidget: Image.network(
+              iconeWidget: Image.asset(
                 whatsapp,
                 width: 28,
                 height: 28,
                 color: t5,
-                errorBuilder: (context, error, stackTrace) =>
-                    Icon(Icons.message, color: t5, size: 28),
               ),
               titulo: "WhatsApp",
               conteudo: "(21) 2621-5742",

@@ -157,8 +157,8 @@ dependencies:
 | 3.7b    | Clero             | `sobre/tabs/clero.dart`                                                                               | `GET /api/cleros?filters[funcao][$eq]=paroco&populate=imagem`        | ✅ Migrado                         |
 | 3.7c    | Confissões Ctrl   | `confissoes_controller.dart`                                                                          | `GET /api/confissoes?filters[secao][$eq]=texto_confissoes`           | ✅ Migrado                         |
 | **3.8** | **Login/Auth**    | `auth_repository.dart`, `local_user.dart`, `login_page.dart`, `signup_page.dart`, `profile_page.dart` | `/api/auth/local`, `/api/auth/local/register`, `/api/users/me`       | ✅ Migrado — **reescrito do zero** |
-| 3.9     | Imagens/Constants | `constants.dart`                                                                                      | URLs do ImageKit via Media Library                                   | ⬜ Pendente — 30+ URLs             |
-| 3.10    | Home              | `home_page.dart`                                                                                      | Verificar dados buscados                                             | ⬜ Pendente                        |
+| 3.9     | Imagens/Constants | `constants.dart`                                                                                      | Assets locais (`assets/images/`)                                     | ✅ Migrado — 35 assets locais      |
+| 3.10    | Home              | `home_page.dart`                                                                                      | Verificar dados buscados                                             | ✅ Validado                        |
 
 ---
 
@@ -202,16 +202,16 @@ dependencies:
 
 ### Arquivos que ainda usam Firebase (inventário atualizado em 15/04/2026)
 
-| Arquivo                                                             | Dependência Firebase         | Próximo passo                        |
-| ------------------------------------------------------------------- | ---------------------------- | ------------------------------------ |
-| `lib/app/modules/musica/repositories/escala_musica_repository.dart` | Firestore                    | 🔒 Adiado (musica_mes_corrente)      |
-| `lib/app/modules/musica/models/escala_musica_domingo_model.dart`    | Firestore (DocumentSnapshot) | 🔒 Adiado                            |
-| `lib/app/modules/musica/models/escala_musica_sabado_model.dart`     | Firestore (DocumentSnapshot) | 🔒 Adiado                            |
-| `lib/app/modules/musica/funcoes_auxiliares/preencher_dados.dart`    | Firestore                    | 🔒 Adiado (script de teste)          |
-| `lib/app/shared/constants/constants.dart`                           | Firebase Storage URLs        | Fase 3.9 — trocar URLs para ImageKit |
-| `lib/scripts/criar_confissoes_firebase.dart`                        | Firestore                    | Fase 4 — remover                     |
-| `lib/firebase_options_env.dart`                                     | Config Firebase              | Fase 4 — remover                     |
-| `lib/firebase_options_env.template.dart`                            | Config Firebase              | Fase 4 — remover                     |
+| Arquivo                                                             | Dependência Firebase         | Próximo passo                   |
+| ------------------------------------------------------------------- | ---------------------------- | ------------------------------- |
+| `lib/app/modules/musica/repositories/escala_musica_repository.dart` | Firestore                    | 🔒 Adiado (musica_mes_corrente) |
+| `lib/app/modules/musica/models/escala_musica_domingo_model.dart`    | Firestore (DocumentSnapshot) | 🔒 Adiado                       |
+| `lib/app/modules/musica/models/escala_musica_sabado_model.dart`     | Firestore (DocumentSnapshot) | 🔒 Adiado                       |
+| `lib/app/modules/musica/funcoes_auxiliares/preencher_dados.dart`    | Firestore                    | 🔒 Adiado (script de teste)     |
+| `lib/app/shared/constants/constants.dart`                           | ~~Firebase Storage URLs~~    | ✅ Fase 3.9 — assets locais     |
+| `lib/scripts/criar_confissoes_firebase.dart`                        | Firestore                    | Fase 4 — remover                |
+| `lib/firebase_options_env.dart`                                     | Config Firebase              | Fase 4 — remover                |
+| `lib/firebase_options_env.template.dart`                            | Config Firebase              | Fase 4 — remover                |
 
 ---
 

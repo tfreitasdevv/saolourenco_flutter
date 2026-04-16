@@ -42,6 +42,21 @@ Este documento segue a ideia de organizacao do Keep a Changelog, adaptada ao con
 - Nascimento do usuario convertido de `Timestamp` (Firestore) para string ISO `YYYY-MM-DD` (Strapi).
 - Schema do User no Strapi estendido com campos customizados: `nome`, `celular`, `nascimento`, `sexo`, `endereco` (component `shared.endereco`).
 
+### Changed (Fase 3.9 — Imagens para assets locais)
+
+- **Imagens estaticas migradas de Firebase Storage para assets locais (3.9):** 35 URLs do Firebase Storage em `constants.dart` substituidas por caminhos de assets locais. Imagens baixadas e organizadas em `assets/images/pastorais/`, `assets/images/capelas/`, `assets/images/icones/` e `assets/images/sobre/`. Elimina dependencia de CDN externo para imagens estaticas, funciona offline e em todas as plataformas (Android, iOS, Web).
+- `lib/app/modules/pastorais/widgets/item_card.dart` — `CachedNetworkImage`/`Image.network` substituido por `Image.asset` com `AssetImage`. Removida logica condicional por plataforma (isWeb) — assets locais funcionam uniformemente.
+- `lib/app/modules/home/widgets/icons_home.dart` — `CachedNetworkImage`/`Image.network` substituido por `Image.asset`. Removida logica condicional por plataforma.
+- `lib/app/modules/capelas/capelas_page.dart` — `Image.network` substituido por `Image.asset`.
+- `lib/app/modules/sobre/tabs/capelas.dart` — `Image.network` substituido por `Image.asset`.
+- `lib/app/modules/sobre/tabs/historia.dart` — `Image.network` (com loadingBuilder/errorBuilder) substituido por `Image.asset`.
+- `lib/app/modules/sobre/tabs/atendimento.dart` — icone WhatsApp de `Image.network` para `Image.asset`.
+- `pubspec.yaml` — adicionados diretorios de assets: `pastorais/`, `capelas/`, `icones/`, `sobre/`.
+
+### Changed (Fase 3.10 — Modulo Home validado)
+
+- **Modulo Home validado (3.10):** confirmado que `home_page.dart`, `home_controller.dart`, `home_module.dart` e widgets (`app_bar_home.dart`, `button_home.dart`, `icons_home.dart`) nao possuem dependencias Firebase/Firestore. `LocalUser` ja migrado na Fase 3.8. Icones da home agora carregam de assets locais (Fase 3.9).
+
 ### Removed
 
 - `lib/app/shared/widgets/firebase_markdown_text.dart` removido — widget de dead code (nunca importado por nenhum arquivo do projeto).

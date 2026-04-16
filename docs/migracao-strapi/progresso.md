@@ -325,8 +325,92 @@ Campos adicionados ao User padrão do Strapi (Users & Permissions):
 
 ## Próximos passos
 
-| Passo | Módulo            | Status      | Detalhes                                                          |
-| ----- | ----------------- | ----------- | ----------------------------------------------------------------- |
-| 3.9   | Imagens/Constants | ⬜ Pendente | 30+ URLs Firebase Storage em `constants.dart` → ImageKit.         |
-| 3.10  | Home              | ⬜ Pendente | Sem dependências Firestore diretas. `LocalUser` já migrado (3.8). |
-| —     | Escalas Música    | 🔒 Adiado   | Coleção `musica_mes_corrente` não migrar neste momento.           |
+| Passo | Módulo            | Status      | Detalhes                                                   |
+| ----- | ----------------- | ----------- | ---------------------------------------------------------- |
+| 3.9   | Imagens/Constants | ✅ Migrado  | 35 URLs Firebase Storage → assets locais.                  |
+| 3.10  | Home              | ✅ Validado | Sem dependências Firestore diretas. Ícones agora locais.   |
+| —     | Escalas Música    | 🔒 Adiado   | Coleção `musica_mes_corrente` não migrar neste momento.    |
+| —     | Fase 4            | ⬜ Pendente | Remoção completa do Firebase do `pubspec.yaml` e codebase. |
+
+---
+
+## ✅ Fase 3.9 — Imagens migradas para assets locais (15/04/2026)
+
+**Decisão**: Imagens estáticas (pastorais, capelas, ícones, sobre) migradas de Firebase Storage para assets locais no Flutter. Elimina dependência de CDN externo para conteúdo que não muda dinamicamente, funciona offline e em todas as plataformas.
+
+### Imagens baixadas e organizadas
+
+| Diretório                  | Quantidade | Conteúdo                            |
+| -------------------------- | ---------- | ----------------------------------- |
+| `assets/images/pastorais/` | 24         | Imagens das 24 pastorais/movimentos |
+| `assets/images/capelas/`   | 4          | Fotos das 4 capelas                 |
+| `assets/images/icones/`    | 6          | Ícones de redes sociais (PNG)       |
+| `assets/images/sobre/`     | 1          | Foto lateral da paróquia            |
+| **Total**                  | **35**     |                                     |
+
+### Arquivos alterados
+
+| Arquivo                                            | Mudança                                                               |
+| -------------------------------------------------- | --------------------------------------------------------------------- |
+| `lib/app/shared/constants/constants.dart`          | 35 URLs Firebase Storage → caminhos de assets locais                  |
+| `lib/app/modules/pastorais/widgets/item_card.dart` | `CachedNetworkImage`/`Image.network` → `Image.asset` com `AssetImage` |
+| `lib/app/modules/home/widgets/icons_home.dart`     | `CachedNetworkImage`/`Image.network` → `Image.asset`                  |
+| `lib/app/modules/capelas/capelas_page.dart`        | `Image.network` → `Image.asset`                                       |
+| `lib/app/modules/sobre/tabs/capelas.dart`          | `Image.network` → `Image.asset`                                       |
+| `lib/app/modules/sobre/tabs/historia.dart`         | `Image.network` (com loadingBuilder/errorBuilder) → `Image.asset`     |
+| `lib/app/modules/sobre/tabs/atendimento.dart`      | Ícone WhatsApp: `Image.network` → `Image.asset`                       |
+| `pubspec.yaml`                                     | Adicionados diretórios: `pastorais/`, `capelas/`, `icones/`, `sobre/` |
+
+### Simplificações obtidas
+
+- Removida lógica condicional por plataforma (`isWeb`) nos widgets `ItemCard` e `IconsHome` — assets locais funcionam uniformemente em Android, iOS e Web
+- Removido import de `cached_network_image` nos widgets que só usavam imagens estáticas
+- Removidos `loadingBuilder`/`errorBuilder` desnecessários (assets locais não falham em carregamento de rede)
+
+### Validação
+
+- `flutter analyze lib/` — 0 erros (1 info pré-existente em `eventos_page.dart`)
+- `grep firebasestorage.googleapis.com lib/` — zero URLs residuais em código Dart (apenas em arquivos `.md` de documentação)
+
+---
+
+## ✅ Fase 3.10 — Módulo Home validado (15/04/2026)
+
+**Status**: O módulo Home (`home_page.dart`, `home_controller.dart`, `home_module.dart` e widgets) **não possui dependências Firebase/Firestore**. Confirmado:
+
+- `LocalUser` já migrado para Strapi JWT na Fase 3.8
+- Ícones da home (Instagram, YouTube, WhatsApp, Mapa) agora carregam de assets locais (Fase 3.9)
+- Navegação para módulos filhos (pastorais, avisos, eventos, etc.) — todos já migrados para Strapi
+- Nenhum import de `cloud_firestore`, `firebase_auth` ou `firebase_storage`
+
+---
+
+## Estado atual do projeto (15/04/2026)
+
+- **Fases 1, 2 e 3 concluídas.** Todos os módulos migráveis foram migrados para Strapi.
+- Imagens estáticas agora servidas de assets locais (sem Firebase Storage).
+- `StrapiClient` (Dio + JWT) e `StrapiAuthService` estão criados e registrados no DI (`AppModule`).
+- Strapi v5.42.0 rodando em `http://localhost:1337` com PostgreSQL 16 via Docker no WSL.
+- Branch: `preparacao-migracao-strapi`.
+
+### Dependências Firebase restantes (apenas no módulo Música e infraestrutura)
+
+| Arquivo                                                             | Dependência Firebase         | Status                                |
+| ------------------------------------------------------------------- | ---------------------------- | ------------------------------------- |
+| `lib/app/modules/musica/repositories/escala_musica_repository.dart` | Firestore                    | 🔒 Adiado (musica_mes_corrente)       |
+| `lib/app/modules/musica/models/escala_musica_domingo_model.dart`    | Firestore (DocumentSnapshot) | 🔒 Adiado                             |
+| `lib/app/modules/musica/models/escala_musica_sabado_model.dart`     | Firestore (DocumentSnapshot) | 🔒 Adiado                             |
+| `lib/app/modules/musica/funcoes_auxiliares/preencher_dados.dart`    | Firestore                    | 🔒 Adiado (script de teste)           |
+| `lib/scripts/criar_confissoes_firebase.dart`                        | Firestore                    | Fase 4 — remover                      |
+| `lib/firebase_options_env.dart`                                     | Config Firebase              | Fase 4 — remover                      |
+| `lib/firebase_options_env.template.dart`                            | Config Firebase              | Fase 4 — remover                      |
+| `lib/main.dart`                                                     | `Firebase.initializeApp()`   | Fase 4 — remover quando música migrar |
+
+### Próximos passos
+
+| Passo  | Tarefa                      | Status      | Detalhes                                                                                                            |
+| ------ | --------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------- |
+| Teste  | Teste funcional Auth        | ⬜ Pendente | Login/registro/perfil nas 3 plataformas                                                                             |
+| Teste  | Teste visual imagens locais | ⬜ Pendente | Verificar que todas as imagens carregam corretamente em Android, iOS e Web                                          |
+| Fase 4 | Remoção do Firebase         | ⬜ Pendente | Remover `firebase_storage` do pubspec. Manter `firebase_core`/`firebase_auth`/`cloud_firestore` pelo módulo Música. |
+| Deploy | Deploy atualizado           | ⬜ Pendente | Sessão separada                                                                                                     |

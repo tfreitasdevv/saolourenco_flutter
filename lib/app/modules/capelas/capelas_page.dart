@@ -78,7 +78,7 @@ class _CapelasPageState extends State<CapelasPage> {
       elevation: 8,
       child: Column(
         children: [
-          Image.network(imagem),
+          Image.asset(imagem),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
             child: Align(

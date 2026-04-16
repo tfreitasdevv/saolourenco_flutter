@@ -7,83 +7,49 @@ const String bg = 'assets/images/BG8.jpg';
 const String tercoBranco = 'assets/images/terco-cut-white.png';
 const String iconeBranco = 'assets/images/IconeBranco.png';
 
-//Imagens Firebase Storage
+// Imagens de Pastorais (assets locais)
+const String bastismo = 'assets/images/pastorais/batismo.jpg';
+const String rua = 'assets/images/pastorais/rua.jpg';
+const String cor = 'assets/images/pastorais/batismo.jpg';
+const String catequese = 'assets/images/pastorais/catequese.jpg';
+const String crisma = 'assets/images/pastorais/crisma.jpg';
+const String dizimo = 'assets/images/pastorais/dizimo.jpg';
+const String eac = 'assets/images/pastorais/eac2.jpg';
+const String ecc = 'assets/images/pastorais/ecc.jpg';
+const String ejc = 'assets/images/pastorais/ejc.jpg';
+const String grupo = 'assets/images/pastorais/grupo.jpg';
+const String liturgia = 'assets/images/pastorais/liturgia.jpg';
+const String musica = 'assets/images/pastorais/musica.jpg';
+const String pascom = 'assets/images/pastorais/pascom.jpg';
+const String ejc2 = 'assets/images/pastorais/ejc2.jpg';
+const String mej = 'assets/images/pastorais/mej.jpg';
+const String saude = 'assets/images/pastorais/saude.jpg';
+const String acolitos = 'assets/images/pastorais/acolitos.jpg';
+const String alfabetizacao = 'assets/images/pastorais/alfabetizacao.jpg';
+const String conferencia_sao_vicente = 'assets/images/pastorais/conferencia_sao_vicente.jpg';
+const String eventos = 'assets/images/pastorais/eventos.jpg';
+const String familiar = 'assets/images/pastorais/familiar.jpg';
+const String mae_tres_vezes = 'assets/images/pastorais/mae_tres_vezes.jpg';
+const String promocao_humana = 'assets/images/pastorais/promocao_humana.jpg';
+const String nascituro = 'assets/images/pastorais/nascituro.jpg';
+const String coroinhas = 'assets/images/pastorais/coroinhas.jpg';
 
-const String bastismo =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FPastorais%2Fbatismo.jpg?alt=media&token=c96f6c95-8c77-4393-85c0-e17f43a2bc21';
-const String rua =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FPastorais%2Frua.jpg?alt=media&token=8f660e31-c595-4d5e-b76a-9406e790f3fa';
-const String cor =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FPastorais%2Fbatismo.jpg?alt=media&token=c96f6c95-8c77-4393-85c0-e17f43a2bc21';
-const String catequese =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FPastorais%2Fcatequese.jpg?alt=media&token=67c4e76c-1611-462a-904b-0531c944d130';
-const String crisma =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FPastorais%2Fcrisma.jpg?alt=media&token=0552ad4a-3f3f-4b2e-af7e-0fc1e655e731';
-const String dizimo =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FPastorais%2Fdizimo.jpg?alt=media&token=6dc0c44d-e2c1-44ed-baff-7daf6f7bdfc5';
-const String eac =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FPastorais%2Feac2.jpg?alt=media&token=e5088d4d-a032-4201-a41d-184eece8096d';
-const String ecc =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FPastorais%2Fecc.jpg?alt=media&token=7df5420c-d773-4872-98cb-fcf36adfff8d';
-const String ejc =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FPastorais%2Fejc.jpg?alt=media&token=d52317cf-cb09-4b91-a717-4f01f7cfb8bd';
-const String grupo =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FPastorais%2Fgrupo.jpg?alt=media&token=48c4bded-4429-42c1-b5aa-0a5029b50935';
-const String liturgia =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FPastorais%2Fliturgia.jpg?alt=media&token=bb5357dc-cfbf-4219-ae40-1b1a799cc8d1';
-const String musica =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FPastorais%2Fmusica.jpg?alt=media&token=dc7ced7c-4f32-4a0e-9772-8960d34a826c';
-const String pascom =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FPastorais%2Fpascom.jpg?alt=media&token=a410e4f4-6c3f-4d68-98eb-9f073427d0ee';
-const String ejc2 =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FPastorais%2Fejc2.jpg?alt=media&token=ebd63ebd-52e1-481f-bdc0-73f188e8b46a';
-const String mej =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FPastorais%2Fmej.jpg?alt=media&token=55af65cf-b491-4173-a4b5-c5d458aeefc0';
-const String saude =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FPastorais%2Fsaude.jpg?alt=media&token=541e1300-d0dd-4b4c-9ce7-1d46a6009596';
-const String acolitos =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FPastorais%2Facolitos.jpg?alt=media&token=1e030601-0af3-4734-a4b3-3cb58e201b2d';
-const String alfabetizacao =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FPastorais%2Falfabetizacao.jpg?alt=media&token=52a17b71-24c0-446b-ad8e-f0e7d800c54f';
-const String conferencia_sao_vicente =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FPastorais%2Fconferencia_sao_vicente.jpg?alt=media&token=ad5ca163-c6a2-4cc3-a507-b7b9b85faa66';
-const String eventos =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FPastorais%2Feventos.jpg?alt=media&token=eab0e5d2-6f1a-48bf-adb8-e59fa43cc3bb';
-const String familiar =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FPastorais%2Ffamiliar.jpg?alt=media&token=dfb46493-e94a-4202-9aba-13b04faa0dfe';
-const String mae_tres_vezes =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FPastorais%2Fmae_tres_vezes.jpg?alt=media&token=bdf88723-960a-4cd7-bc06-f259c54c49a0';
-const String promocao_humana =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FPastorais%2Fpromocao_humana.jpg?alt=media&token=6de82717-9989-44a5-b7d8-5d203f99d166';
-const String nascituro =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FPastorais%2Fnascituro.jpg?alt=media&token=a086fe70-c678-4f3b-b624-94469cc7e883';
-const String coroinhas =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FPastorais%2Fcoroinhas.jpg?alt=media&token=ae0acd71-e956-4ec8-91d2-e1cd3a0d1907';
-const String saoLourencoDosIndios =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FCapelas%2FSaoLourencoDosIndios2.jpg?alt=media&token=c0fc45dc-f8c6-4d39-9ef5-70a8eb3b8318';
-const String meninoJesusDePraga =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FCapelas%2FMeninoJesusDePraga2.jpg?alt=media&token=0b6e06e4-f5b1-4848-8315-1de0b8074d7d';
-const String nSraDaConceicao =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FCapelas%2FNSraDaConceicao.jpg?alt=media&token=6e35ba8c-44e6-431a-a9bd-0e362671c71b';
-const String nSraGuadalupe =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FCapelas%2FNSraGuadalupe.jpg?alt=media&token=f1276ff0-ca96-46da-b93d-c946e3402666';    
+// Imagens de Capelas (assets locais)
+const String saoLourencoDosIndios = 'assets/images/capelas/SaoLourencoDosIndios2.jpg';
+const String meninoJesusDePraga = 'assets/images/capelas/MeninoJesusDePraga2.jpg';
+const String nSraDaConceicao = 'assets/images/capelas/NSraDaConceicao.jpg';
+const String nSraGuadalupe = 'assets/images/capelas/NSraGuadalupe.jpg';
 
-const String facebook =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Icones%2Ff.png?alt=media&token=2fdf7fa1-2acc-4aba-90ee-1fc7a380d2ae';
-const String instagram =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Icones%2Fi.png?alt=media&token=3e6bed0c-886b-4b48-8b24-ace072148064';
-const String youtube =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Icones%2Fy2.png?alt=media&token=e5389218-2a14-4dec-a065-50ee6db65f47';
-const String telefone =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Icones%2Ft.png?alt=media&token=8e1a62f2-2bdd-47fb-b7cc-e97384da832b';
-const String mapa =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Icones%2Fm.png?alt=media&token=0a6c3f4c-70f4-4d1c-97c4-6f5c1e907bc6';
-const String whatsapp =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Icones%2Fw.png?alt=media&token=0a6c3f4c-70f4-4d1c-97c4-6f5c1e907bc6';
+// Ícones de redes sociais (assets locais)
+const String facebook = 'assets/images/icones/facebook.png';
+const String instagram = 'assets/images/icones/instagram.png';
+const String youtube = 'assets/images/icones/youtube.png';
+const String telefone = 'assets/images/icones/telefone.png';
+const String mapa = 'assets/images/icones/mapa.png';
+const String whatsapp = 'assets/images/icones/whatsapp.png';
 
-// Imagem da história da paróquia
-const String paroquiaLateral =
-    'https://firebasestorage.googleapis.com/v0/b/sao-lourenco.appspot.com/o/Imagens%2FSobre%2Fparoquia_lateral.jpg?alt=media&token=paroquia-lateral-token';
+// Imagem da história da paróquia (asset local)
+const String paroquiaLateral = 'assets/images/sobre/paroquia_lateral.jpg';
 
 //Cores
 const Color t1 = Color(0xff0D0A08);
