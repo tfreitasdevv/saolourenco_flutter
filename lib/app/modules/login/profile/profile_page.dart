@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -19,7 +18,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final firebase = FirebaseFirestore.instance;
   final localUser = Modular.get<LocalUser>();
   final authRepo = Modular.get<AuthRepository>();
   final TextInputFormatter mascaraCelular = MaskTextInputFormatter(
@@ -35,7 +33,6 @@ class _ProfilePageState extends State<ProfilePage> {
   TextEditingController _bairroController = TextEditingController();
   String? estadoController;
   String? nome;
-  Timestamp? nascimento;
   DateTime? nascimentoData;
   String? nascimentoFormatado;
   String? sexo;
@@ -43,25 +40,25 @@ class _ProfilePageState extends State<ProfilePage> {
   String senha = "********";
 
   Future<void> _recuperarDados() async {
-    final user = localUser.firebaseUser;
-    if (user == null) return;
-    DocumentSnapshot snapshot = await FirebaseFirestore.instance
-        .collection('usuarios')
-        .doc(user.uid)
-        .get();
+    if (!localUser.isLoggedIn()) return;
+    final dados = await authRepo.obterUsuarioProfile();
 
-    final dados = snapshot.data() as Map<String, dynamic>? ?? {};
     _celularController.text = dados["celular"] ?? "";
-    _logradouroController.text = dados["endereco"]?["logradouro"] ?? "";
-    _numeroController.text = dados["endereco"]?["numero"] ?? "";
-    _complementoController.text = dados["endereco"]?["complemento"] ?? "";
-    _bairroController.text = dados["endereco"]?["bairro"] ?? "";
-    _cidadeController.text = dados["endereco"]?["cidade"] ?? "";
-    estadoController = dados["endereco"]?["estado"];
-    nome = dados["nome"];
-    nascimento = dados["nascimento"];
-    nascimentoData = nascimento != null ? DateTime.parse(nascimento!.toDate().toString()) : null;
-    nascimentoFormatado = nascimentoData != null ? DateFormat("dd/MM/yyyy").format(nascimentoData!) : null;
+    final endereco = dados["endereco"];
+    if (endereco is Map<String, dynamic>) {
+      _logradouroController.text = endereco["logradouro"] ?? "";
+      _numeroController.text = endereco["numero"] ?? "";
+      _complementoController.text = endereco["complemento"] ?? "";
+      _bairroController.text = endereco["bairro"] ?? "";
+      _cidadeController.text = endereco["cidade"] ?? "";
+      estadoController = endereco["estado"];
+    }
+    nome = dados["nome"] ?? dados["username"];
+    final nascimentoStr = dados["nascimento"];
+    if (nascimentoStr != null && nascimentoStr is String && nascimentoStr.isNotEmpty) {
+      nascimentoData = DateTime.tryParse(nascimentoStr);
+      nascimentoFormatado = nascimentoData != null ? DateFormat("dd/MM/yyyy").format(nascimentoData!) : null;
+    }
     sexo = dados["sexo"];
     email = dados["email"];
     senha = "********";

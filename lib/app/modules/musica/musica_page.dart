@@ -20,7 +20,7 @@ class MusicaPage extends StatelessWidget {
       documentId: 'musica',
       bottomWidget: Center(
         child: AcessoMembrosButton(funcao: () {
-          if (localUser.firebaseUser == null) {
+          if (!localUser.isLoggedIn()) {
             showDialog(
               barrierDismissible: false,
               context: context,

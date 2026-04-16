@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -18,7 +17,6 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-  final firebase = FirebaseFirestore.instance;
   final localUser = Modular.get<LocalUser>();
   final authRepo = Modular.get<AuthRepository>();
   final TextInputFormatter mascaraCelular = MaskTextInputFormatter(
@@ -387,13 +385,13 @@ class _SignupPageState extends State<SignupPage> {
                               DateTime dataAux = DateFormat("dd/MM/yyyy")
                                   .parse(_nascimentoController.text)
                                   .add(Duration(hours: 3));
-                              Timestamp tsAux = Timestamp.fromDate(dataAux);
+                              String nascimentoISO = DateFormat('yyyy-MM-dd').format(dataAux);
                               Map<String, dynamic> dadosUsuario = {
                                 "nome": _nomeController.text.trim(),
                                 "email":
                                     _emailController.text.toLowerCase().trim(),
                                 "celular": _celularController.text,
-                                "nascimento": tsAux,
+                                "nascimento": nascimentoISO,
                                 "sexo": _sexoController,
                                 "endereco": {
                                   "bairro": _bairroController.text.trim(),

@@ -1,52 +1,62 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
+import 'package:paroquia_sao_lourenco/app/shared/auth/strapi_auth_service.dart';
 
 part 'local_user.g.dart';
 
 class LocalUser = _LocalUserBase with _$LocalUser;
 
 abstract class _LocalUserBase with Store {
-  _LocalUserBase() {
+  final StrapiAuthService _authService;
+
+  _LocalUserBase(this._authService) {
     init();
   }
 
   @action
-  init() async {
-    if (firebaseUser == null) {
-      firebaseUser = FirebaseAuth.instance.currentUser;
-    }
-    if (firebaseUser != null) {
-      DocumentSnapshot docUser = await FirebaseFirestore.instance
-          .collection('usuarios')
-          .doc(firebaseUser!.uid)
-          .get();
-      final data = docUser.data() as Map<String, dynamic>?;
-      if (data != null && data.containsKey('nome')) {
-        mudarNome(data['nome']);
+  Future<void> init() async {
+    try {
+      final autenticado = await _authService.isAuthenticated;
+      if (autenticado) {
+        final data = await _authService.getMe();
+        _popularDados(data);
       }
+    } catch (e) {
+      debugPrint('⚠️ LocalUser.init — token inválido ou expirado: $e');
+      await _authService.logout();
+      clearUser();
     }
   }
 
   @observable
-  User? firebaseUser;
-@action
-setFirebaseUser(User? value) async {
-  firebaseUser = value;
-  if (value != null) {
-    DocumentSnapshot doc = await FirebaseFirestore.instance
-        .collection('usuarios')
-        .doc(value.uid)
-        .get();
-    final data = doc.data() as Map<String, dynamic>?;
-    String nomeAux = data?['nome'] ?? '';
-    await mudarNome(nomeAux);
+  int? userId;
+
+  @observable
+  Map<String, dynamic>? userData;
+
+  @action
+  void setUserData(Map<String, dynamic> data) {
+    _popularDados(data);
   }
-}
+
+  @action
+  void clearUser() {
+    userId = null;
+    userData = null;
+    nome = null;
+    email = null;
+  }
+
+  void _popularDados(Map<String, dynamic> data) {
+    userId = data['id'] as int?;
+    userData = data;
+    nome = data['nome'] as String? ?? data['username'] as String?;
+    email = data['email'] as String?;
+  }
 
   @action
   bool isLoggedIn() {
-    return firebaseUser != null;
+    return userId != null;
   }
 
   @observable

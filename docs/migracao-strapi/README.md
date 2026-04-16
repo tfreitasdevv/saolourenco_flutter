@@ -14,7 +14,7 @@
 > Esta instrução deve ser preservada em todas as atualizações futuras.
 
 > **Criado em**: 11/04/2026
-> **Última atualização**: 15/04/2026 — Reorganização em múltiplos arquivos; decisão de autenticação do zero
+> **Última atualização**: 15/04/2026 — Fase 3.8 (Login/Auth) reescrito do zero com Strapi JWT
 
 ---
 

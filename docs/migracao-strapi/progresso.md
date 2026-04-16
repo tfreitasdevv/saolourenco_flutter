@@ -270,14 +270,63 @@ O Strapi v5 usa formato **flat** — campos ficam direto em cada item de `data[]
 - `StrapiClient` (Dio + JWT) e `StrapiAuthService` estão criados e registrados no DI (`AppModule`).
 - Strapi v5.42.0 rodando em `http://localhost:1337` com PostgreSQL 16 via Docker no WSL.
 - API pública funcional — testada com `curl` (formato flat v5, sem `attributes`).
-- **Módulos 3.1–3.7 migrados** para Strapi. Módulos 3.8–3.10 pendentes.
+- **Módulos 3.1–3.8 migrados** para Strapi. Módulos 3.9–3.10 pendentes.
 - Branch: `preparacao-migracao-strapi`.
+
+---
+
+## ✅ Fase 3.8 — Login/Auth reescrito do zero (15/04/2026)
+
+**Decisão**: Autenticação reescrita do zero com Strapi JWT — sem herança do Firebase Auth.
+
+### Schema do User no Strapi (campos customizados adicionados)
+
+Arquivo criado: `saolourenco-cms/src/extensions/users-permissions/content-types/user/schema.json`
+
+Campos adicionados ao User padrão do Strapi (Users & Permissions):
+
+| Campo        | Tipo                        | Descrição                  |
+| ------------ | --------------------------- | -------------------------- |
+| `nome`       | string                      | Nome completo do usuário   |
+| `celular`    | string                      | Telefone com máscara       |
+| `nascimento` | date                        | Data de nascimento (ISO)   |
+| `sexo`       | enumeration (F, M)          | Sexo do usuário            |
+| `endereco`   | component `shared.endereco` | Endereço completo (single) |
+
+### Arquivos reescritos no Flutter
+
+| Arquivo                                                                | Mudança                                                                                                                                                                                                                                  |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `lib/app/shared/auth/local_user.dart`                                  | Removido `FirebaseAuth`/`Firestore`. Estado baseado em `int? userId` + `Map? userData`. Injetado `StrapiAuthService`. `init()` verifica JWT e chama `getMe()`. Novo `clearUser()`.                                                       |
+| `lib/app/shared/auth/local_user.g.dart`                                | Regenerado via `build_runner` — observáveis: `userId`, `userData`, `isLoading`, `nome`, `email`, `erroAoCriarUsuario`, `erroAoLogar`                                                                                                     |
+| `lib/app/shared/auth/auth_repository.dart`                             | Removido `FirebaseAuth`/`Firestore`. Injetados `StrapiAuthService` + `StrapiClient`. Registro em 2 etapas: `register()` + `updateProfile()`. Login via `login()` + `getMe()`. Recuperação de senha via `POST /api/auth/forgot-password`. |
+| `lib/app/modules/login/login_page.dart`                                | Removido import `firebase_auth`. Removido `FirebaseAuth.instance.signOut()` antes do login. Error codes Firebase mantidos no switch para compatibilidade.                                                                                |
+| `lib/app/modules/login/signup_page.dart`                               | Removido import `cloud_firestore`. `Timestamp.fromDate()` → `DateFormat('yyyy-MM-dd').format()`. Removido `FirebaseFirestore.instance`.                                                                                                  |
+| `lib/app/modules/login/profile/profile_page.dart`                      | Removido import `cloud_firestore`. `_recuperarDados()` usa `authRepo.obterUsuarioProfile()`. Nascimento parseado de string ISO. Endereço extraído como `Map` do Strapi.                                                                  |
+| `lib/app/modules/musica/musica_page.dart`                              | `localUser.firebaseUser == null` → `!localUser.isLoggedIn()`                                                                                                                                                                             |
+| `lib/app/modules/musica/pages/membros_musica/membros_musica_page.dart` | Todas as refs `localUser.firebaseUser` → `localUser.isLoggedIn()`, `localUser.nome`, `localUser.email`                                                                                                                                   |
+
+### Padrões técnicos aplicados
+
+- **Registro de usuário**: 2 etapas — `register(username=email, email, password)` → `updateProfile(userId, dadosExtras)` pois o endpoint padrão Strapi só aceita `username`, `email`, `password`
+- **Username = email**: Strapi requer `username`; usamos o email como username
+- **Nascimento**: `Timestamp` (Firestore) → `"YYYY-MM-DD"` (tipo `date` no Strapi)
+- **Endereço**: Enviado como component `shared.endereco` (já existente no Strapi)
+- **Recuperação de senha**: `POST /api/auth/forgot-password` com `{ email }`. Requer SMTP configurado no Strapi (fallback silencioso se não configurado).
+- **Estado de autenticação**: `userId != null` em vez de `firebaseUser != null`
+- **Init do LocalUser**: Verifica JWT via `_authService.isAuthenticated`; se válido, chama `getMe()` para popular estado; se token expirado (401), faz logout silencioso.
+
+### Validação
+
+- `dart run build_runner build` — 0 erros, 4 outputs
+- `flutter analyze lib/` — 0 erros (1 info pré-existente em `eventos_page.dart`)
+- `grep` Firebase nos arquivos migrados — zero referências residuais
+- **Teste funcional pendente**: o fluxo de login/registro/perfil ainda **não foi testado em tempo de execução**. O único ponto de acesso à autenticação no app é a página da Pastoral da Música, que ainda não exibe dados porque o módulo de música não foi totalmente migrado (escalas adiadas). O teste funcional completo será possível quando houver um ponto de entrada acessível ou quando o módulo de música for concluído.
 
 ## Próximos passos
 
-| Passo | Módulo            | Status      | Detalhes                                                                                                                                                  |
-| ----- | ----------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 3.8   | Login/Auth        | ⬜ Pendente | **Reescrever do zero** — `auth_repository.dart`, `local_user.dart`, login, signup, profile pages. Ver detalhes em [plano-migracao.md](plano-migracao.md). |
-| 3.9   | Imagens/Constants | ⬜ Pendente | 30+ URLs Firebase Storage em `constants.dart` → ImageKit.                                                                                                 |
-| 3.10  | Home              | ⬜ Pendente | Sem dependências Firestore diretas. Usa `LocalUser` (pendente 3.8).                                                                                       |
-| —     | Escalas Música    | 🔒 Adiado   | Coleção `musica_mes_corrente` não migrar neste momento.                                                                                                   |
+| Passo | Módulo            | Status      | Detalhes                                                          |
+| ----- | ----------------- | ----------- | ----------------------------------------------------------------- |
+| 3.9   | Imagens/Constants | ⬜ Pendente | 30+ URLs Firebase Storage em `constants.dart` → ImageKit.         |
+| 3.10  | Home              | ⬜ Pendente | Sem dependências Firestore diretas. `LocalUser` já migrado (3.8). |
+| —     | Escalas Música    | 🔒 Adiado   | Coleção `musica_mes_corrente` não migrar neste momento.           |

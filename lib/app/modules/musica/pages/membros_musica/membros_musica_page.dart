@@ -36,18 +36,18 @@ class _MembrosMusicaPageState extends State<MembrosMusicaPage>
               children: <Widget>[
                 UserAccountsDrawerHeader(
                   decoration: BoxDecoration(color: t2),
-                  accountName: Text(localUser.firebaseUser == null
+                  accountName: Text(!localUser.isLoggedIn()
                       ? "Paróquia São Lourenço"
                       : (localUser.nome ?? "Paróquia São Lourenço")),
                   accountEmail: GestureDetector(
-                    onTap: localUser.firebaseUser == null
+                    onTap: !localUser.isLoggedIn()
                         ? () {
                             Modular.to.pushNamed('/login');
                           }
                         : () {},
-                    child: Text(localUser.firebaseUser == null
+                    child: Text(!localUser.isLoggedIn()
                         ? "CLIQUE AQUI PARA FAZER LOGIN"
-                        : (localUser.firebaseUser?.email ?? "")),
+                        : (localUser.email ?? "")),
                   ),
                   currentAccountPicture:
                       InkWell(child: Image.asset(iconeBranco)),
@@ -65,7 +65,7 @@ class _MembrosMusicaPageState extends State<MembrosMusicaPage>
                   ),
                 ),
                 Container(
-                  child: localUser.firebaseUser == null
+                  child: !localUser.isLoggedIn()
                       ? null
                       : InkWell(
                           onTap: () {
@@ -81,7 +81,7 @@ class _MembrosMusicaPageState extends State<MembrosMusicaPage>
                         ),
                 ),
                 Container(
-                  child: localUser.firebaseUser == null
+                  child: !localUser.isLoggedIn()
                       ? null
                       : InkWell(
                           onTap: () {
@@ -115,7 +115,7 @@ class _MembrosMusicaPageState extends State<MembrosMusicaPage>
                                         TextButton(
                                             onPressed: () {
                                               authRepo.recuperarSenha(
-                                                  localUser.firebaseUser?.email ?? "");
+                                                  localUser.email ?? "");
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(SnackBar(
                                                 content: Container(
@@ -192,7 +192,7 @@ class _MembrosMusicaPageState extends State<MembrosMusicaPage>
                         ),
                 ),
                 Container(
-                  child: localUser.firebaseUser == null
+                  child: !localUser.isLoggedIn()
                       ? null
                       : InkWell(
                           onTap: () {

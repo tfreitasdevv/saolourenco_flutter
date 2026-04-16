@@ -9,19 +9,35 @@ part of 'local_user.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$LocalUser on _LocalUserBase, Store {
-  late final _$firebaseUserAtom =
-      Atom(name: '_LocalUserBase.firebaseUser', context: context);
+  late final _$userIdAtom =
+      Atom(name: '_LocalUserBase.userId', context: context);
 
   @override
-  User? get firebaseUser {
-    _$firebaseUserAtom.reportRead();
-    return super.firebaseUser;
+  int? get userId {
+    _$userIdAtom.reportRead();
+    return super.userId;
   }
 
   @override
-  set firebaseUser(User? value) {
-    _$firebaseUserAtom.reportWrite(value, super.firebaseUser, () {
-      super.firebaseUser = value;
+  set userId(int? value) {
+    _$userIdAtom.reportWrite(value, super.userId, () {
+      super.userId = value;
+    });
+  }
+
+  late final _$userDataAtom =
+      Atom(name: '_LocalUserBase.userData', context: context);
+
+  @override
+  Map<String, dynamic>? get userData {
+    _$userDataAtom.reportRead();
+    return super.userData;
+  }
+
+  @override
+  set userData(Map<String, dynamic>? value) {
+    _$userDataAtom.reportWrite(value, super.userData, () {
+      super.userData = value;
     });
   }
 
@@ -107,20 +123,34 @@ mixin _$LocalUser on _LocalUserBase, Store {
       AsyncAction('_LocalUserBase.init', context: context);
 
   @override
-  Future init() {
+  Future<void> init() {
     return _$initAsyncAction.run(() => super.init());
-  }
-
-  late final _$setFirebaseUserAsyncAction =
-      AsyncAction('_LocalUserBase.setFirebaseUser', context: context);
-
-  @override
-  Future setFirebaseUser(User? value) {
-    return _$setFirebaseUserAsyncAction.run(() => super.setFirebaseUser(value));
   }
 
   late final _$_LocalUserBaseActionController =
       ActionController(name: '_LocalUserBase', context: context);
+
+  @override
+  void setUserData(Map<String, dynamic> data) {
+    final _$actionInfo = _$_LocalUserBaseActionController.startAction(
+        name: '_LocalUserBase.setUserData');
+    try {
+      return super.setUserData(data);
+    } finally {
+      _$_LocalUserBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void clearUser() {
+    final _$actionInfo = _$_LocalUserBaseActionController.startAction(
+        name: '_LocalUserBase.clearUser');
+    try {
+      return super.clearUser();
+    } finally {
+      _$_LocalUserBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   bool isLoggedIn() {
@@ -202,7 +232,8 @@ mixin _$LocalUser on _LocalUserBase, Store {
   @override
   String toString() {
     return '''
-firebaseUser: ${firebaseUser},
+userId: ${userId},
+userData: ${userData},
 isLoading: ${isLoading},
 nome: ${nome},
 email: ${email},

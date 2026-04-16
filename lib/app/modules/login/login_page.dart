@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -200,7 +199,6 @@ class _LoginPageState extends State<LoginPage> {
                         return ElevatedButton(
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              FirebaseAuth.instance.signOut();
                               authRepo.logar(
                                   email: _emailController.text.trim(),
                                   senha: _senhaController.text.trim(),

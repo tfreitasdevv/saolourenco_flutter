@@ -33,6 +33,14 @@ Este documento segue a ideia de organizacao do Keep a Changelog, adaptada ao con
   - **Avisos Musica (3.7a):** sub-modulo `avisos_musica` do modulo Musica migrado do Firestore para a API Strapi (`GET /api/aviso-musicas`). Widget `AvisoMusicaCard` atualizado de `DocumentSnapshot` para `Map<String, dynamic>`. Timestamp convertido de `Timestamp.seconds` para `DateTime.parse` (ISO 8601).
   - **Clero (3.7b):** modulo `sobre/tabs/clero.dart` migrado do Firestore para a API Strapi (`GET /api/cleros`). Widget convertido de `StatelessWidget` para `StatefulWidget` com Future no `initState`. Imagem extraida do objeto media populado do Strapi.
   - **Confissoes Controller (3.7c):** `confissoes_controller.dart` migrado de Firestore para StrapiClient por consistencia (era dead code — nao importado por nenhum modulo).
+  - **Login/Auth (3.8):** autenticacao reescrita do zero com Strapi JWT, sem heranca do Firebase Auth. `local_user.dart` reescrito: estado baseado em `userId`/`userData` com verificacao de JWT no `init()`. `auth_repository.dart` reescrito: registro em 2 etapas (`register` + `updateProfile`), login via `login` + `getMe`, recuperacao de senha via `POST /api/auth/forgot-password`. `login_page.dart`, `signup_page.dart` e `profile_page.dart` atualizados para usar os novos servicos. Campos customizados adicionados ao User do Strapi (nome, celular, nascimento, sexo, endereco). Compativel com Android, iOS e Web. **Nota:** teste funcional pendente — o fluxo de autenticacao so e acessivel pela Pastoral da Musica, que ainda nao exibe dados (modulo nao totalmente migrado).
+
+### Changed (auth-related)
+
+- `lib/app/modules/musica/musica_page.dart` — verificacao de autenticacao atualizada de `localUser.firebaseUser == null` para `!localUser.isLoggedIn()`.
+- `lib/app/modules/musica/pages/membros_musica/membros_musica_page.dart` — todas as referencias `localUser.firebaseUser` substituidas por `localUser.isLoggedIn()`, `localUser.nome` e `localUser.email`.
+- Nascimento do usuario convertido de `Timestamp` (Firestore) para string ISO `YYYY-MM-DD` (Strapi).
+- Schema do User no Strapi estendido com campos customizados: `nome`, `celular`, `nascimento`, `sexo`, `endereco` (component `shared.endereco`).
 
 ### Removed
 
