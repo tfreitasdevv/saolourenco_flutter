@@ -20,6 +20,8 @@ Este documento segue a ideia de organizacao do Keep a Changelog, adaptada ao con
 
 ### Changed
 
+- Documentacao da migracao Firebase → Strapi reorganizada: documento unico `docs/MIGRACAO_FIREBASE_STRAPI.md` dividido em 7 arquivos tematicos em `docs/migracao-strapi/` (README, arquitetura, colecoes, padroes, plano, setup e progresso). O documento original agora redireciona para o novo diretorio.
+- Decisao de autenticacao atualizada: a autenticacao sera **implementada do zero** com Strapi Users & Permissions, sem herdar ou adaptar o codigo Firebase Auth existente. Motivacao: acoplamento forte ao Firebase, endpoints JWT nativos do Strapi ja disponiveis, e StrapiAuthService ja criado na Fase 2.
 - Diretrizes do Copilot atualizadas para tornar obrigatoria a manutencao do `CHANGELOG.md`.
 - **Fase 3 da migracao Firebase → Strapi (modulos 3.1 a 3.6):**
   - **Horarios (3.1):** modulo `horarios` migrado do Firestore para a API Strapi (`GET /api/horario-missas`). Dados carregados via `StrapiClient` em vez de `FirebaseFirestore`. Compativel com Android, iOS e Web.
