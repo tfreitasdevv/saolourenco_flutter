@@ -21,6 +21,7 @@ Este documento segue a ideia de organizacao do Keep a Changelog, adaptada ao con
 ### Changed
 
 - Documentacao da migracao Firebase → Strapi reorganizada: documento unico `docs/MIGRACAO_FIREBASE_STRAPI.md` dividido em 7 arquivos tematicos em `docs/migracao-strapi/` (README, arquitetura, colecoes, padroes, plano, setup e progresso). O documento original agora redireciona para o novo diretorio.
+- Guia `docs/migracao-strapi/SETUP_NOVO_COMPUTADOR.md` ampliado com instalacao e configuracao do Android Studio no WSL, incluindo preparo do WSLg, variaveis de ambiente do SDK/Java e orientacoes sobre uso de dispositivo fisico ou emulador no Windows host para evitar problemas de virtualizacao no Android Emulator.
 - Decisao de autenticacao atualizada: a autenticacao sera **implementada do zero** com Strapi Users & Permissions, sem herdar ou adaptar o codigo Firebase Auth existente. Motivacao: acoplamento forte ao Firebase, endpoints JWT nativos do Strapi ja disponiveis, e StrapiAuthService ja criado na Fase 2.
 - Diretrizes do Copilot atualizadas para tornar obrigatoria a manutencao do `CHANGELOG.md`.
 - **Fase 3 da migracao Firebase → Strapi (modulos 3.1 a 3.6):**
@@ -63,6 +64,7 @@ Este documento segue a ideia de organizacao do Keep a Changelog, adaptada ao con
 
 ### Fixed
 
+- Corrigida a instrucao de download do Android Studio no guia `docs/migracao-strapi/SETUP_NOVO_COMPUTADOR.md`: a URL fixa anterior passou a retornar `404 Not Found`. O documento agora extrai o link Linux atual diretamente da pagina oficial do Android Studio, reduzindo quebra de setup no WSL.
 - Corrigido o build Android no WSL ao remover configuracao de `org.gradle.java.home` com caminho Windows.
 - Corrigido o caminho da keystore Android para um caminho Linux compativel com WSL.
 - Corrigidos travamentos de caches Kotlin e artefatos Java no build Android por meio de limpeza de caches locais e recompilacao.

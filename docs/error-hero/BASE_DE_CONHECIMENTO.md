@@ -80,3 +80,10 @@ Template pronto: [TEMPLATE_INCIDENTE.md](./incidentes/TEMPLATE_INCIDENTE.md)
 - Origem da evidencia: Usuario + Agente Copilot
 - Status: resolvido
 - Detalhes: [EH-003-caches-kotlin-e-javac-travados.md](./incidentes/EH-003-caches-kotlin-e-javac-travados.md)
+
+### EH-004 - Download do Android Studio retorna 404 no WSL
+
+- Categoria: Infra
+- Origem da evidencia: Usuario + Agente Copilot
+- Status: resolvido
+- Detalhes: [EH-004-download-android-studio-404-wsl.md](./incidentes/EH-004-download-android-studio-404-wsl.md)

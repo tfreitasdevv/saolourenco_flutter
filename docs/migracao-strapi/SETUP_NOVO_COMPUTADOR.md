@@ -13,6 +13,7 @@
 - **WSL 2** instalado com **Ubuntu 24.04** (ou 22.04+)
 - **Git** com acesso aos repositórios (GitHub, etc.)
 - **VS Code** com a extensão "WSL" (recomendado)
+- **Windows 11** ou **Windows 10 build 19044+** se quiser abrir apps GUI Linux com **WSLg** (necessário para rodar o Android Studio dentro do WSL)
 
 Se o WSL ainda não estiver instalado, abra o **PowerShell como administrador** no Windows e execute:
 
@@ -137,7 +138,113 @@ flutter doctor
 
 > `flutter doctor` vai mostrar o que falta. Para desenvolvimento Android, você precisará do Android SDK. Para Web, normalmente já funciona de imediato.
 
-### 4.1. Instalar o Android SDK (opcional, para build Android)
+### 4.1. Instalar o Android Studio no WSL (opcional, recomendado para Android)
+
+Se voce quiser usar a IDE completa dentro do Linux/WSL, use o Android Studio via **WSLg**.
+
+> **Quando usar esta opcao?**
+>
+> - Se voce quer abrir projeto Android com interface grafica no proprio WSL
+> - Se voce quer usar SDK Manager, Logcat, Device Manager e ferramentas da IDE
+> - Se voce quer manter Flutter, Gradle e Android SDK no mesmo ambiente Linux
+>
+> **Importante:** o Android Studio funciona no WSL com GUI, mas o **emulador Android acelerado por hardware nao e a melhor opcao dentro do WSL**. Para testar no Android, prefira:
+>
+> - **dispositivo fisico** conectado com depuracao USB
+> - **emulador rodando no Windows host**
+>
+> Motivo: o emulador precisa de aceleracao por virtualizacao, e a propria documentacao do Android alerta que nao se deve executar emulador com VM acceleration dentro de outra VM. Como o WSL ja roda em ambiente virtualizado, esse cenario costuma ser limitado ou instavel.
+
+#### 4.1.1. Garantir suporte a apps GUI no WSL
+
+No **PowerShell do Windows como administrador**, execute:
+
+```powershell
+wsl --update
+wsl --shutdown
+```
+
+Depois, abra novamente o Ubuntu no WSL.
+
+Se quiser confirmar rapidamente que apps GUI estao funcionando no Linux, rode no Ubuntu:
+
+```bash
+sudo apt install -y x11-apps
+xcalc
+```
+
+Se a calculadora abrir, o WSLg esta OK.
+
+#### 4.1.2. Instalar dependencias adicionais
+
+```bash
+sudo apt update
+sudo apt install -y libgtk2.0-0 libgtk-3-0 libgbm1 libasound2t64 openjdk-17-jdk
+```
+
+> O `openjdk-17-jdk` ajuda a manter o ambiente Android/Gradle compativel no WSL. Se o `flutter doctor` reclamar de Java, esta etapa resolve.
+
+#### 4.1.3. Baixar e instalar o Android Studio
+
+```bash
+cd /tmp
+ANDROID_STUDIO_URL=$(curl -fsSL https://developer.android.com/studio \
+  | grep -o 'https://edgedl.me.gvt1.com/android/studio/ide-zips/[0-9.]\+/android-studio-[^" ]*linux\.tar\.gz' \
+  | head -n 1)
+
+wget "$ANDROID_STUDIO_URL" -O android-studio.tar.gz
+
+# Instalar em /opt
+sudo tar -xzf android-studio.tar.gz -C /opt
+
+# Criar atalho no PATH para abrir pelo terminal
+sudo ln -sf /opt/android-studio/bin/studio /usr/local/bin/android-studio
+```
+
+> Esse comando busca o link Linux atual diretamente da pagina oficial do Android Studio. Isso evita `404 Not Found` quando o Google muda a versao numerica ou o codinome do pacote.
+
+Para abrir pela primeira vez:
+
+```bash
+android-studio
+```
+
+No primeiro start:
+
+- escolha `Do not import settings` se for instalacao nova
+- conclua o `Setup Wizard`
+- mantenha os componentes recomendados do Android SDK
+
+#### 4.1.4. Configurar variaveis de ambiente do Android SDK
+
+Depois que o Setup Wizard terminar, adicione o SDK ao ambiente do WSL:
+
+```bash
+echo 'export ANDROID_HOME="$HOME/Android/Sdk"' >> ~/.bashrc
+echo 'export ANDROID_SDK_ROOT="$HOME/Android/Sdk"' >> ~/.bashrc
+echo 'export JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"' >> ~/.bashrc
+echo 'export PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+Verifique:
+
+```bash
+flutter doctor -v
+sdkmanager --list | head
+adb version
+java -version
+```
+
+> Se o `sdkmanager` ainda nao for encontrado, abra o Android Studio e confirme em **More Actions > SDK Manager** se o pacote **Android SDK Command-line Tools (latest)** esta instalado.
+
+#### 4.1.5. Criar atalho no menu do Windows (opcional)
+
+Se quiser que o Android Studio apareca no menu iniciar do Windows via WSLg, rode o proprio Android Studio e use:
+
+- `Tools > Create Desktop Entry`
+
+### 4.2. Instalar o Android SDK via linha de comando (alternativa leve)
 
 Se for trabalhar com Android:
 
@@ -160,7 +267,9 @@ yes | sdkmanager --licenses
 sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
 ```
 
-### 4.2. Instalar o Chrome (para debug Web)
+> Use esta opcao se voce **nao** quiser instalar o Android Studio. Se instalar o Android Studio pela secao anterior, prefira usar o SDK gerenciado por ele em `$HOME/Android/Sdk` para evitar dois SDKs diferentes no mesmo ambiente.
+
+### 4.3. Instalar o Chrome (para debug Web)
 
 ```bash
 # Instalar Google Chrome no WSL (necessário para flutter run -d chrome)
@@ -349,6 +458,8 @@ flutter run
 
 > Para listar dispositivos disponíveis: `flutter devices`
 
+> Se estiver usando Android Studio dentro do WSL, o caminho mais estavel e testar em **dispositivo fisico** ou em **emulador iniciado no Windows host**. O app Flutter pode continuar rodando a partir do WSL normalmente, desde que o `adb devices` enxergue o dispositivo.
+
 ---
 
 ## Parte 8 — Comandos do dia a dia
@@ -447,6 +558,7 @@ docker compose down
 | -------------- | -------------------- |
 | Flutter        | 3.22.0 (stable)      |
 | Dart           | (incluso no Flutter) |
+| Android Studio | 2025.3.4+            |
 | Node.js        | v22.22.2             |
 | Strapi         | v5.42.0              |
 | PostgreSQL     | 16 (via Docker)      |
@@ -484,6 +596,45 @@ O Flutter não está no PATH. Adicione novamente:
 echo 'export PATH="$HOME/flutter/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
 ```
+
+### "Android Studio nao abre no WSL"
+
+Primeiro, atualize o WSL no Windows:
+
+```powershell
+wsl --update
+wsl --shutdown
+```
+
+Depois, reabra o Ubuntu e teste uma GUI simples:
+
+```bash
+sudo apt install -y x11-apps
+xcalc
+```
+
+Se o `xcalc` nao abrir, o problema esta no WSLg/GUI do Windows, nao no Android Studio.
+
+### "sdkmanager: command not found"
+
+Confirme se o Android SDK Command-line Tools foi instalado e se o PATH esta correto:
+
+```bash
+echo $ANDROID_HOME
+echo $PATH
+ls -la $ANDROID_HOME/cmdline-tools
+```
+
+Se estiver usando Android Studio, abra **SDK Manager** e instale **Android SDK Command-line Tools (latest)**.
+
+### Emulador Android lento ou nao inicia no WSL
+
+Prefira uma destas opcoes:
+
+- usar **dispositivo fisico** com USB debugging
+- rodar o **emulador no Windows host**
+
+O emulador acelerado depende de virtualizacao/hypervisor e esse fluxo dentro do WSL pode falhar ou ficar muito lento.
 
 ### "node: command not found"
 
