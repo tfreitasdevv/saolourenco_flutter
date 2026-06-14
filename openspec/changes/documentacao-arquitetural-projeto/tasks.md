@@ -12,9 +12,9 @@
 
 ## 3. Uso de Insumos Graphify com Curadoria
 
-- [ ] 3.1 Levantar potenciais relações e componentes a partir de `graphify-out/GRAPH_REPORT.md`, `graphify-out/graph.json` e `graphify-out/manifest.json`
-- [ ] 3.2 Validar manualmente cada inferência relevante do Graphify contra código-fonte e docs oficiais antes de registrar em `docs/arquitetura`
-- [ ] 3.3 Registrar no processo que Graphify é fonte auxiliar e não fonte normativa da arquitetura
+- [x] 3.1 Levantar potenciais relações e componentes a partir de `graphify-out/GRAPH_REPORT.md`, `graphify-out/graph.json` e `graphify-out/manifest.json`
+- [x] 3.2 Validar manualmente cada inferência relevante do Graphify contra código-fonte e docs oficiais antes de registrar em `docs/arquitetura`
+- [x] 3.3 Registrar no processo que Graphify é fonte auxiliar e não fonte normativa da arquitetura
 
 ## 4. Governança e Atualização Contínua
 

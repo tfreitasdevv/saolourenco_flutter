@@ -86,6 +86,7 @@ Este documento foi validado contra:
 - ✓ Estrutura real do repositório em data X
 - ✓ Código-fonte analisado até commit HASH
 - ✓ Graphify report data Y (se aplicável)
+- ✓ Classificação explícita entre fonte normativa e fonte auxiliar
 - [ ] Revisão por especialista em domínio
 
 **Próxima revisão**: Agendar se houver mudanças relevantes em módulos, integrações ou camadas.
@@ -140,3 +141,4 @@ O aplicativo da Paróquia São Lourenço é um sistema mobile/web que permite...
 
 **Uso**: Copie esta estrutura ao criar novos artefatos em `docs/arquitetura/`.  
 Adapte seções conforme necessário, mas mantenha as obrigatórias (Identificação, Contexto, Decisões, Validação).
+Quando usar Graphify, registre explicitamente quais pontos foram apenas levantados, quais foram confirmados e quais foram descartados.

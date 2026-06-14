@@ -86,6 +86,8 @@ Para cada artefato produzido, verificar:
    - Componentes importantes não foram omitidos
    - Insumos de Graphify foram validados manualmente
 
+- Inferências aceitas foram registradas com evidência primária e inferências rejeitadas não foram promovidas a fatos arquiteturais
+
 3. **Contra documentação oficial**:
    - Referências a Flutter, Firebase, OneSignal, etc estão de acordo com versões usadas no projeto
    - Não há contradições com docs existentes em `docs/`
@@ -98,5 +100,6 @@ Para cada artefato produzido, verificar:
 - [ ] Decisões Arquiteturais registradas
 - [ ] Todos os artefatos referenciam código-fonte real
 - [ ] Graphify foi consultado e insumos foram curados
+- [ ] Há registro explícito da distinção entre fonte auxiliar e fonte normativa
 - [ ] Nenhuma contradição entre artefatos
 - [ ] Índice de navegação está atualizado
