@@ -1,0 +1,23 @@
+## 1. Estrutura Base de Documentação
+
+- [ ] 1.1 Criar e padronizar a estrutura de `docs/arquitetura` com índice principal e convenções de navegação
+- [ ] 1.2 Definir template mínimo para documentos arquiteturais (contexto, escopo, decisões, impactos e referências)
+- [ ] 1.3 Estabelecer critérios objetivos de cobertura mínima para visão de contexto, módulos/componentes, integrações e dados
+
+## 2. Produção do Baseline Arquitetural
+
+- [ ] 2.1 Documentar visão de contexto do sistema e principais fronteiras arquiteturais do app
+- [ ] 2.2 Documentar organização por camadas/módulos com responsabilidades e relações entre componentes
+- [ ] 2.3 Documentar integrações externas e fluxos de dados críticos em nível arquitetural
+
+## 3. Uso de Insumos Graphify com Curadoria
+
+- [ ] 3.1 Levantar potenciais relações e componentes a partir de `graphify-out/GRAPH_REPORT.md`, `graphify-out/graph.json` e `graphify-out/manifest.json`
+- [ ] 3.2 Validar manualmente cada inferência relevante do Graphify contra código-fonte e docs oficiais antes de registrar em `docs/arquitetura`
+- [ ] 3.3 Registrar no processo que Graphify é fonte auxiliar e não fonte normativa da arquitetura
+
+## 4. Governança e Atualização Contínua
+
+- [ ] 4.1 Definir gatilho de atualização arquitetural para mudanças que impactem módulos, integrações, camadas ou fluxos críticos
+- [ ] 4.2 Incluir checklist de revisão arquitetural no fluxo de mudanças para prevenir obsolescência documental
+- [ ] 4.3 Revisar consistência final e rastreabilidade entre documentação arquitetural e estrutura real do repositório

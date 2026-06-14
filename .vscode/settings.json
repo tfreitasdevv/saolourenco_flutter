@@ -1,3 +1,6 @@
 {
-  "dart.hotReloadOnSave": "all"
+  "dart.hotReloadOnSave": "all",
+  "chat.tools.terminal.autoApprove": {
+    "openspec": true
+  }
 }
