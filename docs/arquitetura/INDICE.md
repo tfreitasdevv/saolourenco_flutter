@@ -56,6 +56,18 @@ Revisar e atualizar artefatos em `docs/arquitetura` quando mudanças impactarem:
 - ✓ Camadas ou padrões de comunicação
 - ✓ Fluxos de dados críticos
 
+### Definição Operacional do Gatilho
+
+Uma mudança é considerada de impacto arquitetural quando pelo menos um dos critérios abaixo for verdadeiro:
+
+- Altera contratos entre módulos em `lib/app/modules/` ou responsabilidades em `lib/app/shared/`
+- Adiciona, remove ou substitui integração externa (ex: Firebase, OneSignal, APIs de terceiros)
+- Modifica bootstrap global, DI, roteamento raiz ou padrão de estado global
+- Introduz novo fluxo crítico de autenticação, dados, notificações ou sincronização
+- Muda premissas técnicas de plataforma, build/deploy ou segurança arquitetural
+
+Nesses casos, a atualização dos documentos impactados em `docs/arquitetura` é obrigatória no mesmo ciclo da mudança.
+
 ### Checklist de Revisão em Mudanças
 
 Ao trabalhar em mudanças com potencial impacto arquitetural:
@@ -65,6 +77,15 @@ Ao trabalhar em mudanças com potencial impacto arquitetural:
 - [ ] Se Graphify for usado, registrar quais inferências foram apenas levantadas e quais foram confirmadas em fontes primárias
 - [ ] Validar rastreabilidade entre documentação e implementação
 - [ ] Revisar consistência com Graphify e fontes oficiais
+- [ ] Verificar se `04-DECISOES-ARQUITETURAIS.md` permanece coerente com as escolhas atuais
+
+### Checklist Rápido para PR com Impacto Arquitetural
+
+- [ ] O PR altera módulos/camadas/integrações/fluxos críticos?
+- [ ] Se sim, os arquivos de `docs/arquitetura` impactados foram atualizados?
+- [ ] As referências de código citadas nos documentos continuam válidas?
+- [ ] Há divergência entre docs arquiteturais e estrutura real do repositório?
+- [ ] Se Graphify foi consultado, a curadoria foi registrada no anexo?
 
 ## Cobertura Mínima Obrigatória
 

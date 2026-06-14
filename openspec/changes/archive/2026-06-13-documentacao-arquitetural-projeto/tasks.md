@@ -18,6 +18,6 @@
 
 ## 4. Governança e Atualização Contínua
 
-- [ ] 4.1 Definir gatilho de atualização arquitetural para mudanças que impactem módulos, integrações, camadas ou fluxos críticos
-- [ ] 4.2 Incluir checklist de revisão arquitetural no fluxo de mudanças para prevenir obsolescência documental
-- [ ] 4.3 Revisar consistência final e rastreabilidade entre documentação arquitetural e estrutura real do repositório
+- [x] 4.1 Definir gatilho de atualização arquitetural para mudanças que impactem módulos, integrações, camadas ou fluxos críticos
+- [x] 4.2 Incluir checklist de revisão arquitetural no fluxo de mudanças para prevenir obsolescência documental
+- [x] 4.3 Revisar consistência final e rastreabilidade entre documentação arquitetural e estrutura real do repositório

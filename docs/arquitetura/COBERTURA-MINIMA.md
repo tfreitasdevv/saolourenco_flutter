@@ -103,3 +103,23 @@ Para cada artefato produzido, verificar:
 - [ ] Há registro explícito da distinção entre fonte auxiliar e fonte normativa
 - [ ] Nenhuma contradição entre artefatos
 - [ ] Índice de navegação está atualizado
+
+## Revisão Final de Consistência e Rastreabilidade (2026-06-13)
+
+### Resultado da revisão
+
+- ✓ Estrutura `docs/arquitetura` contém os artefatos canônicos esperados (`INDICE`, contexto, módulos, integrações, decisões, cobertura e anexo Graphify)
+- ✓ Referências arquiteturais principais batem com a estrutura real do código em `lib/app/modules/`, `lib/app/shared/` e bootstrap em `lib/main.dart`
+- ✓ Decisões técnicas centrais foram consolidadas em `04-DECISOES-ARQUITETURAIS.md`
+- ✓ Distinção entre fonte normativa (código/docs oficiais) e fonte auxiliar (Graphify) está explícita no índice e no anexo de curadoria
+
+### Pontos validados na estrutura real do repositório
+
+- `lib/app/modules/` contém os módulos de domínio e core citados na documentação
+- `lib/app/shared/` contém camadas compartilhadas (`auth`, `constants`, `services`, `utils`, `widgets`)
+- `lib/app/app_module.dart` e `lib/main.dart` sustentam a visão de composição e bootstrap registrada
+
+### Conclusão
+
+Baseline arquitetural consistente com a estrutura atual do repositório na data da revisão.
+Próximas mudanças com impacto arquitetural devem seguir o gatilho e checklist definidos em `INDICE.md`.
