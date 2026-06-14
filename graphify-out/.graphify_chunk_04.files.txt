@@ -1,0 +1,3 @@
+/home/tfreitas/projetos/saolourenco_flutter/web/index_template.html
+/home/tfreitas/projetos/saolourenco_flutter/web/icons/Icon-192.png
+/home/tfreitas/projetos/saolourenco_flutter/web/icons/Icon-512.png

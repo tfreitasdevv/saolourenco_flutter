@@ -1,0 +1,1377 @@
+{
+  "/home/tfreitas/projetos/saolourenco_flutter/.vscode/settings.json": {
+    "mtime": 1781396694.1355972,
+    "ast_hash": "6e6a585bdaa433b2c6c1364b3206c5c1",
+    "semantic_hash": "6e6a585bdaa433b2c6c1364b3206c5c1"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/android/app/build.gradle": {
+    "mtime": 1776019618.8172164,
+    "ast_hash": "41e1c11d8ece53d03963142872a892a6",
+    "semantic_hash": "41e1c11d8ece53d03963142872a892a6"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java": {
+    "mtime": 1776306772.5792525,
+    "ast_hash": "dd108bda26558b952cfabcd9caccdfb8",
+    "semantic_hash": "dd108bda26558b952cfabcd9caccdfb8"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/android/app/src/main/kotlin/com/saolourenco/paroquia_sao_lourenco/MainActivity.kt": {
+    "mtime": 1776019618.8212163,
+    "ast_hash": "d3af430fd666ecc1fba891e80bd197f4",
+    "semantic_hash": "d3af430fd666ecc1fba891e80bd197f4"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/android/app/src/main/kotlin/com/saolourenco/paroquia_sao_lourenco_v2/MainActivity.kt": {
+    "mtime": 1776019618.8212163,
+    "ast_hash": "23a8bf6bebaf63ce11d42502aa5f5dd2",
+    "semantic_hash": "23a8bf6bebaf63ce11d42502aa5f5dd2"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/android/build.gradle": {
+    "mtime": 1776019618.8332164,
+    "ast_hash": "d7c00d8699cfd35eb46b089cfab3ae71",
+    "semantic_hash": "d7c00d8699cfd35eb46b089cfab3ae71"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/android/gradlew": {
+    "mtime": 1776126575.2935822,
+    "ast_hash": "7f1cd7eb3f75a1dc85cd37753972a6e2",
+    "semantic_hash": "7f1cd7eb3f75a1dc85cd37753972a6e2"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/android/settings.gradle": {
+    "mtime": 1776019618.8332164,
+    "ast_hash": "101f692decb47f78b5fa3dc772235c0a",
+    "semantic_hash": "101f692decb47f78b5fa3dc772235c0a"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/cors.json": {
+    "mtime": 1781396694.1355972,
+    "ast_hash": "718445b0bc62210b2f3494b7ad4459fb",
+    "semantic_hash": "718445b0bc62210b2f3494b7ad4459fb"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/deploy-web.sh": {
+    "mtime": 1776019618.8492165,
+    "ast_hash": "f715fe3556ad49bea9dc0b851936b313",
+    "semantic_hash": "f715fe3556ad49bea9dc0b851936b313"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/firebase.json": {
+    "mtime": 1776019618.8532164,
+    "ast_hash": "c214505b86f6e5508fc343a4826dcaad",
+    "semantic_hash": "c214505b86f6e5508fc343a4826dcaad"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/ios/Flutter/flutter_export_environment.sh": {
+    "mtime": 1776025631.5719116,
+    "ast_hash": "31c97329d7290fae3caac75ee21f8f7e",
+    "semantic_hash": "31c97329d7290fae3caac75ee21f8f7e"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/ios/Runner/AppDelegate.swift": {
+    "mtime": 1776019618.8572164,
+    "ast_hash": "640effd31ad5be56ac222976d95a5878",
+    "semantic_hash": "640effd31ad5be56ac222976d95a5878"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json": {
+    "mtime": 1776019618.8612163,
+    "ast_hash": "c3cdf9688b604d14f2e76a8287e16167",
+    "semantic_hash": "c3cdf9688b604d14f2e76a8287e16167"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/ios/Runner/Assets.xcassets/LaunchImage.imageset/Contents.json": {
+    "mtime": 1776019618.8612163,
+    "ast_hash": "770f4f65e02ca2fc57f46f4f4148d15d",
+    "semantic_hash": "770f4f65e02ca2fc57f46f4f4148d15d"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/ios/Runner/GeneratedPluginRegistrant.h": {
+    "mtime": 1776306772.5792525,
+    "ast_hash": "decb9041b5e91a07e66f4664e5dac408",
+    "semantic_hash": "decb9041b5e91a07e66f4664e5dac408"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/ios/Runner/GeneratedPluginRegistrant.m": {
+    "mtime": 1776306772.5836525,
+    "ast_hash": "f82da85f982dee43d8bbbedaacdc72fb",
+    "semantic_hash": "f82da85f982dee43d8bbbedaacdc72fb"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/ios/Runner/Runner-Bridging-Header.h": {
+    "mtime": 1776019618.8612163,
+    "ast_hash": "e07862ac930ed4d8479185d52c6cc66d",
+    "semantic_hash": "e07862ac930ed4d8479185d52c6cc66d"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/app_controller.dart": {
+    "mtime": 1776019618.8652165,
+    "ast_hash": "da77a1f03ca5960b39d078edaef036db",
+    "semantic_hash": "da77a1f03ca5960b39d078edaef036db"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/app_controller.g.dart": {
+    "mtime": 1776216241.028322,
+    "ast_hash": "095268265536b2fe0ac01c6fbac8be7f",
+    "semantic_hash": "095268265536b2fe0ac01c6fbac8be7f"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/app_module.dart": {
+    "mtime": 1781396694.1361697,
+    "ast_hash": "f786e857a2a6a12dbab43998d9ef7c17",
+    "semantic_hash": "f786e857a2a6a12dbab43998d9ef7c17"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/app_widget.dart": {
+    "mtime": 1776019618.8652165,
+    "ast_hash": "8d8af20aca8c0b01936390c461417ec4",
+    "semantic_hash": "8d8af20aca8c0b01936390c461417ec4"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/acolitos/acolitos_controller.dart": {
+    "mtime": 1776019618.8652165,
+    "ast_hash": "be1959b29eef4da682c613712c6eb599",
+    "semantic_hash": "be1959b29eef4da682c613712c6eb599"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/acolitos/acolitos_controller.g.dart": {
+    "mtime": 1776216241.309988,
+    "ast_hash": "2eb9b162789dba79f38bcef50bd2e3a2",
+    "semantic_hash": "2eb9b162789dba79f38bcef50bd2e3a2"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/acolitos/acolitos_module.dart": {
+    "mtime": 1776019618.8652165,
+    "ast_hash": "a0db0cf4cd22c915bb3af1b0e84c08a5",
+    "semantic_hash": "a0db0cf4cd22c915bb3af1b0e84c08a5"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/acolitos/acolitos_page.dart": {
+    "mtime": 1776019618.8652165,
+    "ast_hash": "2880bc18609f55f44b82ea68cd4faf5f",
+    "semantic_hash": "2880bc18609f55f44b82ea68cd4faf5f"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/alfabetizacao/alfabetizacao_controller.dart": {
+    "mtime": 1776019618.8652165,
+    "ast_hash": "6fedcac61e0f60e02557d86015ed0822",
+    "semantic_hash": "6fedcac61e0f60e02557d86015ed0822"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/alfabetizacao/alfabetizacao_controller.g.dart": {
+    "mtime": 1776216241.041322,
+    "ast_hash": "7956b3c5e95ed0f47a75ed69cbc61645",
+    "semantic_hash": "7956b3c5e95ed0f47a75ed69cbc61645"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/alfabetizacao/alfabetizacao_module.dart": {
+    "mtime": 1776019618.8652165,
+    "ast_hash": "fd85681e2b30c9bbd0f0793a4ef6d29a",
+    "semantic_hash": "fd85681e2b30c9bbd0f0793a4ef6d29a"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/alfabetizacao/alfabetizacao_page.dart": {
+    "mtime": 1776019618.8652165,
+    "ast_hash": "93ae59eaa283da555850acb5ba71211f",
+    "semantic_hash": "93ae59eaa283da555850acb5ba71211f"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/avisos/avisos_controller.dart": {
+    "mtime": 1776019618.8652165,
+    "ast_hash": "c88631bef6210eef360a83bb6a936514",
+    "semantic_hash": "c88631bef6210eef360a83bb6a936514"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/avisos/avisos_controller.g.dart": {
+    "mtime": 1776216241.0456553,
+    "ast_hash": "dc32b3c79d3ae56a7d8e555e40c891b7",
+    "semantic_hash": "dc32b3c79d3ae56a7d8e555e40c891b7"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/avisos/avisos_module.dart": {
+    "mtime": 1776019618.8652165,
+    "ast_hash": "74bcff1b0b14c4af7318a95240188c01",
+    "semantic_hash": "74bcff1b0b14c4af7318a95240188c01"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/avisos/avisos_page.dart": {
+    "mtime": 1781396694.1364803,
+    "ast_hash": "af64644885aedcf6f729045556865e13",
+    "semantic_hash": "af64644885aedcf6f729045556865e13"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/avisos/widgets/aviso_card.dart": {
+    "mtime": 1781396694.1367445,
+    "ast_hash": "2f10f6905717c402a61ca2e6ce1b7e45",
+    "semantic_hash": "2f10f6905717c402a61ca2e6ce1b7e45"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/avisos/widgets/aviso_card_markdown.dart": {
+    "mtime": 1781396694.1372154,
+    "ast_hash": "61db135df4a2ce9caf7826a01268da7f",
+    "semantic_hash": "61db135df4a2ce9caf7826a01268da7f"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/batismo/batismo_controller.dart": {
+    "mtime": 1776019618.8692164,
+    "ast_hash": "88d76393a0e75c2c63f90a5ac7772a2d",
+    "semantic_hash": "88d76393a0e75c2c63f90a5ac7772a2d"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/batismo/batismo_controller.g.dart": {
+    "mtime": 1776216241.227655,
+    "ast_hash": "ae45820d5df5a900a1e0506de7c7933d",
+    "semantic_hash": "ae45820d5df5a900a1e0506de7c7933d"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/batismo/batismo_module.dart": {
+    "mtime": 1776019618.8692164,
+    "ast_hash": "ba08cac4ab9d174cbd0a2035b110a98d",
+    "semantic_hash": "ba08cac4ab9d174cbd0a2035b110a98d"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/batismo/batismo_page.dart": {
+    "mtime": 1776019618.8692164,
+    "ast_hash": "6eedc36b4f26b184278003a1a5af889f",
+    "semantic_hash": "6eedc36b4f26b184278003a1a5af889f"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/capelas/capelas_controller.dart": {
+    "mtime": 1776019618.8692164,
+    "ast_hash": "8d29a1d8d99b9c990afc8b8aa6c01e30",
+    "semantic_hash": "8d29a1d8d99b9c990afc8b8aa6c01e30"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/capelas/capelas_controller.g.dart": {
+    "mtime": 1776216241.0456553,
+    "ast_hash": "c1651a2e1d81c9da65e5088fbaf7462f",
+    "semantic_hash": "c1651a2e1d81c9da65e5088fbaf7462f"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/capelas/capelas_module.dart": {
+    "mtime": 1776019618.8692164,
+    "ast_hash": "b83db8d710e810e764832680a1e415a8",
+    "semantic_hash": "b83db8d710e810e764832680a1e415a8"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/capelas/capelas_page.dart": {
+    "mtime": 1781396694.1373668,
+    "ast_hash": "21c4d73d5745abf51f2510f54cd6e314",
+    "semantic_hash": "21c4d73d5745abf51f2510f54cd6e314"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/catequese/catequese_controller.dart": {
+    "mtime": 1776019618.8692164,
+    "ast_hash": "5ba5cedc949f4b91d38f3c8640c8af46",
+    "semantic_hash": "5ba5cedc949f4b91d38f3c8640c8af46"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/catequese/catequese_controller.g.dart": {
+    "mtime": 1776216241.0456553,
+    "ast_hash": "dc8b582ee98d7b053f8c473d7b94dec3",
+    "semantic_hash": "dc8b582ee98d7b053f8c473d7b94dec3"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/catequese/catequese_module.dart": {
+    "mtime": 1776019618.8692164,
+    "ast_hash": "842c6c9872d0c07f45cc13c9c42564fe",
+    "semantic_hash": "842c6c9872d0c07f45cc13c9c42564fe"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/catequese/catequese_page.dart": {
+    "mtime": 1776019618.8692164,
+    "ast_hash": "33783586c10ea857ee64cba7ebdfca4f",
+    "semantic_hash": "33783586c10ea857ee64cba7ebdfca4f"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/como_ajudar/como_ajudar_controller.dart": {
+    "mtime": 1776019618.8692164,
+    "ast_hash": "dc6516b30aba8d182285f1ba5e708f28",
+    "semantic_hash": "dc6516b30aba8d182285f1ba5e708f28"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/como_ajudar/como_ajudar_controller.g.dart": {
+    "mtime": 1776216241.227655,
+    "ast_hash": "058e0d0e81f53e1a297d5928b071ab91",
+    "semantic_hash": "058e0d0e81f53e1a297d5928b071ab91"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/como_ajudar/como_ajudar_module.dart": {
+    "mtime": 1776019618.8692164,
+    "ast_hash": "e489ef199ece1e7424ff758787e591aa",
+    "semantic_hash": "e489ef199ece1e7424ff758787e591aa"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/como_ajudar/como_ajudar_page.dart": {
+    "mtime": 1781396694.1375368,
+    "ast_hash": "f88ff5338c8c53fe17684de5bd3c4f0b",
+    "semantic_hash": "f88ff5338c8c53fe17684de5bd3c4f0b"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/como_ajudar/widgets/como_ajudar_card.dart": {
+    "mtime": 1781396694.1377523,
+    "ast_hash": "0dfc4bc6e8103bc879991e9b3bf21669",
+    "semantic_hash": "0dfc4bc6e8103bc879991e9b3bf21669"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/conferencia_sao_vicente/conferencia_sao_vicente_controller.dart": {
+    "mtime": 1776019618.8732164,
+    "ast_hash": "ddbec86b2081c7634224d522c47a5558",
+    "semantic_hash": "ddbec86b2081c7634224d522c47a5558"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/conferencia_sao_vicente/conferencia_sao_vicente_controller.g.dart": {
+    "mtime": 1776216241.227655,
+    "ast_hash": "45f375efca6daba7e674cc3ad1aa9fee",
+    "semantic_hash": "45f375efca6daba7e674cc3ad1aa9fee"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/conferencia_sao_vicente/conferencia_sao_vicente_module.dart": {
+    "mtime": 1776019618.8732164,
+    "ast_hash": "3e1bf764b3cb3cfd962d4ba97fda6367",
+    "semantic_hash": "3e1bf764b3cb3cfd962d4ba97fda6367"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/conferencia_sao_vicente/conferencia_sao_vicente_page.dart": {
+    "mtime": 1776019618.8732164,
+    "ast_hash": "cb6fcfda8ece3bd6f8280ef4c7d3ff40",
+    "semantic_hash": "cb6fcfda8ece3bd6f8280ef4c7d3ff40"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/confissoes/confissoes_controller.dart": {
+    "mtime": 1781396694.1377523,
+    "ast_hash": "09fe4d693b375b4e9862ae145ca806fd",
+    "semantic_hash": "09fe4d693b375b4e9862ae145ca806fd"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/confissoes/confissoes_controller.g.dart": {
+    "mtime": 1776304618.0914042,
+    "ast_hash": "4707cf333facbf673e3271b871e4fd13",
+    "semantic_hash": "4707cf333facbf673e3271b871e4fd13"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/confissoes/confissoes_module.dart": {
+    "mtime": 1776019618.8732164,
+    "ast_hash": "44ce6565da811341af24cd715cb490bb",
+    "semantic_hash": "44ce6565da811341af24cd715cb490bb"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/confissoes/confissoes_page.dart": {
+    "mtime": 1781396694.1377523,
+    "ast_hash": "1529b86659d10d596b906d0f29ddefbc",
+    "semantic_hash": "1529b86659d10d596b906d0f29ddefbc"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/cor/cor_controller.dart": {
+    "mtime": 1776019618.8732164,
+    "ast_hash": "5ce6008a4f0ec5cd0688d636366a3f15",
+    "semantic_hash": "5ce6008a4f0ec5cd0688d636366a3f15"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/cor/cor_controller.g.dart": {
+    "mtime": 1776216241.041322,
+    "ast_hash": "d2a1268742fd584c0df9fd59d78e7e27",
+    "semantic_hash": "d2a1268742fd584c0df9fd59d78e7e27"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/cor/cor_module.dart": {
+    "mtime": 1776019618.8732164,
+    "ast_hash": "3bc0c21277d944cb586849b73e6de532",
+    "semantic_hash": "3bc0c21277d944cb586849b73e6de532"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/cor/cor_page.dart": {
+    "mtime": 1776019618.8732164,
+    "ast_hash": "7ba311079b2a8aefdda96d643bf0fe28",
+    "semantic_hash": "7ba311079b2a8aefdda96d643bf0fe28"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/coroinhas/coroinhas_controller.dart": {
+    "mtime": 1776019618.8732164,
+    "ast_hash": "d693bb46f4e9e8c0b515b06b74e1eea0",
+    "semantic_hash": "d693bb46f4e9e8c0b515b06b74e1eea0"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/coroinhas/coroinhas_controller.g.dart": {
+    "mtime": 1776216241.227655,
+    "ast_hash": "20dc92d53702d827f8a5d6c5f7c3ff52",
+    "semantic_hash": "20dc92d53702d827f8a5d6c5f7c3ff52"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/coroinhas/coroinhas_module.dart": {
+    "mtime": 1776019618.8732164,
+    "ast_hash": "e1e94773e14df38af9ed9aef770f1d77",
+    "semantic_hash": "e1e94773e14df38af9ed9aef770f1d77"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/coroinhas/coroinhas_page.dart": {
+    "mtime": 1776019618.8732164,
+    "ast_hash": "fe1d96e97cc01c2ca1cbc7f3a18d602f",
+    "semantic_hash": "fe1d96e97cc01c2ca1cbc7f3a18d602f"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/crisma/crisma_controller.dart": {
+    "mtime": 1776019618.8772163,
+    "ast_hash": "cbf381f700c194adb25acb000b1297ba",
+    "semantic_hash": "cbf381f700c194adb25acb000b1297ba"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/crisma/crisma_controller.g.dart": {
+    "mtime": 1776216241.041322,
+    "ast_hash": "b67cf33c23841c3b822574c85074eb75",
+    "semantic_hash": "b67cf33c23841c3b822574c85074eb75"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/crisma/crisma_module.dart": {
+    "mtime": 1776019618.8772163,
+    "ast_hash": "d99302d7b4768825718f3d312d7e7ffe",
+    "semantic_hash": "d99302d7b4768825718f3d312d7e7ffe"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/crisma/crisma_page.dart": {
+    "mtime": 1776019618.8772163,
+    "ast_hash": "86bfb8acf2af4e153279b60e284689d8",
+    "semantic_hash": "86bfb8acf2af4e153279b60e284689d8"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/dizimo/dizimo_controller.dart": {
+    "mtime": 1776019618.8772163,
+    "ast_hash": "2f9119ad7e5eba6b4eca825e81b87d77",
+    "semantic_hash": "2f9119ad7e5eba6b4eca825e81b87d77"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/dizimo/dizimo_controller.g.dart": {
+    "mtime": 1776216241.041322,
+    "ast_hash": "63ca4a1b3e820e14304d10b287db1b77",
+    "semantic_hash": "63ca4a1b3e820e14304d10b287db1b77"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/dizimo/dizimo_module.dart": {
+    "mtime": 1776019618.8772163,
+    "ast_hash": "75bb74478ffdcad8c8b26c0d99b072cd",
+    "semantic_hash": "75bb74478ffdcad8c8b26c0d99b072cd"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/dizimo/dizimo_page.dart": {
+    "mtime": 1776019618.8772163,
+    "ast_hash": "7068a5c774be2e5d3edc27e982623eb6",
+    "semantic_hash": "7068a5c774be2e5d3edc27e982623eb6"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/eac/eac_controller.dart": {
+    "mtime": 1776019618.8772163,
+    "ast_hash": "0811164f71fee79978e314c8b95c99d4",
+    "semantic_hash": "0811164f71fee79978e314c8b95c99d4"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/eac/eac_controller.g.dart": {
+    "mtime": 1781396694.1381433,
+    "ast_hash": "f82b3598581c47d082c7a92c54c85afa",
+    "semantic_hash": "f82b3598581c47d082c7a92c54c85afa"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/eac/eac_module.dart": {
+    "mtime": 1776019618.8772163,
+    "ast_hash": "1fbb32d089bcb666e5732f2b217e68b6",
+    "semantic_hash": "1fbb32d089bcb666e5732f2b217e68b6"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/eac/eac_page.dart": {
+    "mtime": 1776019618.8772163,
+    "ast_hash": "150135d1af6f82661ca65930e4e27869",
+    "semantic_hash": "150135d1af6f82661ca65930e4e27869"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/ecc/ecc_controller.dart": {
+    "mtime": 1776019618.8772163,
+    "ast_hash": "442c270e4b38295fd87498c4d0db5238",
+    "semantic_hash": "442c270e4b38295fd87498c4d0db5238"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/ecc/ecc_controller.g.dart": {
+    "mtime": 1776216241.041322,
+    "ast_hash": "88252c9d850700e6c5a34c5a664fef8e",
+    "semantic_hash": "88252c9d850700e6c5a34c5a664fef8e"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/ecc/ecc_module.dart": {
+    "mtime": 1776019618.8772163,
+    "ast_hash": "214e982f341fead3b54699ffac1e7d68",
+    "semantic_hash": "214e982f341fead3b54699ffac1e7d68"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/ecc/ecc_page.dart": {
+    "mtime": 1776019618.8772163,
+    "ast_hash": "03f6d084b9ba79f3740db9f7b717ad55",
+    "semantic_hash": "03f6d084b9ba79f3740db9f7b717ad55"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/ejc/ejc_controller.dart": {
+    "mtime": 1776019618.8772163,
+    "ast_hash": "90b69ea46e127157e6a9f30d4d40832f",
+    "semantic_hash": "90b69ea46e127157e6a9f30d4d40832f"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/ejc/ejc_controller.g.dart": {
+    "mtime": 1776216241.041322,
+    "ast_hash": "18e6aebd135988595e8dd14e8c73667e",
+    "semantic_hash": "18e6aebd135988595e8dd14e8c73667e"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/ejc/ejc_module.dart": {
+    "mtime": 1776019618.8772163,
+    "ast_hash": "c3159c127d4793efea12abc0eb30b6e8",
+    "semantic_hash": "c3159c127d4793efea12abc0eb30b6e8"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/ejc/ejc_page.dart": {
+    "mtime": 1776019618.8772163,
+    "ast_hash": "ab418691d45591a3758c931ca2d93e8e",
+    "semantic_hash": "ab418691d45591a3758c931ca2d93e8e"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/eventos/eventos_controller.dart": {
+    "mtime": 1781396694.1382995,
+    "ast_hash": "a859497886e649949ccbd3bafc5827aa",
+    "semantic_hash": "a859497886e649949ccbd3bafc5827aa"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/eventos/eventos_controller.g.dart": {
+    "mtime": 1781396694.1382995,
+    "ast_hash": "d877116da14f256d56b790082e1bf19a",
+    "semantic_hash": "d877116da14f256d56b790082e1bf19a"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/eventos/eventos_module.dart": {
+    "mtime": 1776019618.8812163,
+    "ast_hash": "a411408d84c23a6482203b12b01785bd",
+    "semantic_hash": "a411408d84c23a6482203b12b01785bd"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/eventos/eventos_page.dart": {
+    "mtime": 1781396694.1385505,
+    "ast_hash": "b296b869d128680aa7427c3c8d6dd854",
+    "semantic_hash": "b296b869d128680aa7427c3c8d6dd854"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/eventos/models/evento_model.dart": {
+    "mtime": 1781396694.138707,
+    "ast_hash": "3d2af8df9c24556129c61e0c31870a51",
+    "semantic_hash": "3d2af8df9c24556129c61e0c31870a51"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/eventos/repositories/eventos_repository.dart": {
+    "mtime": 1781396694.138707,
+    "ast_hash": "872f2562f2db4db48752d8cd54b3cd4a",
+    "semantic_hash": "872f2562f2db4db48752d8cd54b3cd4a"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/eventos/widgets/evento_card.dart": {
+    "mtime": 1776019618.8812163,
+    "ast_hash": "81d7a902fcbb2fae7d9d5077b9fa5e4d",
+    "semantic_hash": "81d7a902fcbb2fae7d9d5077b9fa5e4d"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/eventos/widgets/eventos_estados.dart": {
+    "mtime": 1776019618.8812163,
+    "ast_hash": "5f87b3e794cb78c97560a7ae774d0792",
+    "semantic_hash": "5f87b3e794cb78c97560a7ae774d0792"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/eventos/widgets/eventos_estatisticas.dart": {
+    "mtime": 1776019618.8812163,
+    "ast_hash": "2ff6b9c614216134f4b5aeb8148a0eec",
+    "semantic_hash": "2ff6b9c614216134f4b5aeb8148a0eec"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/eventos/widgets/eventos_filtros.dart": {
+    "mtime": 1776019618.8812163,
+    "ast_hash": "2a1fc2c076e7d31c17662221f24946e4",
+    "semantic_hash": "2a1fc2c076e7d31c17662221f24946e4"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/familiar/familiar_controller.dart": {
+    "mtime": 1776019618.8812163,
+    "ast_hash": "86f5f5e97303e5361745a567b0097ed9",
+    "semantic_hash": "86f5f5e97303e5361745a567b0097ed9"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/familiar/familiar_controller.g.dart": {
+    "mtime": 1776216241.3056548,
+    "ast_hash": "ea5b7870189b7f0b32d5c7f72f03a325",
+    "semantic_hash": "ea5b7870189b7f0b32d5c7f72f03a325"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/familiar/familiar_module.dart": {
+    "mtime": 1776019618.8812163,
+    "ast_hash": "91b2a2c2716924ed6682ab4856a7c358",
+    "semantic_hash": "91b2a2c2716924ed6682ab4856a7c358"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/familiar/familiar_page.dart": {
+    "mtime": 1776019618.8812163,
+    "ast_hash": "f28b3be8872fac0aabae97799bff53f9",
+    "semantic_hash": "f28b3be8872fac0aabae97799bff53f9"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/grupo_de_oracao/grupo_de_oracao_controller.dart": {
+    "mtime": 1776019618.8812163,
+    "ast_hash": "89647889646a0d37f35f0c3e2c62cc92",
+    "semantic_hash": "89647889646a0d37f35f0c3e2c62cc92"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/grupo_de_oracao/grupo_de_oracao_controller.g.dart": {
+    "mtime": 1776216241.227655,
+    "ast_hash": "503f10e92f944bf920d1fa4d6206b66c",
+    "semantic_hash": "503f10e92f944bf920d1fa4d6206b66c"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/grupo_de_oracao/grupo_de_oracao_module.dart": {
+    "mtime": 1776019618.8812163,
+    "ast_hash": "6dcaa3cbb5190b61bb02458bf7c3682b",
+    "semantic_hash": "6dcaa3cbb5190b61bb02458bf7c3682b"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/grupo_de_oracao/grupo_de_oracao_page.dart": {
+    "mtime": 1776019618.8812163,
+    "ast_hash": "52403d35eb65477e4cc657839854fba0",
+    "semantic_hash": "52403d35eb65477e4cc657839854fba0"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/home/home_controller.dart": {
+    "mtime": 1776019618.8852165,
+    "ast_hash": "ef574d1880d8536d19114645717f1b72",
+    "semantic_hash": "ef574d1880d8536d19114645717f1b72"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/home/home_controller.g.dart": {
+    "mtime": 1776216241.0456553,
+    "ast_hash": "f891dc81bf3c679e34215a9ffc8a3f7b",
+    "semantic_hash": "f891dc81bf3c679e34215a9ffc8a3f7b"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/home/home_module.dart": {
+    "mtime": 1776019618.8852165,
+    "ast_hash": "22f886bac7a8049c5cc3b20162044c8b",
+    "semantic_hash": "22f886bac7a8049c5cc3b20162044c8b"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/home/home_page.dart": {
+    "mtime": 1776019618.8852165,
+    "ast_hash": "9f26c2149c819f0978758150f77f45a3",
+    "semantic_hash": "9f26c2149c819f0978758150f77f45a3"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/home/widgets/app_bar_home.dart": {
+    "mtime": 1776019618.8852165,
+    "ast_hash": "479f95ff76fb4368466db9d594115ad9",
+    "semantic_hash": "479f95ff76fb4368466db9d594115ad9"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/home/widgets/button_home.dart": {
+    "mtime": 1776019618.8852165,
+    "ast_hash": "939334294ef53b6781fc5b359ba6c2cf",
+    "semantic_hash": "939334294ef53b6781fc5b359ba6c2cf"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/home/widgets/icons_home.dart": {
+    "mtime": 1781396694.138945,
+    "ast_hash": "dbc6aa0a7174dc8c41b10b3d36fb4c83",
+    "semantic_hash": "dbc6aa0a7174dc8c41b10b3d36fb4c83"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/horarios/horarios_controller.dart": {
+    "mtime": 1776019618.8852165,
+    "ast_hash": "7a77c536ac8d5cffcbf238dced7c24b1",
+    "semantic_hash": "7a77c536ac8d5cffcbf238dced7c24b1"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/horarios/horarios_controller.g.dart": {
+    "mtime": 1776216241.227655,
+    "ast_hash": "f9b5a7c8360fc9913c471a4283a28018",
+    "semantic_hash": "f9b5a7c8360fc9913c471a4283a28018"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/horarios/horarios_module.dart": {
+    "mtime": 1776019618.8852165,
+    "ast_hash": "37b27c3811be21288502a10013217422",
+    "semantic_hash": "37b27c3811be21288502a10013217422"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/horarios/horarios_page.dart": {
+    "mtime": 1781396694.1390557,
+    "ast_hash": "9f899b28dc47cf79072a1554b640c7fa",
+    "semantic_hash": "9f899b28dc47cf79072a1554b640c7fa"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/horarios/widgets/horario_tile.dart": {
+    "mtime": 1776019618.8852165,
+    "ast_hash": "2385d51a746d5266094a515eff189c7d",
+    "semantic_hash": "2385d51a746d5266094a515eff189c7d"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/liturgia/liturgia_controller.dart": {
+    "mtime": 1776019618.8852165,
+    "ast_hash": "d7ccc5676039f889b8d791a6307c5dbe",
+    "semantic_hash": "d7ccc5676039f889b8d791a6307c5dbe"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/liturgia/liturgia_controller.g.dart": {
+    "mtime": 1776216241.227655,
+    "ast_hash": "9239ab7a27702507afe6add143f2b01c",
+    "semantic_hash": "9239ab7a27702507afe6add143f2b01c"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/liturgia/liturgia_module.dart": {
+    "mtime": 1776019618.8852165,
+    "ast_hash": "21e4390785854dceb573891ce4f04f52",
+    "semantic_hash": "21e4390785854dceb573891ce4f04f52"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/liturgia/liturgia_page.dart": {
+    "mtime": 1776019618.8852165,
+    "ast_hash": "247f3a4da7119d7c24f4cfd5389cbd64",
+    "semantic_hash": "247f3a4da7119d7c24f4cfd5389cbd64"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/login/login_controller.dart": {
+    "mtime": 1776019618.8892164,
+    "ast_hash": "6ce79868668e1b01f4577b22d7620b69",
+    "semantic_hash": "6ce79868668e1b01f4577b22d7620b69"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/login/login_controller.g.dart": {
+    "mtime": 1776216241.2233217,
+    "ast_hash": "b8ace724b2e9893bc89e98c0ffdcb49c",
+    "semantic_hash": "b8ace724b2e9893bc89e98c0ffdcb49c"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/login/login_module.dart": {
+    "mtime": 1776019618.8892164,
+    "ast_hash": "17c64bc9947c9f1576f2099473107b23",
+    "semantic_hash": "17c64bc9947c9f1576f2099473107b23"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/login/login_page.dart": {
+    "mtime": 1781396694.1393116,
+    "ast_hash": "ffe181350c97baf5586e818623dcfeb9",
+    "semantic_hash": "ffe181350c97baf5586e818623dcfeb9"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/login/profile/profile_controller.dart": {
+    "mtime": 1776019618.8892164,
+    "ast_hash": "89005cc76a19fad2e24ef9d67d5a8be9",
+    "semantic_hash": "89005cc76a19fad2e24ef9d67d5a8be9"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/login/profile/profile_controller.g.dart": {
+    "mtime": 1776216241.227655,
+    "ast_hash": "4d22f791315dc14019e1d56b31ab46db",
+    "semantic_hash": "4d22f791315dc14019e1d56b31ab46db"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/login/profile/profile_page.dart": {
+    "mtime": 1781396694.1394825,
+    "ast_hash": "a6b8086aa9798165acce229691f43f3a",
+    "semantic_hash": "a6b8086aa9798165acce229691f43f3a"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/login/signup_page.dart": {
+    "mtime": 1781396694.1395707,
+    "ast_hash": "7b217ad41279e0070737c10e959e0c26",
+    "semantic_hash": "7b217ad41279e0070737c10e959e0c26"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/mae_tres_vezes/mae_tres_vezes_controller.dart": {
+    "mtime": 1776019618.8892164,
+    "ast_hash": "6c19c520cc160786954115279c74a6bc",
+    "semantic_hash": "6c19c520cc160786954115279c74a6bc"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/mae_tres_vezes/mae_tres_vezes_controller.g.dart": {
+    "mtime": 1776216241.041322,
+    "ast_hash": "c1c200ca1581bac1f7f087b68b52e8ab",
+    "semantic_hash": "c1c200ca1581bac1f7f087b68b52e8ab"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/mae_tres_vezes/mae_tres_vezes_module.dart": {
+    "mtime": 1776019618.8892164,
+    "ast_hash": "c999dde88026bb5c79b42f1dde2b71f9",
+    "semantic_hash": "c999dde88026bb5c79b42f1dde2b71f9"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/mae_tres_vezes/mae_tres_vezes_page.dart": {
+    "mtime": 1776019618.8892164,
+    "ast_hash": "13341f5e13bec7669bd6f048673c0287",
+    "semantic_hash": "13341f5e13bec7669bd6f048673c0287"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/mej/mej_controller.dart": {
+    "mtime": 1776019618.8892164,
+    "ast_hash": "5c99ec6007945bb33e836d7798c1820b",
+    "semantic_hash": "5c99ec6007945bb33e836d7798c1820b"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/mej/mej_controller.g.dart": {
+    "mtime": 1776216241.309988,
+    "ast_hash": "13e38d5266697043066918fe4dc24b55",
+    "semantic_hash": "13e38d5266697043066918fe4dc24b55"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/mej/mej_module.dart": {
+    "mtime": 1776019618.8892164,
+    "ast_hash": "b2df9346b598518ba86ebdb74aade878",
+    "semantic_hash": "b2df9346b598518ba86ebdb74aade878"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/mej/mej_page.dart": {
+    "mtime": 1776019618.8892164,
+    "ast_hash": "b20755b951e4d29642bba228228db79c",
+    "semantic_hash": "b20755b951e4d29642bba228228db79c"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/musica/funcoes_auxiliares/preencher_dados.dart": {
+    "mtime": 1776019618.8932164,
+    "ast_hash": "c04de8a2445f951af489b3ebc830b252",
+    "semantic_hash": "c04de8a2445f951af489b3ebc830b252"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/musica/models/escala_musica_domingo_model.dart": {
+    "mtime": 1776019618.8932164,
+    "ast_hash": "525d7e84f9b5069323e2d64e770b3643",
+    "semantic_hash": "525d7e84f9b5069323e2d64e770b3643"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/musica/models/escala_musica_sabado_model.dart": {
+    "mtime": 1776019618.8932164,
+    "ast_hash": "8334e389afb4ee4af3a9b1ec52a38a29",
+    "semantic_hash": "8334e389afb4ee4af3a9b1ec52a38a29"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/musica/musica_controller.dart": {
+    "mtime": 1776019618.8932164,
+    "ast_hash": "1b9b420573ecead0ae4dd12b6abdf1c1",
+    "semantic_hash": "1b9b420573ecead0ae4dd12b6abdf1c1"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/musica/musica_controller.g.dart": {
+    "mtime": 1776216241.041322,
+    "ast_hash": "56b3adcd5c3b5b7a234e78d92c5072f3",
+    "semantic_hash": "56b3adcd5c3b5b7a234e78d92c5072f3"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/musica/musica_module.dart": {
+    "mtime": 1776019618.8932164,
+    "ast_hash": "5ef7c8632369cbf359238607e15d1d27",
+    "semantic_hash": "5ef7c8632369cbf359238607e15d1d27"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/musica/musica_page.dart": {
+    "mtime": 1781396694.1397,
+    "ast_hash": "cfee9305285223b5dd89cdfd9aa5a940",
+    "semantic_hash": "cfee9305285223b5dd89cdfd9aa5a940"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/musica/pages/membros_musica/avisos_musica_page.dart": {
+    "mtime": 1781396694.1398728,
+    "ast_hash": "624946715e39882ffad7de90e482f6b1",
+    "semantic_hash": "624946715e39882ffad7de90e482f6b1"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/musica/pages/membros_musica/escala_musica_page.dart": {
+    "mtime": 1776019618.8932164,
+    "ast_hash": "a905df2b63833a072a3fdb2cabb20273",
+    "semantic_hash": "a905df2b63833a072a3fdb2cabb20273"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/musica/pages/membros_musica/escala_musica_sabado_page.dart": {
+    "mtime": 1776019618.8932164,
+    "ast_hash": "6ece9f698b3785a8aefce3e0ead42827",
+    "semantic_hash": "6ece9f698b3785a8aefce3e0ead42827"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/musica/pages/membros_musica/membros_musica_controller.dart": {
+    "mtime": 1776019618.8932164,
+    "ast_hash": "cf6404b32fd4185f9334463abba4861e",
+    "semantic_hash": "cf6404b32fd4185f9334463abba4861e"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/musica/pages/membros_musica/membros_musica_controller.g.dart": {
+    "mtime": 1776216241.041322,
+    "ast_hash": "8c03238a7230ce10f8b46ce76640ed93",
+    "semantic_hash": "8c03238a7230ce10f8b46ce76640ed93"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/musica/pages/membros_musica/membros_musica_page.dart": {
+    "mtime": 1781396694.1399953,
+    "ast_hash": "059e3ae654a76af76e2106e6b1b01ed4",
+    "semantic_hash": "059e3ae654a76af76e2106e6b1b01ed4"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/musica/repositories/escala_musica_repository.dart": {
+    "mtime": 1776019618.8932164,
+    "ast_hash": "1b305252a318695d3abc4cc44b92c703",
+    "semantic_hash": "1b305252a318695d3abc4cc44b92c703"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/musica/widgets/aviso_musica_card.dart": {
+    "mtime": 1781396694.1399953,
+    "ast_hash": "0a4e59242a2a28a6bad21fcbe8647bdc",
+    "semantic_hash": "0a4e59242a2a28a6bad21fcbe8647bdc"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/nascituro/nascituro_controller.dart": {
+    "mtime": 1776019618.8972163,
+    "ast_hash": "e5ad5ca8570bdd12543e59860e6395a8",
+    "semantic_hash": "e5ad5ca8570bdd12543e59860e6395a8"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/nascituro/nascituro_controller.g.dart": {
+    "mtime": 1776216241.227655,
+    "ast_hash": "e7715c773a85904ae9000ef18b58b50c",
+    "semantic_hash": "e7715c773a85904ae9000ef18b58b50c"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/nascituro/nascituro_module.dart": {
+    "mtime": 1776019618.8972163,
+    "ast_hash": "01195ec91ce5e8e2b47316b55c718031",
+    "semantic_hash": "01195ec91ce5e8e2b47316b55c718031"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/nascituro/nascituro_page.dart": {
+    "mtime": 1776019618.8972163,
+    "ast_hash": "a1614358b9fb77c7ac06b7bc6a6c214f",
+    "semantic_hash": "a1614358b9fb77c7ac06b7bc6a6c214f"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/notifications/notification_settings_page.dart": {
+    "mtime": 1776019618.8972163,
+    "ast_hash": "e068cb33e694357fdef1ac4073601dcc",
+    "semantic_hash": "e068cb33e694357fdef1ac4073601dcc"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/notifications/notifications_module.dart": {
+    "mtime": 1776019618.8972163,
+    "ast_hash": "7be0ee68fccdfffd471da7c35a7066e7",
+    "semantic_hash": "7be0ee68fccdfffd471da7c35a7066e7"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/pascom/pascom_controller.dart": {
+    "mtime": 1776019618.8972163,
+    "ast_hash": "518ff38c3858c023bba882c895f303fb",
+    "semantic_hash": "518ff38c3858c023bba882c895f303fb"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/pascom/pascom_controller.g.dart": {
+    "mtime": 1776216241.227655,
+    "ast_hash": "aa49c15b124c689832ac2cbd48b59906",
+    "semantic_hash": "aa49c15b124c689832ac2cbd48b59906"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/pascom/pascom_module.dart": {
+    "mtime": 1776019618.8972163,
+    "ast_hash": "68cccaeda2b69eb09cef2e80e7d83917",
+    "semantic_hash": "68cccaeda2b69eb09cef2e80e7d83917"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/pascom/pascom_page.dart": {
+    "mtime": 1776019618.8972163,
+    "ast_hash": "4dfa5a5ec20767bc02033e501229c330",
+    "semantic_hash": "4dfa5a5ec20767bc02033e501229c330"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/pastorais/models/pastoral_item_model.dart": {
+    "mtime": 1776019618.8972163,
+    "ast_hash": "2ff2efae130f3121947309f7385c6a11",
+    "semantic_hash": "2ff2efae130f3121947309f7385c6a11"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/pastorais/pastorais_controller.dart": {
+    "mtime": 1776019618.8972163,
+    "ast_hash": "9a121904caf96e11cc2f546be3623d2b",
+    "semantic_hash": "9a121904caf96e11cc2f546be3623d2b"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/pastorais/pastorais_controller.g.dart": {
+    "mtime": 1776216241.227655,
+    "ast_hash": "1bdf73ef4f1278bae0908effff42fd3e",
+    "semantic_hash": "1bdf73ef4f1278bae0908effff42fd3e"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/pastorais/pastorais_module.dart": {
+    "mtime": 1776019618.8972163,
+    "ast_hash": "4dabf50b8fea88af5e5f2728a0cea36b",
+    "semantic_hash": "4dabf50b8fea88af5e5f2728a0cea36b"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/pastorais/pastorais_page.dart": {
+    "mtime": 1776019618.8972163,
+    "ast_hash": "b283cd0dee44ea1c43bafd5167ba76c5",
+    "semantic_hash": "b283cd0dee44ea1c43bafd5167ba76c5"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/pastorais/widgets/item_card.dart": {
+    "mtime": 1781396694.1402013,
+    "ast_hash": "68d341fc169f34f33955a6520560aabc",
+    "semantic_hash": "68d341fc169f34f33955a6520560aabc"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/promocao_humana/promocao_humana_controller.dart": {
+    "mtime": 1776019618.9012163,
+    "ast_hash": "5091d00300adc4a58bd141d826d7eb5d",
+    "semantic_hash": "5091d00300adc4a58bd141d826d7eb5d"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/promocao_humana/promocao_humana_controller.g.dart": {
+    "mtime": 1776216241.227655,
+    "ast_hash": "1f60cbc3ba2ab639199608f977df11e7",
+    "semantic_hash": "1f60cbc3ba2ab639199608f977df11e7"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/promocao_humana/promocao_humana_module.dart": {
+    "mtime": 1776019618.9012163,
+    "ast_hash": "07ce7f4a8619b8871c251fc81e8b9d76",
+    "semantic_hash": "07ce7f4a8619b8871c251fc81e8b9d76"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/promocao_humana/promocao_humana_page.dart": {
+    "mtime": 1776019618.9012163,
+    "ast_hash": "346a45c1f77e1ffff1a7399202f54240",
+    "semantic_hash": "346a45c1f77e1ffff1a7399202f54240"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/rua/rua_controller.dart": {
+    "mtime": 1776019618.9012163,
+    "ast_hash": "19f8ac20dec3ee628d3babfffe33d543",
+    "semantic_hash": "19f8ac20dec3ee628d3babfffe33d543"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/rua/rua_controller.g.dart": {
+    "mtime": 1776216241.227655,
+    "ast_hash": "f1805a86aeef4b4ce1257c3be135629b",
+    "semantic_hash": "f1805a86aeef4b4ce1257c3be135629b"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/rua/rua_module.dart": {
+    "mtime": 1776019618.9012163,
+    "ast_hash": "11e826fabeba7ace7cfdb78a0b9a87ae",
+    "semantic_hash": "11e826fabeba7ace7cfdb78a0b9a87ae"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/rua/rua_page.dart": {
+    "mtime": 1776019618.9012163,
+    "ast_hash": "9d402d4928a9b711e944b76ff57f787d",
+    "semantic_hash": "9d402d4928a9b711e944b76ff57f787d"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/saude/saude_controller.dart": {
+    "mtime": 1776019618.9012163,
+    "ast_hash": "0c88a70736b0462f7c8aba7753e1c3de",
+    "semantic_hash": "0c88a70736b0462f7c8aba7753e1c3de"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/saude/saude_controller.g.dart": {
+    "mtime": 1776216241.227655,
+    "ast_hash": "7960ae8464e15abf40d5aca59d81ad7d",
+    "semantic_hash": "7960ae8464e15abf40d5aca59d81ad7d"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/saude/saude_module.dart": {
+    "mtime": 1776019618.9012163,
+    "ast_hash": "912f2930e2d84ccd710d422bb459d562",
+    "semantic_hash": "912f2930e2d84ccd710d422bb459d562"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/saude/saude_page.dart": {
+    "mtime": 1776019618.9012163,
+    "ast_hash": "5a5a09c5f3fd9f0f67cae9385af7db35",
+    "semantic_hash": "5a5a09c5f3fd9f0f67cae9385af7db35"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/sobre/sobre_controller.dart": {
+    "mtime": 1776019618.9012163,
+    "ast_hash": "1ff7637b2b57e3ada231c0a9948f8a84",
+    "semantic_hash": "1ff7637b2b57e3ada231c0a9948f8a84"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/sobre/sobre_controller.g.dart": {
+    "mtime": 1776216241.227655,
+    "ast_hash": "61143ccd51f6ef862bb37ae9752fc137",
+    "semantic_hash": "61143ccd51f6ef862bb37ae9752fc137"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/sobre/sobre_module.dart": {
+    "mtime": 1776019618.9012163,
+    "ast_hash": "bb8f7ffab273393fa7d322aaac568a1d",
+    "semantic_hash": "bb8f7ffab273393fa7d322aaac568a1d"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/sobre/sobre_page.dart": {
+    "mtime": 1776019618.9012163,
+    "ast_hash": "a704b032ea6187cf790f9f9a1d75dfd7",
+    "semantic_hash": "a704b032ea6187cf790f9f9a1d75dfd7"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/sobre/tabs/atendimento.dart": {
+    "mtime": 1781396694.140409,
+    "ast_hash": "dbe90a0f4bdb0c646ec3f505cbb4c795",
+    "semantic_hash": "dbe90a0f4bdb0c646ec3f505cbb4c795"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/sobre/tabs/capelas.dart": {
+    "mtime": 1781396694.140409,
+    "ast_hash": "dc943b3a4ac6905d140e2115849db466",
+    "semantic_hash": "dc943b3a4ac6905d140e2115849db466"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/sobre/tabs/clero.dart": {
+    "mtime": 1781396694.1408415,
+    "ast_hash": "2e0fbdc8fd3eb26880bb6b3d994edfb4",
+    "semantic_hash": "2e0fbdc8fd3eb26880bb6b3d994edfb4"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/sobre/tabs/historia.dart": {
+    "mtime": 1781396694.1409633,
+    "ast_hash": "8dfa6c6b44e5c83271c8cc89cc3e89ea",
+    "semantic_hash": "8dfa6c6b44e5c83271c8cc89cc3e89ea"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/shared/auth/auth_repository.dart": {
+    "mtime": 1781396694.141086,
+    "ast_hash": "0b3a8b7579fd99595aa4d6564a8c8a17",
+    "semantic_hash": "0b3a8b7579fd99595aa4d6564a8c8a17"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/shared/auth/local_user.dart": {
+    "mtime": 1781396694.141086,
+    "ast_hash": "66cd6d405570d12a854b2e03ce3efd62",
+    "semantic_hash": "66cd6d405570d12a854b2e03ce3efd62"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/shared/auth/local_user.g.dart": {
+    "mtime": 1781396694.141086,
+    "ast_hash": "e61047ddacbd91934cc5561f18a35f70",
+    "semantic_hash": "e61047ddacbd91934cc5561f18a35f70"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/shared/constants/constants.dart": {
+    "mtime": 1781396694.1413581,
+    "ast_hash": "040710389678afdf06399f82cd7005ab",
+    "semantic_hash": "040710389678afdf06399f82cd7005ab"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/shared/services/push_notification_service.dart": {
+    "mtime": 1776019618.9052165,
+    "ast_hash": "2679ac7661f94d2e70c17cc60c5b4f52",
+    "semantic_hash": "2679ac7661f94d2e70c17cc60c5b4f52"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/shared/utils/text.dart": {
+    "mtime": 1776019618.9052165,
+    "ast_hash": "10fc8ded2c96ff7e5f323526190e51bd",
+    "semantic_hash": "10fc8ded2c96ff7e5f323526190e51bd"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/shared/utils/url_launcher_utils.dart": {
+    "mtime": 1776019618.9052165,
+    "ast_hash": "61b1b036be63441edc8da5b360f01117",
+    "semantic_hash": "61b1b036be63441edc8da5b360f01117"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/shared/widgets/acesso_membros_button.dart": {
+    "mtime": 1776019618.9052165,
+    "ast_hash": "7be72de4d1ba538a94d4e8ac213eef14",
+    "semantic_hash": "7be72de4d1ba538a94d4e8ac213eef14"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/shared/widgets/firebase_markdown_text.dart": {
+    "mtime": 1781396694.1414692,
+    "ast_hash": "582c75630c250854979ce2d9578f79c7",
+    "semantic_hash": "582c75630c250854979ce2d9578f79c7"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/shared/widgets/pastoral_page.dart": {
+    "mtime": 1781396694.1415873,
+    "ast_hash": "14dda0b238080130103aaa9513e2bf3a",
+    "semantic_hash": "14dda0b238080130103aaa9513e2bf3a"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/shared/widgets/rich_text_markdown.dart": {
+    "mtime": 1776019618.9092164,
+    "ast_hash": "81aa7ab6cf71b05306f736a9325c3cf0",
+    "semantic_hash": "81aa7ab6cf71b05306f736a9325c3cf0"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/firebase_options_env.template.dart": {
+    "mtime": 1776019618.9092164,
+    "ast_hash": "feb0b4da6122db6c0b73d3849f953158",
+    "semantic_hash": "feb0b4da6122db6c0b73d3849f953158"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/main.dart": {
+    "mtime": 1776019618.9092164,
+    "ast_hash": "8d650bfd08abb2452c3b0db4d29591cd",
+    "semantic_hash": "8d650bfd08abb2452c3b0db4d29591cd"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/scripts/criar_confissoes_firebase.dart": {
+    "mtime": 1776019618.9092164,
+    "ast_hash": "cc8955e2b7e27f39868b15231e854312",
+    "semantic_hash": "cc8955e2b7e27f39868b15231e854312"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/scripts/build-16kb.sh": {
+    "mtime": 1776019618.9092164,
+    "ast_hash": "131674a3b646be8d5c11aa824ece080c",
+    "semantic_hash": "131674a3b646be8d5c11aa824ece080c"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/web/manifest.json": {
+    "mtime": 1776019618.9132164,
+    "ast_hash": "232ed840e84f047585c422616dbbb1ca",
+    "semantic_hash": "232ed840e84f047585c422616dbbb1ca"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/.github/copilot-instructions.md": {
+    "mtime": 1781396694.1355972,
+    "ast_hash": "45e19f277fd193a9613057bfc0c98388",
+    "semantic_hash": "45e19f277fd193a9613057bfc0c98388"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/CHECKLIST_16KB.md": {
+    "mtime": 1776019618.8172164,
+    "ast_hash": "5ba1271f8b7eb9ddbdf9762162383729",
+    "semantic_hash": "5ba1271f8b7eb9ddbdf9762162383729"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/COMANDOS_PRONTOS.md": {
+    "mtime": 1776019618.8172164,
+    "ast_hash": "e171fc703d98bbbcb18992d7602e2e28",
+    "semantic_hash": "e171fc703d98bbbcb18992d7602e2e28"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/INDICE_DOCUMENTACAO_16KB.md": {
+    "mtime": 1776019618.8172164,
+    "ast_hash": "d7054553caa5a861362a708724f5b792",
+    "semantic_hash": "d7054553caa5a861362a708724f5b792"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/LEIA-ME_PRIMEIRO_16KB.md": {
+    "mtime": 1776019618.8172164,
+    "ast_hash": "b6b3f09cb6da70a8d71d4eb8b811b750",
+    "semantic_hash": "b6b3f09cb6da70a8d71d4eb8b811b750"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/MAPA_VISUAL_16KB.md": {
+    "mtime": 1776019618.8172164,
+    "ast_hash": "8bf1ddb605d9ff6b7762e0cd37ffbf98",
+    "semantic_hash": "8bf1ddb605d9ff6b7762e0cd37ffbf98"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/README.md": {
+    "mtime": 1776019618.8172164,
+    "ast_hash": "e1a70cbbb26f52367c6157ff2e8e50cc",
+    "semantic_hash": "e1a70cbbb26f52367c6157ff2e8e50cc"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/docs/CONFIGURACAO_CORS.md": {
+    "mtime": 1776019618.8532164,
+    "ast_hash": "ca12eabdbb0556e19af4c64e4edcccc9",
+    "semantic_hash": "ca12eabdbb0556e19af4c64e4edcccc9"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/docs/CORRECAO_16KB_ANDROID15.md": {
+    "mtime": 1776019618.8532164,
+    "ast_hash": "c203d42f27223d42bd5953d35daa6456",
+    "semantic_hash": "c203d42f27223d42bd5953d35daa6456"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/docs/CORRECAO_LINKS_DISPOSITIVOS_FISICOS.md": {
+    "mtime": 1776019618.8532164,
+    "ast_hash": "c77987de1396128b1915f05c334912dd",
+    "semantic_hash": "c77987de1396128b1915f05c334912dd"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/docs/FIX_GRADLE_8_DEPRECATED_PROPERTY.md": {
+    "mtime": 1776019618.8532164,
+    "ast_hash": "ac8550ab0e3650823f26a8572f336fae",
+    "semantic_hash": "ac8550ab0e3650823f26a8572f336fae"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/docs/FLUTTER_WEB_SETUP_CONCLUIDO.md": {
+    "mtime": 1776019618.8532164,
+    "ast_hash": "adf4c572ed45a2c6289530e218939f7d",
+    "semantic_hash": "adf4c572ed45a2c6289530e218939f7d"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/docs/GUIA_IMPLEMENTACAO_VSCODE.md": {
+    "mtime": 1776019618.8532164,
+    "ast_hash": "722a4a94e600765a3675f95bdb72648d",
+    "semantic_hash": "722a4a94e600765a3675f95bdb72648d"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/docs/GUIA_RAPIDO_10_PASSOS.md": {
+    "mtime": 1776019618.8532164,
+    "ast_hash": "9263ccb53e9a23b6212baee5e18e315a",
+    "semantic_hash": "9263ccb53e9a23b6212baee5e18e315a"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/docs/IMPLEMENTACAO_ONESIGNAL.md": {
+    "mtime": 1776019618.8532164,
+    "ast_hash": "f286588b7191c998b69c7a4601174518",
+    "semantic_hash": "f286588b7191c998b69c7a4601174518"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/docs/MUDANCAS_MODULOS.md": {
+    "mtime": 1776019618.8532164,
+    "ast_hash": "4181e85052e9adf705634fd88e4e9d9f",
+    "semantic_hash": "4181e85052e9adf705634fd88e4e9d9f"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/docs/README.md": {
+    "mtime": 1776019618.8532164,
+    "ast_hash": "2912aeba161cb9118f7a9cb7de0d7aa1",
+    "semantic_hash": "2912aeba161cb9118f7a9cb7de0d7aa1"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/docs/SECURITY_ONESIGNAL.md": {
+    "mtime": 1776019618.8532164,
+    "ast_hash": "6fa22cdf84a9c7d190229e3d890db004",
+    "semantic_hash": "6fa22cdf84a9c7d190229e3d890db004"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/docs/SECURITY_SETUP.md": {
+    "mtime": 1776019618.8532164,
+    "ast_hash": "b17b8dde07ea013f19f2373f65a884a0",
+    "semantic_hash": "b17b8dde07ea013f19f2373f65a884a0"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/docs/URL_LAUNCHER_FIX.md": {
+    "mtime": 1776019618.8532164,
+    "ast_hash": "9f05b4169dcc5bbf989e19725febba27",
+    "semantic_hash": "9f05b4169dcc5bbf989e19725febba27"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/docs/development/teste-push-notifications.md": {
+    "mtime": 1776019618.8532164,
+    "ast_hash": "b986151700e0957ef5493a82296b0930",
+    "semantic_hash": "b986151700e0957ef5493a82296b0930"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/docs/guia-blur-configuracao.md": {
+    "mtime": 1776019618.8532164,
+    "ast_hash": "d7a6209e812dbcacdcb859c7d826909e",
+    "semantic_hash": "d7a6209e812dbcacdcb859c7d826909e"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/docs/guia-markdown.md": {
+    "mtime": 1776019618.8532164,
+    "ast_hash": "4d332cdb2fcf65c60258e367b46ca332",
+    "semantic_hash": "4d332cdb2fcf65c60258e367b46ca332"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/docs/onesignal-setup-guide.md": {
+    "mtime": 1776019618.8532164,
+    "ast_hash": "50d943bd625b27807e3c5ae20d2c6c30",
+    "semantic_hash": "50d943bd625b27807e3c5ae20d2c6c30"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/ios/Runner/Assets.xcassets/LaunchImage.imageset/README.md": {
+    "mtime": 1776019618.8612163,
+    "ast_hash": "e175e436acacf76c814d83532d0b662c",
+    "semantic_hash": "e175e436acacf76c814d83532d0b662c"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/confissoes/README.md": {
+    "mtime": 1776019618.8732164,
+    "ast_hash": "26e5c916b888df72bf038119c852edfe",
+    "semantic_hash": "26e5c916b888df72bf038119c852edfe"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/eventos/EXEMPLOS_FIRESTORE.md": {
+    "mtime": 1776019618.8772163,
+    "ast_hash": "13804dc76dbd850fcc8fc30d4d1f519f",
+    "semantic_hash": "13804dc76dbd850fcc8fc30d4d1f519f"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/lib/app/modules/eventos/README.md": {
+    "mtime": 1776019618.8812163,
+    "ast_hash": "140099aa2200df9eb3e52db3c2b1c1d9",
+    "semantic_hash": "140099aa2200df9eb3e52db3c2b1c1d9"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/privacy.txt": {
+    "mtime": 1776019618.9092164,
+    "ast_hash": "a3777fcdc5bbea80ad6061139f4c3542",
+    "semantic_hash": "a3777fcdc5bbea80ad6061139f4c3542"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/public/404.html": {
+    "mtime": 1776019618.9092164,
+    "ast_hash": "0a27a4163254fc8fce870c8cc3a3f94f",
+    "semantic_hash": "0a27a4163254fc8fce870c8cc3a3f94f"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/public/index.html": {
+    "mtime": 1776019618.9092164,
+    "ast_hash": "4a892552b812beb43c9bcaf28a795dd0",
+    "semantic_hash": "4a892552b812beb43c9bcaf28a795dd0"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/pubspec.yaml": {
+    "mtime": 1781396701.418941,
+    "ast_hash": "71ca16ec760c202275ebd01a0f61d44d",
+    "semantic_hash": "71ca16ec760c202275ebd01a0f61d44d"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/web/index_secure.html": {
+    "mtime": 1776019618.9092164,
+    "ast_hash": "5b84b77958f14cced50f391feb882d80",
+    "semantic_hash": "5b84b77958f14cced50f391feb882d80"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/web/index_template.html": {
+    "mtime": 1776019618.9092164,
+    "ast_hash": "e30d57fbcdabe56de3c1d613a05aebe0",
+    "semantic_hash": "e30d57fbcdabe56de3c1d613a05aebe0"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/android/app/src/main/res/drawable-hdpi/ic_stat_onesignal_default.png": {
+    "mtime": 1776019618.8252163,
+    "ast_hash": "2dc8af697f5c1d9b70f9a09b40c4cc5b",
+    "semantic_hash": "2dc8af697f5c1d9b70f9a09b40c4cc5b"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/android/app/src/main/res/drawable-mdpi/ic_stat_onesignal_default.png": {
+    "mtime": 1776019618.8252163,
+    "ast_hash": "7473cbbe47137c03a206513d54f1b224",
+    "semantic_hash": "7473cbbe47137c03a206513d54f1b224"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/android/app/src/main/res/drawable-xhdpi/ic_stat_onesignal_default.png": {
+    "mtime": 1776019618.8252163,
+    "ast_hash": "c97ac04517503553643dce666416e04c",
+    "semantic_hash": "c97ac04517503553643dce666416e04c"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/android/app/src/main/res/drawable-xxhdpi/ic_stat_onesignal_default.png": {
+    "mtime": 1776019618.8252163,
+    "ast_hash": "90778ce6bf2dfc898f420d4273ba2ae6",
+    "semantic_hash": "90778ce6bf2dfc898f420d4273ba2ae6"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/android/app/src/main/res/drawable-xxxhdpi/ic_onesignal_large_icon_default.png": {
+    "mtime": 1776019618.8252163,
+    "ast_hash": "861673c4a99c9122e27e8f767c261a58",
+    "semantic_hash": "861673c4a99c9122e27e8f767c261a58"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/android/app/src/main/res/drawable-xxxhdpi/ic_stat_onesignal_default.png": {
+    "mtime": 1776019618.8252163,
+    "ast_hash": "9cc8a939ebaeab1be281d62b0101f636",
+    "semantic_hash": "9cc8a939ebaeab1be281d62b0101f636"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/android/app/src/main/res/mipmap-hdpi/ic_launcher.png": {
+    "mtime": 1776019618.8292165,
+    "ast_hash": "50fdb719e742f6e758f235567b488ae0",
+    "semantic_hash": "50fdb719e742f6e758f235567b488ae0"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/android/app/src/main/res/mipmap-mdpi/ic_launcher.png": {
+    "mtime": 1776019618.8292165,
+    "ast_hash": "9755dfa2f698af9597bb3749eeb28f88",
+    "semantic_hash": "9755dfa2f698af9597bb3749eeb28f88"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png": {
+    "mtime": 1776019618.8292165,
+    "ast_hash": "6df97d66ddc49d8e8741e745d4447955",
+    "semantic_hash": "6df97d66ddc49d8e8741e745d4447955"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png": {
+    "mtime": 1776019618.8292165,
+    "ast_hash": "054b2d2feeae682dc0d801081d7e4467",
+    "semantic_hash": "054b2d2feeae682dc0d801081d7e4467"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png": {
+    "mtime": 1776019618.8292165,
+    "ast_hash": "f180e261d81f33a6a94eba9f07afb768",
+    "semantic_hash": "f180e261d81f33a6a94eba9f07afb768"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/assets/images/BG8.jpg": {
+    "mtime": 1776019618.8492165,
+    "ast_hash": "fd20eae4193b8aba0aa6cb98ea9bf3dc",
+    "semantic_hash": "fd20eae4193b8aba0aa6cb98ea9bf3dc"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/assets/images/IconeBranco.png": {
+    "mtime": 1776019618.8492165,
+    "ast_hash": "d76e01e3c2286bffc3af64cef234d99e",
+    "semantic_hash": "d76e01e3c2286bffc3af64cef234d99e"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/assets/images/terco-cut-white.png": {
+    "mtime": 1776019618.8492165,
+    "ast_hash": "2155570af0d3d825019f5fdca2ff95a7",
+    "semantic_hash": "2155570af0d3d825019f5fdca2ff95a7"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/dev_assets/icon-regular.png": {
+    "mtime": 1776019618.8532164,
+    "ast_hash": "0a105cb2ceb923045e572bc96b9d032a",
+    "semantic_hash": "0a105cb2ceb923045e572bc96b9d032a"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png": {
+    "mtime": 1776019618.8612163,
+    "ast_hash": "c785f8932297af4acd5f5ccb7630f01c",
+    "semantic_hash": "c785f8932297af4acd5f5ccb7630f01c"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png": {
+    "mtime": 1776019618.8612163,
+    "ast_hash": "e2b9a9fb66c6f8165a179d370eb723c0",
+    "semantic_hash": "e2b9a9fb66c6f8165a179d370eb723c0"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png": {
+    "mtime": 1776019618.8612163,
+    "ast_hash": "19898f3eea0783250a0e2a20dc147827",
+    "semantic_hash": "19898f3eea0783250a0e2a20dc147827"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@3x.png": {
+    "mtime": 1776019618.8612163,
+    "ast_hash": "128e30cc061e49f503f48c338a21380e",
+    "semantic_hash": "128e30cc061e49f503f48c338a21380e"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@1x.png": {
+    "mtime": 1776019618.8612163,
+    "ast_hash": "9595f5692fac4a15b50616d6549e9ed4",
+    "semantic_hash": "9595f5692fac4a15b50616d6549e9ed4"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@2x.png": {
+    "mtime": 1776019618.8612163,
+    "ast_hash": "2adf6396c0f80a2ddc96ead2f2405220",
+    "semantic_hash": "2adf6396c0f80a2ddc96ead2f2405220"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@3x.png": {
+    "mtime": 1776019618.8612163,
+    "ast_hash": "f8e7955550407d4ec71d28e7c2d8c8c6",
+    "semantic_hash": "f8e7955550407d4ec71d28e7c2d8c8c6"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@1x.png": {
+    "mtime": 1776019618.8612163,
+    "ast_hash": "19898f3eea0783250a0e2a20dc147827",
+    "semantic_hash": "19898f3eea0783250a0e2a20dc147827"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@2x.png": {
+    "mtime": 1776019618.8612163,
+    "ast_hash": "a34a631e106b9e7251e55fa199d34bca",
+    "semantic_hash": "a34a631e106b9e7251e55fa199d34bca"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png": {
+    "mtime": 1776019618.8612163,
+    "ast_hash": "27c7e24d5bfb4f14a7978883bebfaf73",
+    "semantic_hash": "27c7e24d5bfb4f14a7978883bebfaf73"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@2x.png": {
+    "mtime": 1776019618.8612163,
+    "ast_hash": "27c7e24d5bfb4f14a7978883bebfaf73",
+    "semantic_hash": "27c7e24d5bfb4f14a7978883bebfaf73"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png": {
+    "mtime": 1776019618.8612163,
+    "ast_hash": "7af6f2ed506e771a319d46846dde1f26",
+    "semantic_hash": "7af6f2ed506e771a319d46846dde1f26"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@1x.png": {
+    "mtime": 1776019618.8612163,
+    "ast_hash": "975d8a8c44f5d28ac65263294b84b0c5",
+    "semantic_hash": "975d8a8c44f5d28ac65263294b84b0c5"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@2x.png": {
+    "mtime": 1776019618.8612163,
+    "ast_hash": "c0fa6a088a2d486e4d75a012096d611b",
+    "semantic_hash": "c0fa6a088a2d486e4d75a012096d611b"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png": {
+    "mtime": 1776019618.8612163,
+    "ast_hash": "d86de75e9341c42432a12b3d58e364b8",
+    "semantic_hash": "d86de75e9341c42432a12b3d58e364b8"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage.png": {
+    "mtime": 1776019618.8612163,
+    "ast_hash": "978c1bee49d7ad5fc1a4d81099b13e18",
+    "semantic_hash": "978c1bee49d7ad5fc1a4d81099b13e18"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@2x.png": {
+    "mtime": 1776019618.8612163,
+    "ast_hash": "978c1bee49d7ad5fc1a4d81099b13e18",
+    "semantic_hash": "978c1bee49d7ad5fc1a4d81099b13e18"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@3x.png": {
+    "mtime": 1776019618.8612163,
+    "ast_hash": "978c1bee49d7ad5fc1a4d81099b13e18",
+    "semantic_hash": "978c1bee49d7ad5fc1a4d81099b13e18"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/web/icons/Icon-192.png": {
+    "mtime": 1776019618.9092164,
+    "ast_hash": "ac9a721a12bbc803b44f645561ecb1e1",
+    "semantic_hash": "ac9a721a12bbc803b44f645561ecb1e1"
+  },
+  "/home/tfreitas/projetos/saolourenco_flutter/web/icons/Icon-512.png": {
+    "mtime": 1776019618.9092164,
+    "ast_hash": "96e752610906ba2a93c65f8abe1645f1",
+    "semantic_hash": "96e752610906ba2a93c65f8abe1645f1"
+  }
+}
