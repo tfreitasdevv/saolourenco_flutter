@@ -1,0 +1,2347 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Documentacao Arquitetural - Paroquia Sao Lourenco</title>
+    <style>
+      :root {
+        --paper: #f7f4ed;
+        --ink: #1f1f1f;
+        --ink-soft: #4f4f4f;
+        --brand: #8d4a2f;
+        --brand-soft: #c57d58;
+        --line: #d9cfbf;
+        --panel: #fffdf8;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+        background:
+          radial-gradient(circle at 10% -10%, #e9d8b4 0, transparent 40%),
+          radial-gradient(circle at 100% 0%, #f5e8d6 0, transparent 35%),
+          var(--paper);
+        line-height: 1.6;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        min-height: 100vh;
+      }
+
+      .sidebar {
+        position: sticky;
+        top: 0;
+        align-self: start;
+        height: 100vh;
+        overflow: auto;
+        padding: 28px 20px;
+        border-right: 1px solid var(--line);
+        background: linear-gradient(170deg, rgba(255, 247, 232, 0.96), rgba(255, 253, 248, 0.88));
+      }
+
+      .sidebar h1 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 1.4rem;
+        line-height: 1.25;
+      }
+
+      .meta,
+      .instruction {
+        color: var(--ink-soft);
+        font-size: 0.92rem;
+      }
+
+      .instruction {
+        margin-top: 16px;
+      }
+
+      .quick-links,
+      .source-map,
+      .coverage-list {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .quick-links li,
+      .source-map li,
+      .coverage-list li {
+        margin-bottom: 8px;
+      }
+
+      a {
+        color: var(--brand);
+        text-decoration: none;
+      }
+
+      a:hover,
+      a:focus {
+        text-decoration: underline;
+      }
+
+      .main {
+        padding: 26px;
+      }
+
+      .summary-card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 20px;
+        margin-bottom: 22px;
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        border: 1px solid var(--line);
+        background: #fff7ea;
+      }
+
+      .doc-section {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 24px;
+        margin-bottom: 20px;
+      }
+
+      .section-header {
+        border-bottom: 1px dashed var(--line);
+        margin-bottom: 18px;
+      }
+
+      .section-header h2 {
+        margin-top: 0;
+        margin-bottom: 8px;
+      }
+
+      .source-link {
+        margin-top: 0;
+        color: var(--ink-soft);
+      }
+
+      .markdown-content h1,
+      .markdown-content h2,
+      .markdown-content h3,
+      .markdown-content h4 {
+        margin-top: 1.3em;
+      }
+
+      .markdown-content table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 12px 0;
+      }
+
+      .markdown-content th,
+      .markdown-content td {
+        border: 1px solid var(--line);
+        padding: 8px;
+        text-align: left;
+        vertical-align: top;
+      }
+
+      .markdown-content pre {
+        overflow-x: auto;
+        background: #2d2a26;
+        color: #fef8ee;
+        padding: 12px;
+        border-radius: 8px;
+      }
+
+      .markdown-content code {
+        background: #f1ebdd;
+        border-radius: 4px;
+        padding: 0 4px;
+      }
+
+      .markdown-content pre code {
+        background: none;
+        padding: 0;
+      }
+
+      .muted {
+        color: var(--ink-soft);
+        font-size: 0.9rem;
+      }
+
+      .footer {
+        margin-top: 24px;
+        color: var(--ink-soft);
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 980px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+          position: static;
+          height: auto;
+          border-right: none;
+          border-bottom: 1px solid var(--line);
+        }
+
+        .main {
+          padding: 16px;
+        }
+
+        .doc-section {
+          padding: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <h1>Documentacao Arquitetural</h1>
+        <p class="meta">Paroquia Sao Lourenco</p>
+        <p class="meta">Gerado em: 2026-06-13 22:17</p>
+        <p class="instruction">Use os links abaixo para navegar por secoes e anexos sem depender de backend.</p>
+
+        <h3>Navegacao Interna</h3>
+        <ul class="quick-links">
+          <li><a href="#indice">Indice</a></li><li><a href="#visao-contexto">Contexto</a></li><li><a href="#modulos-componentes">Modulos</a></li><li><a href="#integracoes-dados">Integracoes</a></li><li><a href="#decisoes-arquiteturais">Decisoes</a></li><li><a href="#anexo-graphify">Curadoria</a></li><li><a href="#cobertura-minima">Cobertura</a></li>
+        </ul>
+
+        <h3>Mapa de Fontes</h3>
+        <ul class="source-map">
+          <li><a href="./INDICE.md">INDICE.md</a></li><li><a href="./01-VISAO-CONTEXTO.md">01-VISAO-CONTEXTO.md</a></li><li><a href="./02-MODULOS-COMPONENTES.md">02-MODULOS-COMPONENTES.md</a></li><li><a href="./03-INTEGRA%C3%87%C3%95ES-DADOS.md">03-INTEGRAÇÕES-DADOS.md</a></li><li><a href="./04-DECISOES-ARQUITETURAIS.md">04-DECISOES-ARQUITETURAIS.md</a></li><li><a href="./ANEXO-GRAPHIFY-CURADORIA.md">ANEXO-GRAPHIFY-CURADORIA.md</a></li><li><a href="./COBERTURA-MINIMA.md">COBERTURA-MINIMA.md</a></li>
+        </ul>
+      </aside>
+
+      <main class="main">
+        <section class="summary-card" id="resumo-publicacao">
+          <h2>Resumo da Publicacao HTML</h2>
+          <p>Esta pagina consolida a documentacao em <code>docs/arquitetura</code> em um unico artefato HTML navegavel e offline-friendly.</p>
+          <p><span class="badge">Fonte normativa preservada: Markdown</span> <span class="badge">Artefato derivado: HTML</span></p>
+          <h3>Cobertura Minima Arquitetural</h3>
+          <ul class="coverage-list"><li>✓ Visao de Contexto <span class="muted">(01-VISAO-CONTEXTO.md)</span></li><li>✓ Modulos e Componentes <span class="muted">(02-MODULOS-COMPONENTES.md)</span></li><li>✓ Integracoes e Dados <span class="muted">(03-INTEGRAÇÕES-DADOS.md)</span></li><li>✓ Decisoes Arquiteturais <span class="muted">(04-DECISOES-ARQUITETURAIS.md)</span></li><li>✓ Anexo Graphify Curadoria <span class="muted">(ANEXO-GRAPHIFY-CURADORIA.md)</span></li></ul>
+          <p class="muted">Status da cobertura: completa.</p>
+        </section>
+
+        
+      <section id="indice" class="doc-section">
+        <header class="section-header">
+          <h2>Indice Arquitetural</h2>
+          <p class="source-link">
+            Fonte normativa: <a href="./INDICE.md">INDICE.md</a>
+          </p>
+        </header>
+        <article class="markdown-content">
+          <h1>Documentação Arquitetural - Paróquia São Lourenço</h1>
+<p>Índice de navegação para os artefatos arquiteturais do projeto Flutter.</p>
+<h2>Estrutura Canônica</h2>
+<p>Esta documentação está organizada por tópicos arquiteturais com cobertura mínima obrigatória:</p>
+<h3>1. Visão de Contexto</h3>
+<ul>
+<li><a href="01-VISAO-CONTEXTO.md">01-VISAO-CONTEXTO.md</a> - Visão executiva, fronteiras do sistema e integrações externas</li>
+</ul>
+<h3>2. Organização Modular</h3>
+<ul>
+<li><a href="02-MODULOS-COMPONENTES.md">02-MODULOS-COMPONENTES.md</a> - Organização por camadas, módulos e responsabilidades</li>
+</ul>
+<h3>3. Integrações Externas</h3>
+<ul>
+<li><a href="03-INTEGRAÇÕES-DADOS.md">03-INTEGRAÇÕES-DADOS.md</a> - Integrações com serviços externos e fluxos de dados críticos</li>
+</ul>
+<h3>4. Decisões Arquiteturais</h3>
+<ul>
+<li><a href="04-DECISOES-ARQUITETURAIS.md">04-DECISOES-ARQUITETURAIS.md</a> - Decisões, trade-offs e rationale arquitetural</li>
+</ul>
+<h3>5. Curadoria de Fontes Auxiliares</h3>
+<ul>
+<li><a href="ANEXO-GRAPHIFY-CURADORIA.md">ANEXO-GRAPHIFY-CURADORIA.md</a> - Registro das inferências levantadas com Graphify e da validação contra fontes primárias</li>
+</ul>
+<h2>Convenções de Navegação</h2>
+<ul>
+<li><strong>Estrutura</strong>: Documentos nomeados numericamente com identificação clara de tópico</li>
+<li><strong>Atualização</strong>: Mudanças com impacto arquitetural DEVEM incluir revisão dos artefatos pertinentes</li>
+<li><strong>Rastreabilidade</strong>: Referências para código-fonte, estrutura do repositório e decisões técnicas</li>
+<li><strong>Validação</strong>: Insumos de ferramentas analíticas (ex: Graphify) DEVEM ser validados contra código e docs oficiais antes de publicação</li>
+<li><strong>Hierarquia de fontes</strong>: Código-fonte e documentação técnica do repositório são fontes normativas; Graphify é apoio investigativo</li>
+</ul>
+<h2>Insumos Auxiliares</h2>
+<p>Este projeto aproveita dados analíticos como insumo de descoberta:</p>
+<ul>
+<li><code>graphify-out/GRAPH_REPORT.md</code> - Análise de dependências e componentes</li>
+<li><code>graphify-out/graph.json</code> - Grafo de relações (formato estruturado)</li>
+<li><code>graphify-out/manifest.json</code> - Metadados do projeto</li>
+<li><code>ANEXO-GRAPHIFY-CURADORIA.md</code> - Curadoria das inferências efetivamente aceitas na documentação arquitetural</li>
+</ul>
+<p>⚠️ <strong>Nota Importante</strong>: Graphify é fonte <strong>auxiliar</strong>, não <strong>normativa</strong>. Todas as inferências DEVEM ser confirmadas no código-fonte antes de serem registradas na documentação.</p>
+<h2>Processo de Atualização Contínua</h2>
+<h3>Gatilho de Revisão Arquitetural</h3>
+<p>Revisar e atualizar artefatos em <code>docs/arquitetura</code> quando mudanças impactarem:</p>
+<ul>
+<li>✓ Módulos ou componentes principais</li>
+<li>✓ Integrações com serviços externos</li>
+<li>✓ Camadas ou padrões de comunicação</li>
+<li>✓ Fluxos de dados críticos</li>
+</ul>
+<h3>Definição Operacional do Gatilho</h3>
+<p>Uma mudança é considerada de impacto arquitetural quando pelo menos um dos critérios abaixo for verdadeiro:</p>
+<ul>
+<li>Altera contratos entre módulos em <code>lib/app/modules/</code> ou responsabilidades em <code>lib/app/shared/</code></li>
+<li>Adiciona, remove ou substitui integração externa (ex: Firebase, OneSignal, APIs de terceiros)</li>
+<li>Modifica bootstrap global, DI, roteamento raiz ou padrão de estado global</li>
+<li>Introduz novo fluxo crítico de autenticação, dados, notificações ou sincronização</li>
+<li>Muda premissas técnicas de plataforma, build/deploy ou segurança arquitetural</li>
+</ul>
+<p>Nesses casos, a atualização dos documentos impactados em <code>docs/arquitetura</code> é obrigatória no mesmo ciclo da mudança.</p>
+<h3>Checklist de Revisão em Mudanças</h3>
+<p>Ao trabalhar em mudanças com potencial impacto arquitetural:</p>
+<ul>
+<li>[ ] Identificar se a mudança afeta módulos, camadas ou integrações documentadas</li>
+<li>[ ] Se sim, atualizar artefatos pertinentes em <code>docs/arquitetura</code> no mesmo ciclo de entrega</li>
+<li>[ ] Se Graphify for usado, registrar quais inferências foram apenas levantadas e quais foram confirmadas em fontes primárias</li>
+<li>[ ] Validar rastreabilidade entre documentação e implementação</li>
+<li>[ ] Revisar consistência com Graphify e fontes oficiais</li>
+<li>[ ] Verificar se <code>04-DECISOES-ARQUITETURAIS.md</code> permanece coerente com as escolhas atuais</li>
+</ul>
+<h3>Checklist Rápido para PR com Impacto Arquitetural</h3>
+<ul>
+<li>[ ] O PR altera módulos/camadas/integrações/fluxos críticos?</li>
+<li>[ ] Se sim, os arquivos de <code>docs/arquitetura</code> impactados foram atualizados?</li>
+<li>[ ] As referências de código citadas nos documentos continuam válidas?</li>
+<li>[ ] Há divergência entre docs arquiteturais e estrutura real do repositório?</li>
+<li>[ ] Se Graphify foi consultado, a curadoria foi registrada no anexo?</li>
+</ul>
+<h2>Cobertura Mínima Obrigatória</h2>
+<p>A documentação arquitetural DEVE cobrir:</p>
+<ol>
+<li><strong>Visão de Contexto</strong>: Sistema, fronteiras e atores externos</li>
+<li><strong>Módulos e Componentes</strong>: Organização, responsabilidades e relações</li>
+<li><strong>Integrações Externas</strong>: Serviços, protocolos e fluxos críticos</li>
+<li><strong>Dados</strong>: Modelo e fluxos em nível arquitetural</li>
+</ol>
+<hr>
+<p><strong>Última atualização</strong>: 2026-06-13 <strong>Responsável</strong>: Equipe Técnica do Projeto</p>
+        </article>
+      </section>
+    
+
+      <section id="visao-contexto" class="doc-section">
+        <header class="section-header">
+          <h2>Visao de Contexto</h2>
+          <p class="source-link">
+            Fonte normativa: <a href="./01-VISAO-CONTEXTO.md">01-VISAO-CONTEXTO.md</a>
+          </p>
+        </header>
+        <article class="markdown-content">
+          <h1>01 - Visão de Contexto: Paróquia São Lourenço</h1>
+<p><strong>Escopo</strong>: Aplicação multiplataforma (iOS, Android, Web) que serve a comunidade e gestão da Paróquia São Lourenço <strong>Última Atualização</strong>: 2026-06-13 <strong>Responsável</strong>: Equipe Técnica do Projeto</p>
+<h2>Contexto</h2>
+<p>O aplicativo da Paróquia São Lourenço é um sistema digital integrado para comunicação e organização de atividades paroquiais. Oferece uma plataforma unificada para membros da comunidade (fiéis, gestores, pastoralistas) acessarem informações institucionais, participarem de eventos, receberem notificações e gerenciarem atividades das diversas pastorais.</p>
+<p>O projeto foi inicialmente desenvolvido como versão 1.x e evoluiu para a versão 2.0+, expandindo cobertura de funcionalidades, integrações e suporte a plataformas.</p>
+<h2>Fronteiras do Sistema</h2>
+<h3>Dentro do Escopo (Sistema)</h3>
+<ul>
+<li>✓ Interface mobile (iOS/Android) via Flutter</li>
+<li>✓ Interface web (PWA/SPA) via Flutter Web</li>
+<li>✓ Lógica de negócio de pastorais, eventos, avisos</li>
+<li>✓ Autenticação e autorização de usuários</li>
+<li>✓ Armazenamento e sincronização de dados</li>
+<li>✓ Notificações push para mobile</li>
+<li>✓ Gerenciamento de conteúdo paroquial</li>
+</ul>
+<h3>Fora do Escopo (Sistemas Externos)</h3>
+<ul>
+<li>✗ Email pessoal dos usuários (dependência, não implementação)</li>
+<li>✗ Redes sociais externas (integração pontual, não requisito principal)</li>
+<li>✗ Sistemas financeiros (ex: processamento de pagamento de dízimos)</li>
+<li>✗ Sistemas paroquiais legados (ex: controle de missas/eucaristia em sistemas anteriores)</li>
+</ul>
+<h2>Atores Principais</h2>
+<table><thead><tr><th>Ator</th><th>Descrição</th><th>Plataformas</th><th>Responsabilidades</th></tr></thead><tbody><tr><td><strong>Fiel/Usuário Comum</strong></td><td>Membro da comunidade</td><td>Mobile (iOS/Android), Web</td><td>Consultar avisos, eventos, horários; participar de pastorais; receber notificações</td></tr><tr><td><strong>Gestor Paroquial</strong></td><td>Administrador do app</td><td>Web (preferencial), Mobile</td><td>Gerenciar avisos, eventos, conteúdo; configurar pastorais; monitorar atividades</td></tr><tr><td><strong>Pastoralista/Coordenador</strong></td><td>Coordenador de pastoral específica</td><td>Web, Mobile</td><td>Atualizar informações de sua pastoral, registrar participantes, gerir atividades</td></tr><tr><td><strong>Clero</strong></td><td>Padres e diáconos</td><td>Mobile, Web</td><td>Acesso a agenda litúrgica, dados de paroquianos, informações de sacramento</td></tr><tr><td><strong>Sistema Externo (Firebase)</strong></td><td>Backend unificado</td><td>Cloud</td><td>Autenticação, persistência, notificações, armazenamento</td></tr><tr><td><strong>Sistema Externo (OneSignal)</strong></td><td>Serviço de notificações</td><td>Cloud</td><td>Envio de notificações push</td></tr></tbody></table>
+<h2>Principais Integrações Externas</h2>
+<h3>Firebase (Backend Centralizado)</h3>
+<ul>
+<li><strong>Firebase Authentication</strong>: Autenticação de usuários com múltiplos provedores (email/senha, Google, Apple)</li>
+<li><strong>Cloud Firestore</strong>: Banco de dados NoSQL em tempo real com coleções para avisos, eventos, pastorais, usuários</li>
+<li><strong>Firebase Storage</strong>: Armazenamento de mídia (imagens, documentos)</li>
+<li><strong>Firebase Analytics</strong>: Análise de uso e comportamento de usuários</li>
+<li><strong>Firebase Hosting</strong>: Distribuição da versão web</li>
+</ul>
+<h3>OneSignal</h3>
+<ul>
+<li><strong>Notificações Push</strong>: Comunicação direta com usuários mobile (iOS/Android)</li>
+<li><strong>Gerenciamento de Campanhas</strong>: Segmentação de audiência por pastoral, localização, demográficos</li>
+</ul>
+<h3>Outros Serviços</h3>
+<ul>
+<li><strong>Google Maps</strong> (possível): Localização de capelas e endereços</li>
+<li><strong>URL Launcher</strong>: Abertura de links externos (sites, telefone, email)</li>
+</ul>
+<h2>Plataformas Suportadas</h2>
+<table><thead><tr><th>Plataforma</th><th>Status</th><th>Distribuição</th><th>Tecnologia</th></tr></thead><tbody><tr><td><strong>Android</strong></td><td>✓ Produção</td><td>Google Play Store</td><td>Flutter, Java 17</td></tr><tr><td><strong>iOS</strong></td><td>✓ Produção</td><td>Apple App Store</td><td>Flutter, Swift runtime</td></tr><tr><td><strong>Web</strong></td><td>✓ Produção</td><td>Firebase Hosting</td><td>Flutter Web, PWA</td></tr><tr><td><strong>Admin/Gestão</strong></td><td>✓ Produção</td><td>Web-only</td><td>Flutter Web</td></tr></tbody></table>
+<h2>Fluxos Críticos em Nível Arquitetural</h2>
+<h3>Fluxo 1: Autenticação e Sessão</h3>
+<pre><code>
+Usuário
+
+  ↓ (credenciais)
+
+App Flutter
+
+  ↓ (Firebase SDK)
+
+Firebase Authentication
+
+  ↓ (token + perfil)
+
+App + Local Storage
+
+  ↓ (sessão persistida)
+
+Funcionalidades desbloqueadas
+
+</code></pre>
+<p><strong>Impacto</strong>: Acesso a todas as funcionalidades depende de autenticação bem-sucedida. Perda de conexão requer retry e pode impactar UX.</p>
+<h3>Fluxo 2: Sincronização de Dados em Tempo Real</h3>
+<pre><code>
+Backend Firestore (source of truth)
+
+  ↓ (listeners)
+
+App Mobile/Web
+
+  ↓ (mudanças em tempo real)
+
+UI atualizada dinamicamente
+
+  ↓ (dados offline-first locais)
+
+Sincronização em background quando reconectado
+
+</code></pre>
+<p><strong>Impacto</strong>: Múltiplos clientes podem estar sincronizando simultaneamente; otimista UI importante para UX responsiva.</p>
+<h3>Fluxo 3: Notificações Push</h3>
+<pre><code>
+Gestor publica aviso/evento
+
+  ↓ (trigger em Firestore)
+
+Cloud Function (possível)
+
+  ↓ (chama OneSignal)
+
+OneSignal
+
+  ↓ (APNs, FCM)
+
+Dispositivo usuário
+
+  ↓ (notificação)
+
+Usuário acessa app via notificação
+
+</code></pre>
+<p><strong>Impacto</strong>: Notificações devem ser confiáveis e relevantes; falha de delivery afeta engajamento.</p>
+<h2>Principais Modules/Domínios Funcionais</h2>
+<p>Organizados em <code>lib/app/modules/</code>:</p>
+<table><thead><tr><th>Módulo</th><th>Tipo</th><th>Responsabilidade</th></tr></thead><tbody><tr><td><strong>home</strong></td><td>Core</td><td>Dashboard principal, entrada do app</td></tr><tr><td><strong>login</strong></td><td>Core</td><td>Autenticação de usuários</td></tr><tr><td><strong>avisos</strong></td><td>Domínio</td><td>Gerenciamento e exibição de avisos</td></tr><tr><td><strong>eventos</strong></td><td>Domínio</td><td>Calendário e detalhes de eventos</td></tr><tr><td><strong>horarios</strong></td><td>Domínio</td><td>Horários de missas e atividades litúrgicas</td></tr><tr><td><strong>pastorais</strong></td><td>Domínio</td><td>Portal de pastorais e movimentos</td></tr><tr><td><strong>catequese</strong></td><td>Pastoral</td><td>Gestão de turmas de catequese</td></tr><tr><td><strong>crisma</strong></td><td>Pastoral</td><td>Acompanhamento de crisma</td></tr><tr><td><strong>batismo</strong></td><td>Pastoral</td><td>Informações de batismo</td></tr><tr><td><strong>ejc</strong></td><td>Pastoral</td><td>Encontro de Jovens com Cristo</td></tr><tr><td><strong>mej</strong></td><td>Pastoral</td><td>Movimento Eucarístico Jovem</td></tr><tr><td><strong>saude</strong></td><td>Pastoral</td><td>Pastoral da Saúde</td></tr><tr><td><strong>rua</strong></td><td>Pastoral</td><td>Pastoral da Rua</td></tr><tr><td><strong>grupo_de_oracao</strong></td><td>Pastoral</td><td>Encontros de oração</td></tr><tr><td><strong>conferencia_sao_vicente</strong></td><td>Pastoral</td><td>Conferência São Vicente de Paulo</td></tr><tr><td><strong>musica/cor/coroinhas</strong></td><td>Pastoral</td><td>Atividades musicais e litúrgicas</td></tr><tr><td><strong>notifications</strong></td><td>Core</td><td>Gerenciamento de notificações push</td></tr><tr><td><strong>shared</strong></td><td>Infraestrutura</td><td>Serviços compartilhados, utilitários</td></tr></tbody></table>
+<h2>Características Técnicas</h2>
+<h3>Arquitetura</h3>
+<ul>
+<li><strong>Padrão</strong>: Modular com injeção de dependências (Flutter Modular)</li>
+<li><strong>Gerenciamento de Estado</strong>: MobX com repositórios e controllers</li>
+<li><strong>Persistência Local</strong>: Sqflite (SQLite), SharedPreferences</li>
+<li><strong>Offline-first</strong>: Sincronização bidirecional com Firestore</li>
+</ul>
+<h3>Camadas</h3>
+<ol>
+<li><strong>Apresentação (UI)</strong>: Widgets Flutter, Material Design, telas por módulo</li>
+<li><strong>Lógica de Negócio</strong>: Controllers (MobX), Services, Providers</li>
+<li><strong>Dados</strong>: Repositories, Models, Local storage (sqflite)</li>
+<li><strong>Integração</strong>: Firebase SDK, OneSignal SDK, HTTP clients</li>
+</ol>
+<h3>Dependências Principais</h3>
+<ul>
+<li><code>flutter_modular@6.3.4</code>: Modularização e roteamento</li>
+<li><code>mobx@2.5.0</code>: Gerenciamento de estado reativo</li>
+<li><code>firebase_core@3.6.0</code>: Inicialização Firebase</li>
+<li><code>firebase_auth@5.3.1</code>: Autenticação</li>
+<li><code>cloud_firestore@5.4.3</code>: Banco de dados</li>
+<li><code>onesignal_flutter@5.2.5</code>: Notificações push</li>
+</ul>
+<h2>Decisões Arquiteturais Principais</h2>
+<table><thead><tr><th>Decisão</th><th>Rationale</th><th>Alternativas Rejeitadas</th></tr></thead><tbody><tr><td><strong>Usar Flutter multiplataforma</strong></td><td>Código compartilhado (Dart), release única, custo operacional reduzido</td><td>Desenvolvimento nativo por plataforma</td></tr><tr><td><strong>Firebase como backend</strong></td><td>Escalabilidade, real-time, autenticação gerenciada, sem overhead operacional</td><td>Backend REST customizado, AWS, Azure</td></tr><tr><td><strong>MobX para estado</strong></td><td>Reatividade, simples com decoradores, bom para síncrono e assíncrono</td><td>Redux (verboso), Provider puro (menos poderoso), Bloc (verboso)</td></tr><tr><td><strong>Firestore como DB principal</strong></td><td>NoSQL, real-time listeners, sincronização nativa, backup automático</td><td>SQL (Firebase Realtime DB abandonda), GraphQL, REST puro</td></tr><tr><td><strong>Modular para injeção de deps</strong></td><td>Modularização clara, lazy loading, roteamento integrado</td><td>GetIt/Service Locator puro (menos estruturado)</td></tr><tr><td><strong>OneSignal para push</strong></td><td>Segmentação avançada, multi-plataforma, UI gerenciada</td><td>Firebase Cloud Messaging puro (mais limitado), Pusher (custo maior)</td></tr></tbody></table>
+<h2>Rastreabilidade</h2>
+<ul>
+<li><strong>Código-fonte</strong>: <code>lib/app/</code> contém módulos, <code>lib/app/modules/</code> contém domínios funcionais, <code>lib/app/shared/</code> contém infraestrutura</li>
+<li><strong>Configuração</strong>: <code>pubspec.yaml</code> lista dependências, <code>firebase.json</code> configura hosting, <code>.env</code> contém secrets</li>
+<li><strong>Build</strong>: <code>android/</code>, <code>ios/</code>, <code>web/</code> contêm configurações específicas de plataforma</li>
+<li><strong>Documentação de suporte</strong>: <a href="../../README.md">README.md</a>, <code>docs/</code> contém guias adicionais</li>
+</ul>
+<h2>Notas de Atualização</h2>
+<p>Este documento foi validado contra:</p>
+<ul>
+<li>✓ Estrutura real do repositório em 2026-06-13</li>
+<li>✓ Código-fonte analisado até branch main</li>
+<li>✓ README.md, pubspec.yaml, firebase.json consultados</li>
+<li>✓ Conversas técnicas com equipe</li>
+</ul>
+<p><strong>Próxima revisão</strong>: Agendar se houver:</p>
+<ul>
+<li>Novas plataformas ou integrações externas</li>
+<li>Mudanças em padrão de autenticação ou sincronização</li>
+<li>Alterações em estrutura de módulos principais</li>
+<li>Integração de novos backends ou serviços</li>
+</ul>
+        </article>
+      </section>
+    
+
+      <section id="modulos-componentes" class="doc-section">
+        <header class="section-header">
+          <h2>Modulos e Componentes</h2>
+          <p class="source-link">
+            Fonte normativa: <a href="./02-MODULOS-COMPONENTES.md">02-MODULOS-COMPONENTES.md</a>
+          </p>
+        </header>
+        <article class="markdown-content">
+          <h1>02 - Módulos e Componentes: Organização por Camadas</h1>
+<p><strong>Escopo</strong>: Descrição da organização modular, camadas, responsabilidades e relações entre componentes <strong>Última Atualização</strong>: 2026-06-13 <strong>Responsável</strong>: Equipe Técnica do Projeto</p>
+<h2>Visão Geral da Arquitetura em Camadas</h2>
+<p>O aplicativo Flutter segue uma arquitetura em <strong>4 camadas</strong> com suporte a modularização via Flutter Modular:</p>
+<pre><code>
+┌─────────────────────────────────────────────────────────┐
+
+│         CAMADA DE APRESENTAÇÃO (UI)                     │
+
+│  Pages, Widgets, Material Design, Interação Usuário     │
+
+└────────────────────┬────────────────────────────────────┘
+
+                     │
+
+┌────────────────────▼────────────────────────────────────┐
+
+│     CAMADA DE LÓGICA DE NEGÓCIO (Business Logic)        │
+
+│  Controllers (MobX), Services, Providers                │
+
+└────────────────────┬────────────────────────────────────┘
+
+                     │
+
+┌────────────────────▼────────────────────────────────────┐
+
+│         CAMADA DE DADOS (Data / Repository)             │
+
+│  Repositories, Models, Acesso a Firestore/SQLite        │
+
+└────────────────────┬────────────────────────────────────┘
+
+                     │
+
+┌────────────────────▼────────────────────────────────────┐
+
+│      CAMADA DE INTEGRAÇÃO E INFRAESTRUTURA              │
+
+│  Firebase SDK, OneSignal, SQLite, SharedPreferences     │
+
+└─────────────────────────────────────────────────────────┘
+
+</code></pre>
+<h2>Estrutura de Diretórios</h2>
+<pre><code>
+lib/
+
+├── main.dart                           # Entry point da aplicação
+
+├── app/
+
+│   ├── app_widget.dart                # Widget root (MaterialApp)
+
+│   ├── app_controller.dart            # Controlador global (MobX)
+
+│   ├── app_module.dart                # Modular binding global
+
+│   │
+
+│   ├── modules/                        # Módulos funcionais (36 modules)
+
+│   │   ├── home/                       # Dashboard principal
+
+│   │   ├── login/                      # Autenticação
+
+│   │   ├── avisos/                     # Gerenciam avisos
+
+│   │   ├── eventos/                    # Calendário e eventos
+
+│   │   ├── pastorais/                  # Portal de pastorais
+
+│   │   ├── [pastoral-modules]/         # Catequese, Crisma, EJC, MEJ, etc
+
+│   │   └── notifications/              # Gerenciamento de notificações
+
+│   │
+
+│   └── shared/                         # Código compartilhado (infraestrutura)
+
+│       ├── auth/                       # Utilidades de autenticação
+
+│       ├── constants/                  # Enums, constantes globais
+
+│       ├── services/                   # Serviços reutilizáveis
+
+│       │   └── push_notification_service.dart
+
+│       ├── utils/                      # Funções auxiliares
+
+│       └── widgets/                    # UI widgets reutilizáveis
+
+│
+
+├── firebase_options.dart               # Configuração Firebase
+
+├── firebase_options_env.dart           # Variáveis de ambiente
+
+└── scripts/                            # Scripts utilitários
+
+
+
+android/ / ios/ / web/                  # Configurações específicas de plataforma
+
+</code></pre>
+<h2>Camada 1: Apresentação (UI Layer)</h2>
+<p><strong>Localização</strong>: <code>lib/app/modules/[module-name]/</code></p>
+<p><strong>Componentes</strong>:</p>
+<ul>
+<li><code>[module]_page.dart</code> - Tela principal do módulo (StatefulWidget)</li>
+<li><code>[module]_controller.dart</code> - Lógica de apresentação com MobX</li>
+<li><code>widgets/</code> - Componentes reutilizáveis dentro do módulo</li>
+<li><code>[module]_module.dart</code> - Binding e roteamento (Modular)</li>
+</ul>
+<p><strong>Responsabilidades</strong>:</p>
+<ul>
+<li>Renderizar UI usando Material Design</li>
+<li>Capturar interações de usuário (taps, gestos, formulários)</li>
+<li>Exibir dados do Controller via Observers (MobX)</li>
+<li>Navegar entre telas via Modular routes</li>
+<li>Mostrar diálogos, snackbars e feedback visual</li>
+</ul>
+<p><strong>Padrões</strong>:</p>
+<ul>
+<li>Stateless Pages que consomem Controllers via context</li>
+<li>Builders reativos com <code>Observer</code> de MobX para re-render eficiente</li>
+<li>Separation of concerns: UI apenas apresenta, não contém lógica complexa</li>
+</ul>
+<p><strong>Exemplo</strong>:</p>
+<pre><code class="language-dart">
+// avisos_page.dart
+
+class AvisosPage extends StatefulWidget {
+
+  @override
+
+  State&lt;AvisosPage&gt; createState() =&gt; _AvisosPageState();
+
+}
+
+
+
+class _AvisosPageState extends State&lt;AvisosPage&gt; {
+
+  late AvisosController controller;
+
+
+
+  @override
+
+  void initState() {
+
+    controller = Modular.get&lt;AvisosController&gt;();
+
+    super.initState();
+
+  }
+
+
+
+  @override
+
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+
+      appBar: AppBar(title: Text(&quot;Avisos&quot;)),
+
+      body: Observer(
+
+        builder: (_) =&gt; controller.isLoading
+
+            ? CircularProgressIndicator()
+
+            : ListView(children: controller.avisos.map(...).toList()),
+
+      ),
+
+    );
+
+  }
+
+}
+
+</code></pre>
+<h2>Camada 2: Lógica de Negócio (Business Logic Layer)</h2>
+<p><strong>Localização</strong>: <code>lib/app/modules/[module-name]/[module]_controller.dart</code> + <code>lib/app/shared/services/</code></p>
+<p><strong>Componentes</strong>:</p>
+<ul>
+<li><code>[module]_controller.dart</code> - State management com MobX</li>
+<li><code>Services</code> - Lógica de negócio reutilizável entre módulos</li>
+<li><code>Providers</code> - Injeção de dependências</li>
+</ul>
+<p><strong>Responsabilidades</strong>:</p>
+<ul>
+<li>Gerenciar estado local do módulo (MobX observables, actions, reactions)</li>
+<li>Processar eventos de negócio (criar aviso, atualizar evento, etc)</li>
+<li>Coordenar entre UI e Data Layer</li>
+<li>Tratamento de erros e exceções</li>
+<li>Validações de regras de negócio</li>
+</ul>
+<p><strong>Padrões</strong>:</p>
+<ul>
+<li>Controllers são singletons gerenciados por Modular</li>
+<li>MobX para reatividade: <code>@observable</code>, <code>@action</code>, <code>@computed</code></li>
+<li>Async/await para operações assincronas</li>
+<li>Try-catch com logging de erros</li>
+</ul>
+<p><strong>Exemplo</strong>:</p>
+<pre><code class="language-dart">
+// avisos_controller.dart
+
+@Injectable()
+
+class AvisosController {
+
+  @observable
+
+  List&lt;Aviso&gt; avisos = [];
+
+
+
+  @observable
+
+  bool isLoading = false;
+
+
+
+  final AvisosService service;
+
+
+
+  AvisosController(this.service);
+
+
+
+  @action
+
+  Future&lt;void&gt; loadAvisos() async {
+
+    isLoading = true;
+
+    try {
+
+      avisos = await service.fetchAvisos();
+
+    } catch (e) {
+
+      // tratamento
+
+    } finally {
+
+      isLoading = false;
+
+    }
+
+  }
+
+}
+
+</code></pre>
+<h2>Camada 3: Dados (Data / Repository Layer)</h2>
+<p><strong>Localização</strong>: <code>lib/app/modules/[module-name]/</code> (implícita) + injeção via Services</p>
+<p><strong>Componentes</strong>:</p>
+<ul>
+<li><code>Repositories</code> - Abstração de fontes de dados</li>
+<li><code>Models</code> - Estruturas de dados (entities)</li>
+<li><code>Adapters</code> - Conversão entre formatos (JSON ↔ Dart, Firestore ↔ Models)</li>
+</ul>
+<p><strong>Responsabilidades</strong>:</p>
+<ul>
+<li>Centralizar acesso a dados (Firestore, SQLite, API)</li>
+<li>Implementar padrões de acesso (queries, filters, pagination)</li>
+<li>Cache e invalidação de cache</li>
+<li>Transformação de dados brutos em models tipados</li>
+<li>Sincronização entre local storage e backend</li>
+</ul>
+<p><strong>Padrões</strong>:</p>
+<ul>
+<li>Repository pattern: abstração de fonte de dados específica</li>
+<li>Models com <code>fromJson</code>, <code>toJson</code> para serialização</li>
+<li>Firestore listeners para real-time updates</li>
+<li>Local first com sincronização bidirecional</li>
+</ul>
+<p><strong>Estrutura implícita</strong>:</p>
+<pre><code>
+(não há pasta explícita, mas mantida em Services)
+
+
+
+AvisosService
+
+├── fetchAvisos() → Future&lt;List&lt;Aviso&gt;&gt;
+
+├── createAviso(Aviso) → Future&lt;void&gt;
+
+├── updateAviso(Aviso) → Future&lt;void&gt;
+
+└── deleteAviso(String id) → Future&lt;void&gt;
+
+
+
+class Aviso {
+
+  final String id;
+
+  final String titulo;
+
+  final String conteudo;
+
+  final DateTime dataCriacao;
+
+
+
+  factory Aviso.fromJson(Map&lt;String, dynamic&gt; json) =&gt; ...
+
+  Map&lt;String, dynamic&gt; toJson() =&gt; ...
+
+}
+
+</code></pre>
+<h2>Camada 4: Integração e Infraestrutura (Infrastructure Layer)</h2>
+<p><strong>Localização</strong>: <code>lib/app/shared/</code> + Firebase/OneSignal SDKs</p>
+<p><strong>Componentes</strong>:</p>
+<ul>
+<li>Firebase SDK (Auth, Firestore, Storage, Analytics)</li>
+<li>OneSignal SDK (Push notifications)</li>
+<li>SQLite (sqflite) - persistência local</li>
+<li>SharedPreferences - configurações leves</li>
+</ul>
+<p><strong>Responsabilidades</strong>:</p>
+<ul>
+<li>Gerenciar conexão com backends</li>
+<li>Implementar retry logic e circuit breakers</li>
+<li>Logging e monitoramento</li>
+<li>Tratamento de conectividade</li>
+<li>Criptografia de dados sensíveis</li>
+</ul>
+<p><strong>Padrões</strong>:</p>
+<ul>
+<li>Singleton services para conexões reutilizáveis</li>
+<li>Interceptadores de requisições para logging</li>
+<li>Error handling centralizado</li>
+<li>Fallback offline-first</li>
+</ul>
+<p><strong>Serviços Principais</strong>:</p>
+<table><thead><tr><th>Serviço</th><th>Responsabilidade</th><th>Tecnologia</th></tr></thead><tbody><tr><td><code>PushNotificationService</code></td><td>Inicializar OneSignal, registrar handlers</td><td>OneSignal SDK</td></tr><tr><td><code>FirebaseService</code></td><td>Abstração sobre Firebase (não explícito, direto no código)</td><td>Firebase SDK</td></tr><tr><td><code>AuthService</code></td><td>Autenticação via Firebase</td><td>Firebase Auth</td></tr><tr><td><code>FirestoreRepository</code></td><td>CRUD em Firestore</td><td>Cloud Firestore SDK</td></tr><tr><td><code>LocalStorageService</code></td><td>Persistência local</td><td>sqflite, SharedPreferences</td></tr></tbody></table>
+<h2>Módulos Funcionais (Domínios)</h2>
+<p>Todos os 36 módulos seguem o mesmo padrão interno:</p>
+<h3>Módulos Core (Essenciais)</h3>
+<table><thead><tr><th>Módulo</th><th>Responsabilidade</th><th>Dependências Externas</th></tr></thead><tbody><tr><td><code>home</code></td><td>Dashboard principal, navegação</td><td>Outros módulos (lazy load)</td></tr><tr><td><code>login</code></td><td>Autenticação de usuários</td><td>Firebase Auth</td></tr><tr><td><code>notifications</code></td><td>Gerenciamento de push, histórico</td><td>OneSignal, Firebase</td></tr></tbody></table>
+<h3>Módulos de Domínio (Funcionalidades Principais)</h3>
+<table><thead><tr><th>Módulo</th><th>Responsabilidade</th><th>Dados Primários</th></tr></thead><tbody><tr><td><code>avisos</code></td><td>CRUD de avisos paroquiais</td><td>Firestore: <code>/avisos</code></td></tr><tr><td><code>eventos</code></td><td>Calendário, agendamento</td><td>Firestore: <code>/eventos</code></td></tr><tr><td><code>horarios</code></td><td>Horários de missas, atividades</td><td>Firestore: <code>/horarios</code></td></tr><tr><td><code>pastorais</code></td><td>Portal de pastorais, lista</td><td>Firestore: <code>/pastorais</code></td></tr></tbody></table>
+<h3>Módulos de Pastorais (Atividades Especializadas)</h3>
+<table><thead><tr><th>Módulo</th><th>Pastoral</th><th>Dados Primários</th></tr></thead><tbody><tr><td><code>catequese</code></td><td>Catequese</td><td>Firestore: <code>/pastorais/catequese</code></td></tr><tr><td><code>crisma</code></td><td>Crisma</td><td>Firestore: <code>/pastorais/crisma</code></td></tr><tr><td><code>batismo</code></td><td>Batismo</td><td>Firestore: <code>/pastorais/batismo</code></td></tr><tr><td><code>ejc</code></td><td>EJC (Jovens)</td><td>Firestore: <code>/pastorais/ejc</code></td></tr><tr><td><code>mej</code></td><td>MEJ (Eucarístico Jovem)</td><td>Firestore: <code>/pastorais/mej</code></td></tr><tr><td><code>saude</code></td><td>Pastoral da Saúde</td><td>Firestore: <code>/pastorais/saude</code></td></tr><tr><td><code>rua</code></td><td>Pastoral da Rua</td><td>Firestore: <code>/pastorais/rua</code></td></tr><tr><td>...</td><td>(28+ outros)</td><td>Firestore: <code>/pastorais/[name]</code></td></tr></tbody></table>
+<h2>Padrões de Comunicação Entre Camadas</h2>
+<h3>Fluxo Comum: Carregar Dados</h3>
+<pre><code>
+1. UI (Page)
+
+   ↓ onInit() chama controller.load()
+
+
+
+2. Business Logic (Controller)
+
+   ↓ @action loadData() chama service.fetch()
+
+
+
+3. Data Layer (Service)
+
+   ↓ fetch() chama repository.query()
+
+
+
+4. Infrastructure (Firebase/SQLite)
+
+   ↓ retorna dados brutos
+
+
+
+3. Data Layer
+
+   ↓ mapeia Firestore docs → Models
+
+
+
+2. Business Logic
+
+   ↓ armazena em @observable, notifica via MobX
+
+
+
+1. UI
+
+   ↓ Observer detecta mudança, re-renderiza
+
+</code></pre>
+<h3>Padrão de Injeção de Dependências</h3>
+<pre><code class="language-dart">
+// Modular binding
+
+class HomeModule extends Module {
+
+  @override
+
+  final List&lt;Bind&gt; binds = [
+
+    Bind.singleton&lt;HomeController&gt;((i) =&gt; HomeController()),
+
+  ];
+
+
+
+  @override
+
+  final List&lt;ModularRoute&gt; routes = [
+
+    ChildRoute(&#39;/&#39;, child: (_, args) =&gt; const HomePage()),
+
+  ];
+
+}
+
+
+
+// Uso em Page
+
+class HomePage extends StatefulWidget {
+
+  @override
+
+  State&lt;HomePage&gt; createState() =&gt; _HomePageState();
+
+}
+
+
+
+class _HomePageState extends State&lt;HomePage&gt; {
+
+  late HomeController controller;
+
+
+
+  @override
+
+  void initState() {
+
+    controller = Modular.get&lt;HomeController&gt;();
+
+    super.initState();
+
+  }
+
+}
+
+</code></pre>
+<h2>Responsabilidades por Camada (Matriz de Decisão)</h2>
+<table><thead><tr><th>Decisão</th><th>Apresentação</th><th>Negócio</th><th>Dados</th><th>Infraestrutura</th></tr></thead><tbody><tr><td>Renderizar UI</td><td>✓</td><td></td><td></td><td></td></tr><tr><td>Validar entrada do usuário</td><td>✓</td><td></td><td></td><td></td></tr><tr><td>Executar regras de negócio</td><td></td><td>✓</td><td></td><td></td></tr><tr><td>Gerenciar estado local</td><td></td><td>✓</td><td></td><td></td></tr><tr><td>Acessar dados</td><td></td><td></td><td>✓</td><td></td></tr><tr><td>Transformar dados (JSON ↔ Model)</td><td></td><td></td><td>✓</td><td></td></tr><tr><td>Conectar com backends</td><td></td><td></td><td></td><td>✓</td></tr><tr><td>Tratamento de conectividade</td><td></td><td></td><td></td><td>✓</td></tr><tr><td>Logging de eventos</td><td></td><td>✓</td><td></td><td>✓</td></tr></tbody></table>
+<h2>Relações e Dependências Entre Módulos</h2>
+<h3>Padrão: Lazy Loading via Modular</h3>
+<p>Cada módulo é carregado sob demanda:</p>
+<ul>
+<li><code>app_module.dart</code> registra rotas de todos os módulos</li>
+<li>Quando usuário navega para <code>/avisos</code>, o módulo é inicializado</li>
+<li>Controllers e services são instanciados</li>
+</ul>
+<p><strong>Grafo Simplificado</strong>:</p>
+<pre><code>
+AppModule (root)
+
+├── HomeModule (eager)
+
+├── LoginModule (eager)
+
+├── AvisosModule (lazy)
+
+├── EventosModule (lazy)
+
+├── PastoraisModule (lazy)
+
+│   ├── CatequesModule (lazy)
+
+│   ├── CrismaModule (lazy)
+
+│   └── ... (outros pastorais)
+
+└── NotificationsModule (lazy)
+
+</code></pre>
+<h3>Dependências Compartilhadas</h3>
+<pre><code>
+SharedLayer (infraestrutura)
+
+├── PushNotificationService
+
+├── AuthService (via Firebase)
+
+├── Constants (enums, valores globais)
+
+└── Widgets (UI components reutilizáveis)
+
+
+
+Todos os modules → dependem de SharedLayer
+
+</code></pre>
+<h2>Rastreabilidade</h2>
+<ul>
+<li><strong>Código-fonte de módulos</strong>: <code>lib/app/modules/[module-name]/</code></li>
+<li><strong>Infraestrutura compartilhada</strong>: <code>lib/app/shared/</code></li>
+<li><strong>Entry point</strong>: <code>lib/main.dart</code></li>
+<li><strong>Binding global</strong>: <code>lib/app/app_module.dart</code></li>
+<li><strong>Root Widget</strong>: <code>lib/app/app_widget.dart</code></li>
+<li><strong>Gerenciamento de estado</strong>: MobX (<code>.g.dart</code> auto-gerados)</li>
+</ul>
+<h2>Notas de Atualização</h2>
+<p>Este documento foi validado contra:</p>
+<ul>
+<li>✓ Estrutura de diretórios em 2026-06-13</li>
+<li>✓ Padrão de Controllers (MobX) analisado</li>
+<li>✓ Flutter Modular binding verificado</li>
+<li>✓ Shared utilities inspecionadas</li>
+</ul>
+<p><strong>Próxima revisão</strong>: Agendar se houver:</p>
+<ul>
+<li>Novo padrão de gerenciamento de estado</li>
+<li>Mudanças significativas em estrutura de módulos</li>
+<li>Adição de novas camadas (ex: Domain Layer com UseCases)</li>
+<li>Alterações em estratégia de injeção de dependências</li>
+</ul>
+        </article>
+      </section>
+    
+
+      <section id="integracoes-dados" class="doc-section">
+        <header class="section-header">
+          <h2>Integracoes e Dados</h2>
+          <p class="source-link">
+            Fonte normativa: <a href="./03-INTEGRA%C3%87%C3%95ES-DADOS.md">03-INTEGRAÇÕES-DADOS.md</a>
+          </p>
+        </header>
+        <article class="markdown-content">
+          <h1>03 - Integrações Externas e Fluxos de Dados</h1>
+<p><strong>Escopo</strong>: Serviços externos, protocolos de integração, fluxos de dados críticos e persistência <strong>Última Atualização</strong>: 2026-06-13 <strong>Responsável</strong>: Equipe Técnica do Projeto</p>
+<h2>Visão Geral de Integrações Externas</h2>
+<p>O sistema integra-se com múltiplos serviços externos em modelo <strong>cloud-centric</strong>, onde o Firebase é o backend centralizado e OneSignal fornece camada de notificações.</p>
+<pre><code>
+┌─────────────────────┐
+
+│  App Flutter        │
+
+│ (Mobile/Web)        │
+
+└──────────┬──────────┘
+
+           │
+
+      ┌────┴────┐
+
+      │          │
+
+      ▼          ▼
+
+  ┌────────┐  ┌──────────┐
+
+  │Firebase│  │OneSignal │
+
+  └────────┘  └──────────┘
+
+      │            │
+
+      ├─ Auth      ├─ Push iOS
+
+      ├─ Firestore ├─ Push Android
+
+      ├─ Storage   └─ Analytics
+
+      ├─ Analytics
+
+      └─ Hosting
+
+</code></pre>
+<h2>1. Firebase (Backend Centralizado)</h2>
+<h3>1.1 Firebase Authentication</h3>
+<p><strong>Responsabilidade</strong>: Autenticação centralizada de usuários</p>
+<p><strong>Fluxo de Autenticação</strong>:</p>
+<pre><code>
+1. Usuário acessa Login
+
+   ↓
+
+2. App exibe opções:
+
+   - Email/Senha
+
+   - Google Sign-In
+
+   - Apple Sign-In
+
+   ↓
+
+3. Credencial é enviada para Firebase Auth
+
+   ↓
+
+4. Firebase valida credencial
+
+   ↓
+
+5. Se bem-sucedido:
+
+   - Token JWT gerado
+
+   - ID de usuário retornado
+
+   - App armazena token localmente
+
+   ↓
+
+6. Sessão ativada, app desbloqueia funcionalidades
+
+</code></pre>
+<p><strong>Implementação</strong>:</p>
+<pre><code class="language-dart">
+// Localização: implícita em Services (Firebase SDK)
+
+FirebaseAuth.instance.signInWithEmailAndPassword(
+
+  email: email,
+
+  password: password
+
+);
+
+</code></pre>
+<p><strong>Provedores Suportados</strong>:</p>
+<ul>
+<li>Email e Senha (nativo)</li>
+<li>Google Sign-In (OAuth 2.0)</li>
+<li>Apple Sign-In (OpenID Connect)</li>
+</ul>
+<p><strong>Segurança</strong>:</p>
+<ul>
+<li>Tokens armazenados localmente com segurança nativa (Keychain iOS, Keystore Android)</li>
+<li>Expiração automática com refresh token</li>
+<li>Validação de email (opcional)</li>
+<li>2FA (suportado mas não obrigatório nesta versão)</li>
+</ul>
+<p><strong>Configuração</strong>:</p>
+<pre><code>
+firebase_options_env.dart:
+
+- FIREBASE_API_KEY_ANDROID
+
+- FIREBASE_APP_ID_ANDROID
+
+- FIREBASE_MESSAGING_SENDER_ID
+
+- FIREBASE_PROJECT_ID
+
+- FIREBASE_STORAGE_BUCKET
+
+</code></pre>
+<h3>1.2 Cloud Firestore (Banco de Dados Principal)</h3>
+<p><strong>Responsabilidade</strong>: Persistência centralizada de dados paroquiais em modelo NoSQL real-time</p>
+<p><strong>Modelo de Dados</strong>:</p>
+<pre><code>
+Database: sao-lourenco
+
+
+
+Coleções Principais:
+
+├── avisos/
+
+│   ├── {id}
+
+│   │   ├── titulo: string
+
+│   │   ├── conteudo: string
+
+│   │   ├── dataCriacao: timestamp
+
+│   │   ├── dataAtualizacao: timestamp
+
+│   │   └── autores: array&lt;uid&gt;
+
+│
+
+├── eventos/
+
+│   ├── {id}
+
+│   │   ├── titulo: string
+
+│   │   ├── descricao: string
+
+│   │   ├── data: timestamp
+
+│   │   ├── local: string
+
+│   │   ├── pastoral: reference → /pastorais/{id}
+
+│   │   └── participantes: array&lt;uid&gt;
+
+│
+
+├── pastorais/
+
+│   ├── {name}
+
+│   │   ├── titulo: string
+
+│   │   ├── descricao: string
+
+│   │   ├── coordenador: uid
+
+│   │   ├── horarios: array&lt;string&gt;
+
+│   │   └── membros: array&lt;uid&gt;
+
+│
+
+├── usuarios/
+
+│   ├── {uid}
+
+│   │   ├── nome: string
+
+│   │   ├── email: string
+
+│   │   ├── telefone: string
+
+│   │   ├── dataCriacao: timestamp
+
+│   │   ├── role: enum (fiel|coordenador|admin)
+
+│   │   └── pastorais: array&lt;reference&gt;
+
+│
+
+└── configuracoes/
+
+    ├── app
+
+    │   ├── versaoApp: string
+
+    │   ├── ultimaAtualizacao: timestamp
+
+    │   └── avisosCriticos: array&lt;string&gt;
+
+</code></pre>
+<p><strong>Fluxo de Sincronização Real-Time</strong>:</p>
+<pre><code>
+1. App inicia (login bem-sucedido)
+
+   ↓
+
+2. Controllers registram listeners em coleções críticas
+
+   ↓
+
+3. Firestore envia snapshot inicial
+
+   ↓
+
+4. App armazena em @observable (MobX)
+
+   ↓
+
+5. UI re-renderiza com dados iniciais
+
+   ↓
+
+6. Enquanto app está aberto:
+
+   - Qualquer mudança em Firestore
+
+   - Push para app em tempo real
+
+   - MobX notifica observers
+
+   - UI atualiza automaticamente
+
+   ↓
+
+7. App desconecta ou fecha:
+
+   - Listeners removidos
+
+   - Dados persistem em cache local (SQLite)
+
+</code></pre>
+<p><strong>Exemplo</strong>: Avisos</p>
+<pre><code class="language-dart">
+// Controller
+
+AvisosController {
+
+  @observable
+
+  List&lt;Aviso&gt; avisos = [];
+
+
+
+  AvisosController(this.service) {
+
+    _setupListener();
+
+  }
+
+
+
+  void _setupListener() {
+
+    FirebaseFirestore.instance
+
+      .collection(&#39;avisos&#39;)
+
+      .orderBy(&#39;dataCriacao&#39;, descending: true)
+
+      .limit(50)
+
+      .snapshots()
+
+      .listen((snapshot) {
+
+        avisos = snapshot.docs
+
+          .map((doc) =&gt; Aviso.fromJson(doc.data()))
+
+          .toList();
+
+      });
+
+  }
+
+}
+
+</code></pre>
+<p><strong>Características</strong>:</p>
+<ul>
+<li>Listeners contínuos (snapshot updates)</li>
+<li>Offline persistence automática (SQLite local)</li>
+<li>Sincronização bidirecional quando reconectado</li>
+<li>Transações para operações multi-documento</li>
+<li>Indexes automáticos em queries comuns</li>
+</ul>
+<p><strong>Limites e Considerações</strong>:</p>
+<ul>
+<li>Leitura/escrita sob demanda (preço por operação)</li>
+<li>25KB limite por documento</li>
+<li>Máximo 20.000 documentos por transação</li>
+<li>Index em campos compostos requer setup manual</li>
+</ul>
+<p><strong>Segurança</strong>:</p>
+<pre><code>
+Firestore Security Rules:
+
+- Usuários autenticados podem ler dados públicos
+
+- Dados sensíveis (info pessoal) restritos a usuário
+
+- Coordenadores podem editar dados de sua pastoral
+
+- Admins podem editar qualquer coisa
+
+</code></pre>
+<h3>1.3 Firebase Storage</h3>
+<p><strong>Responsabilidade</strong>: Armazenamento de mídia (imagens, documentos) para app e web</p>
+<p><strong>Estrutura de Buckets</strong>:</p>
+<pre><code>
+gs://sao-lourenco.appspot.com/
+
+
+
+├── avisos/{id}/
+
+│   └── [imagens anexadas ao aviso]
+
+│
+
+├── eventos/{id}/
+
+│   └── [imagens/documentos do evento]
+
+│
+
+├── usuarios/{uid}/
+
+│   └── [foto de perfil, documentos pessoais]
+
+│
+
+└── pastorais/{name}/
+
+    └── [mídia de pastoral]
+
+</code></pre>
+<p><strong>Upload / Download</strong>:</p>
+<pre><code class="language-dart">
+// Upload
+
+await FirebaseStorage.instance
+
+  .ref(&#39;avisos/$avisoId/imagem.jpg&#39;)
+
+  .putFile(file);
+
+
+
+// Download URL
+
+final url = await FirebaseStorage.instance
+
+  .ref(&#39;avisos/$avisoId/imagem.jpg&#39;)
+
+  .getDownloadURL();
+
+</code></pre>
+<p><strong>Limitações</strong>:</p>
+<ul>
+<li>Max 500MB por arquivo (mobile) / 5GB (web)</li>
+<li>Throughput throttling sob carga</li>
+</ul>
+<h3>1.4 Firebase Analytics</h3>
+<p><strong>Responsabilidade</strong>: Coleta de eventos de uso e comportamento</p>
+<p><strong>Eventos Rastreados</strong>:</p>
+<ul>
+<li><code>screen_view</code> - Cada tela acessada</li>
+<li><code>button_click</code> - Cliques em CTAs principais</li>
+<li><code>pastoral_accessed</code> - Acesso a pastoral</li>
+<li><code>event_registered</code> - Registro em evento</li>
+<li><code>notification_opened</code> - Abertura de notificação push</li>
+</ul>
+<p><strong>Uso</strong>:</p>
+<pre><code class="language-dart">
+FirebaseAnalytics.instance.logEvent(
+
+  name: &#39;pastoral_accessed&#39;,
+
+  parameters: {
+
+    &#39;pastoral_name&#39;: &#39;catequese&#39;,
+
+    &#39;user_role&#39;: &#39;fiel&#39;,
+
+  },
+
+);
+
+</code></pre>
+<h3>1.5 Firebase Hosting</h3>
+<p><strong>Responsabilidade</strong>: Distribuição da versão web</p>
+<p><strong>URL</strong>: <code>https://sao-lourenco.web.app</code></p>
+<p><strong>Deploy</strong>:</p>
+<pre><code class="language-bash">
+flutter build web
+
+firebase deploy --only hosting
+
+</code></pre>
+<p><strong>Recursos</strong>:</p>
+<ul>
+<li>SSL/TLS automático</li>
+<li>CDN global</li>
+<li>Redirects customizáveis</li>
+<li>Rewrite rules para SPA (índice em rotas não encontradas)</li>
+</ul>
+<hr>
+<h2>2. OneSignal (Notificações Push)</h2>
+<h3>2.1 Arquitetura de Notificações</h3>
+<p><strong>Responsabilidade</strong>: Entrega confiável de notificações push para iOS e Android</p>
+<p><strong>Fluxo Geral</strong>:</p>
+<pre><code>
+1. Gestor publica aviso/evento em app ou Firebase Console
+
+   ↓
+
+2. Trigger Cloud Function (ou direto)
+
+   ↓
+
+3. OneSignal API é chamada com targeting
+
+   ↓
+
+4. OneSignal encaminha para APNs (iOS) e FCM (Android)
+
+   ↓
+
+5. Dispositivos recebem notificação
+
+   ↓
+
+6. Usuário clica → app abre com contexto
+
+   ↓
+
+7. Analytics registra conversão
+
+</code></pre>
+<p><strong>Inicialização</strong>:</p>
+<pre><code class="language-dart">
+// PushNotificationService
+
+Future&lt;void&gt; initialize() async {
+
+  OneSignal.initialize(_appId);
+
+
+
+  // Handlers de eventos
+
+  _setupNotificationHandlers();
+
+
+
+  // Requisita permissão
+
+  await _requestPermission();
+
+}
+
+
+
+// Configuração em .env
+
+ONESIGNAL_APP_ID=xxxxx
+
+</code></pre>
+<h3>2.2 Tipos de Notificações</h3>
+<table><thead><tr><th>Tipo</th><th>Trigger</th><th>Payload</th><th>Segmentação</th></tr></thead><tbody><tr><td><strong>Aviso de Comunicado</strong></td><td>Novo aviso criado</td><td>Título, resumo, link</td><td>Todos os usuários</td></tr><tr><td><strong>Evento Próximo</strong></td><td>Evento em 24h</td><td>Título, hora, local</td><td>Pastoral específica</td></tr><tr><td><strong>Lembrete de Missa</strong></td><td>Horário configurado</td><td>Dia/hora, local</td><td>Todas as pastorais</td></tr><tr><td><strong>Notificação de Cadastro</strong></td><td>Novo evento registrado</td><td>Confirmação</td><td>Usuário específico</td></tr><tr><td><strong>Aviso Crítico</strong></td><td>Situação urgente</td><td>Ícone crítico, ação</td><td>Seleção manual</td></tr></tbody></table>
+<h3>2.3 Handlers e Deep Linking</h3>
+<pre><code class="language-dart">
+void _setupNotificationHandlers() {
+
+  // Notificação recebida em foreground
+
+  OneSignal.Notifications.addForegroundWillDisplayListener((event) {
+
+    event.notification.display();
+
+  });
+
+
+
+  // Notificação clicada (foreground ou background)
+
+  OneSignal.Notifications.addClickListener((event) {
+
+    final data = event.notification.additionalData;
+
+    final tipo = data?[&#39;tipo&#39;]; // &#39;aviso&#39;, &#39;evento&#39;, etc
+
+    final id = data?[&#39;id&#39;];
+
+
+
+    _navegarPara(tipo, id);
+
+  });
+
+}
+
+
+
+void _navegarPara(String tipo, String id) {
+
+  switch (tipo) {
+
+    case &#39;aviso&#39;:
+
+      Modular.to.pushNamed(&#39;/avisos/$id&#39;);
+
+      break;
+
+    case &#39;evento&#39;:
+
+      Modular.to.pushNamed(&#39;/eventos/$id&#39;);
+
+      break;
+
+    // ...
+
+  }
+
+}
+
+</code></pre>
+<h3>2.4 Segmentação e Targeting</h3>
+<pre><code class="language-dart">
+// Tag usuários por pastoral
+
+OneSignal.User.addTag(&#39;pastoral&#39;, &#39;catequese&#39;);
+
+OneSignal.User.addTag(&#39;role&#39;, &#39;coordenador&#39;);
+
+
+
+// Enviar para coordenadores de catequese
+
+OneSignal API call:
+
+{
+
+  &quot;contents&quot;: {&quot;en&quot;: &quot;Nova inscrição na catequese&quot;},
+
+  &quot;filters&quot;: [
+
+    {&quot;field&quot;: &quot;tag&quot;, &quot;key&quot;: &quot;pastoral&quot;, &quot;value&quot;: &quot;catequese&quot;},
+
+    {&quot;field&quot;: &quot;tag&quot;, &quot;key&quot;: &quot;role&quot;, &quot;value&quot;: &quot;coordenador&quot;}
+
+  ]
+
+}
+
+</code></pre>
+<h3>2.5 Métricas de OneSignal</h3>
+<table><thead><tr><th>Métrica</th><th>Significado</th></tr></thead><tbody><tr><td><strong>Sent</strong></td><td>Notificações entregues para Apple/Google</td></tr><tr><td><strong>Delivered</strong></td><td>Confirmação de entrega no dispositivo</td></tr><tr><td><strong>Clicked</strong></td><td>Usuário clicou na notificação</td></tr><tr><td><strong>Bounced</strong></td><td>Token inválido ou expirado</td></tr></tbody></table>
+<p><strong>Exemplo</strong>: Campaign de aviso crítico pode ter 10k sent, 9.5k delivered, 2.3k clicked (23% CTR).</p>
+<hr>
+<h2>3. Fluxos de Dados Críticos</h2>
+<h3>Fluxo A: Autenticação → Sessão → Desbloqueio de Features</h3>
+<pre><code>
+┌─ Usuário (não autenticado)
+
+│
+
+├─ Insere credenciais
+
+│
+
+├─ App envia para Firebase Auth
+
+│
+
+├─ Firebase valida e retorna token
+
+│
+
+├─ App armazena token em Keystore/Keychain
+
+│
+
+├─ Controllers observam mudança de autenticação
+
+│
+
+└─ Funcionalidades desbloqueadas
+
+   ├─ Listeners em Firestore ativam
+
+   ├─ Dados sincronizam em tempo real
+
+   └─ UI atualiza
+
+</code></pre>
+<p><strong>Implementação</strong>:</p>
+<pre><code class="language-dart">
+// AppController (global state)
+
+@observable
+
+User? currentUser;
+
+
+
+@action
+
+Future&lt;void&gt; login(String email, String password) async {
+
+  try {
+
+    final userCred = await FirebaseAuth.instance
+
+      .signInWithEmailAndPassword(email: email, password: password);
+
+
+
+    currentUser = _mapFirebaseUser(userCred.user);
+
+    // Listeners ativam automaticamente em outros controllers
+
+
+
+  } catch (e) {
+
+    // Tratamento de erro
+
+  }
+
+}
+
+</code></pre>
+<h3>Fluxo B: Publicação de Aviso → Sincronização → Notificação</h3>
+<pre><code>
+┌─ Gestor (web admin)
+
+│
+
+├─ Cria novo aviso
+
+│
+
+├─ App escreve em Firestore /avisos/{id}
+
+│
+
+├─ Firestore dispara trigger (possível Cloud Function)
+
+│
+
+├─ Cloud Function chama OneSignal API
+
+│
+
+├─ OneSignal encaminha para APNs/FCM
+
+│
+
+└─ Todos os clientes recebem em tempo real
+
+   ├─ Listeners em AvisosController recebem snapshot
+
+   ├─ @observable avisos atualiza
+
+   ├─ UI re-renderiza com novo aviso
+
+   └─ Notificação push entregue (paralelo)
+
+</code></pre>
+<p><strong>Latência Esperada</strong>:</p>
+<ul>
+<li>Escrita em Firestore → UI atualizada: ~500-2000ms</li>
+<li>Notificação push entregue: ~1-5 segundos</li>
+</ul>
+<h3>Fluxo C: Sincronização Offline-First</h3>
+<pre><code>
+┌─ App entra em área sem conexão
+
+│
+
+├─ Firestore listeners continuam ativos localmente
+
+│
+
+├─ Leituras servidas do cache SQLite local
+
+│
+
+├─ Escritas são enfileiradas localmente
+
+│
+
+└─ Quando reconectado
+
+    ├─ Firestore sincroniza fila de escritas
+
+    ├─ Conflitos resolvidos (last-write-wins ou merge)
+
+    ├─ Listeners recebem atualizações
+
+    └─ UI fica consistente
+
+</code></pre>
+<p><strong>Exemplo</strong>: Usuário em missa abre app, vê avisos offline. Sai de missa, reconecta, app sincroniza automaticamente.</p>
+<hr>
+<h2>4. Persistência Local (Offline-First)</h2>
+<h3>4.1 SQLite (sqflite)</h3>
+<p><strong>Uso</strong>: Cache persistente de dados críticos para offline</p>
+<p><strong>Tabelas Típicas</strong>:</p>
+<pre><code class="language-sql">
+CREATE TABLE avisos (
+
+  id TEXT PRIMARY KEY,
+
+  titulo TEXT,
+
+  conteudo TEXT,
+
+  dataCriacao INTEGER,
+
+  dataAtualizacao INTEGER,
+
+  syncStatus TEXT -- &#39;synced&#39;, &#39;pending&#39;, &#39;error&#39;
+
+);
+
+
+
+CREATE TABLE eventos (
+
+  id TEXT PRIMARY KEY,
+
+  titulo TEXT,
+
+  data INTEGER,
+
+  pastoral TEXT,
+
+  syncStatus TEXT
+
+);
+
+
+
+CREATE TABLE usuarios (
+
+  uid TEXT PRIMARY KEY,
+
+  nome TEXT,
+
+  email TEXT,
+
+  role TEXT
+
+);
+
+</code></pre>
+<p><strong>Sincronização</strong>:</p>
+<pre><code class="language-dart">
+// Ao receber update do Firestore
+
+void _onFirestoreUpdate(Aviso avisoRemoto) {
+
+  // 1. Atualiza local
+
+  await sqliteDb.update(&#39;avisos&#39;, avisoRemoto.toJson());
+
+
+
+  // 2. Atualiza MobX
+
+  avisos = [...avisos].map((a) =&gt; a.id == avisoRemoto.id ? avisoRemoto : a).toList();
+
+
+
+  // 3. UI re-renderiza
+
+}
+
+</code></pre>
+<h3>4.2 SharedPreferences</h3>
+<p><strong>Uso</strong>: Configurações leves, flags de primeira execução, tokens</p>
+<pre><code class="language-dart">
+// Armazenar
+
+final prefs = await SharedPreferences.getInstance();
+
+prefs.setString(&#39;lastAvisoSync&#39;, DateTime.now().toIso8601String());
+
+prefs.setBool(&#39;notificationsEnabled&#39;, true);
+
+
+
+// Recuperar
+
+final lastSync = DateTime.parse(prefs.getString(&#39;lastAvisoSync&#39;) ?? &#39;&#39;);
+
+</code></pre>
+<hr>
+<h2>5. Tratamento de Erros e Resiliência</h2>
+<h3>5.1 Retry Logic</h3>
+<pre><code class="language-dart">
+// Função genérica com retry exponencial
+
+Future&lt;T&gt; executeWithRetry&lt;T&gt;(
+
+  Future&lt;T&gt; Function() operation,
+
+  {int maxRetries = 3, Duration initialDelay = const Duration(seconds: 1)}
+
+) async {
+
+  int retryCount = 0;
+
+
+
+  while (true) {
+
+    try {
+
+      return await operation();
+
+    } catch (e) {
+
+      if (retryCount &gt;= maxRetries) rethrow;
+
+
+
+      final delay = initialDelay * pow(2, retryCount);
+
+      await Future.delayed(delay);
+
+      retryCount++;
+
+    }
+
+  }
+
+}
+
+
+
+// Uso
+
+await executeWithRetry(() =&gt; FirebaseFirestore.instance.collection(&#39;avisos&#39;).get());
+
+</code></pre>
+<h3>5.2 Circuit Breaker</h3>
+<pre><code class="language-dart">
+// Previne cascata de falhas
+
+class CircuitBreaker {
+
+  int failureCount = 0;
+
+  bool isClosed = true; // healthy
+
+
+
+  Future&lt;T&gt; execute&lt;T&gt;(Future&lt;T&gt; Function() operation) async {
+
+    if (!isClosed) throw Exception(&#39;Circuit breaker is open&#39;);
+
+
+
+    try {
+
+      final result = await operation();
+
+      failureCount = 0;
+
+      return result;
+
+    } catch (e) {
+
+      failureCount++;
+
+      if (failureCount &gt; 5) {
+
+        isClosed = false;
+
+        Future.delayed(Duration(minutes: 5), () =&gt; isClosed = true);
+
+      }
+
+      rethrow;
+
+    }
+
+  }
+
+}
+
+</code></pre>
+<h3>5.3 Fallback e Graceful Degradation</h3>
+<pre><code class="language-dart">
+// Se Firestore falhar, usar cache local
+
+Future&lt;List&lt;Aviso&gt;&gt; getAvisos() async {
+
+  try {
+
+    return await FirebaseFirestore.instance.collection(&#39;avisos&#39;).get()...
+
+  } catch (e) {
+
+    debugPrint(&#39;Firebase indisponível, usando cache local&#39;);
+
+    return await _getAvisosLocal();
+
+  }
+
+}
+
+</code></pre>
+<hr>
+<h2>6. Segurança de Dados</h2>
+<h3>6.1 Dados Sensíveis</h3>
+<table><thead><tr><th>Dado</th><th>Armazenamento</th><th>Proteção</th></tr></thead><tbody><tr><td><strong>Token Firebase</strong></td><td>Keystore (Android) / Keychain (iOS)</td><td>Encriptação nativa OS</td></tr><tr><td><strong>Credenciais de login</strong></td><td>Nunca armazenado</td><td>Apenas token armazenado</td></tr><tr><td><strong>Informações pessoais</strong></td><td>Firestore</td><td>Rules restringem a usuário</td></tr><tr><td><strong>Dados de API</strong></td><td>SQLite com encryption</td><td>Encrypt at rest (opcional)</td></tr></tbody></table>
+<h3>6.2 Firestore Security Rules</h3>
+<pre><code class="language-javascript">
+rules_version = &#39;2&#39;;
+
+service cloud.firestore {
+
+  match /databases/{database}/documents {
+
+    // Avisos - leitura pública, escrita apenas admin
+
+    match /avisos/{document=**} {
+
+      allow read: if request.auth != null;
+
+      allow write: if request.auth.token.admin == true;
+
+    }
+
+
+
+    // Usuários - leitura própria, escrita própria
+
+    match /usuarios/{uid} {
+
+      allow read: if request.auth.uid == uid;
+
+      allow write: if request.auth.uid == uid;
+
+    }
+
+
+
+    // Pastorais - leitura pública, escrita coordenador
+
+    match /pastorais/{docId} {
+
+      allow read: if request.auth != null;
+
+      allow write: if request.auth.token.role in [&#39;admin&#39;, &#39;coordenador&#39;];
+
+    }
+
+  }
+
+}
+
+</code></pre>
+<hr>
+<h2>Rastreabilidade</h2>
+<ul>
+<li><strong>Firebase Setup</strong>: <code>lib/firebase_options_env.dart</code>, <code>firebase.json</code></li>
+<li><strong>Inicialização</strong>: <code>lib/main.dart</code> (Firebase.initializeApp)</li>
+<li><strong>Push Notifications</strong>: <code>lib/app/shared/services/push_notification_service.dart</code></li>
+<li><strong>Configuração .env</strong>: <code>ONESIGNAL_APP_ID</code>, variáveis Firebase</li>
+<li><strong>Firestore Models</strong>: Implícito em cada módulo (serialização JSON)</li>
+</ul>
+<h2>Notas de Atualização</h2>
+<p>Este documento foi validado contra:</p>
+<ul>
+<li>✓ main.dart (Firebase init, OneSignal init)</li>
+<li>✓ firebase_options_env.dart (Firebase config)</li>
+<li>✓ PushNotificationService (OneSignal setup)</li>
+<li>✓ pubspec.yaml (dependências Firebase e OneSignal)</li>
+<li>✓ docs/ (docs de segurança e setup)</li>
+</ul>
+<p><strong>Próxima revisão</strong>: Agendar se houver:</p>
+<ul>
+<li>Mudanças em estrutura de dados Firestore</li>
+<li>Migração de backend</li>
+<li>Alterações em política de sincronização offline</li>
+<li>Novas integrações externas (ex: pagamento, SMS)</li>
+<li>Ajustes em Firestore Security Rules</li>
+</ul>
+        </article>
+      </section>
+    
+
+      <section id="decisoes-arquiteturais" class="doc-section">
+        <header class="section-header">
+          <h2>Decisoes Arquiteturais</h2>
+          <p class="source-link">
+            Fonte normativa: <a href="./04-DECISOES-ARQUITETURAIS.md">04-DECISOES-ARQUITETURAIS.md</a>
+          </p>
+        </header>
+        <article class="markdown-content">
+          <h1>04 - Decisoes Arquiteturais</h1>
+<p><strong>Escopo</strong>: Registro das principais decisoes arquiteturais do projeto e seus impactos tecnicos <strong>Ultima Atualizacao</strong>: 2026-06-13 <strong>Responsavel</strong>: Equipe Tecnica do Projeto</p>
+<h2>Contexto</h2>
+<p>O aplicativo da Paroquia Sao Lourenco evoluiu para um ecossistema Flutter multiplataforma com backend cloud e modulos de dominio. Este documento consolida as decisoes arquiteturais centrais para manter consistencia tecnica entre implementacao, documentacao e evolucao futura.</p>
+<h2>Decisoes Arquiteturais</h2>
+<h3>Decisao: adotar Flutter multiplataforma</h3>
+<ul>
+<li><strong>Rationale</strong>: compartilhamento de codigo entre Android, iOS e Web, com menor custo operacional.</li>
+<li><strong>Alternativas Consideradas</strong>: desenvolvimento nativo por plataforma.</li>
+<li><strong>Impactos</strong>: acelera entregas e manutencao; exige disciplina de compatibilidade entre plataformas.</li>
+</ul>
+<h3>Decisao: usar Firebase como backend principal</h3>
+<ul>
+<li><strong>Rationale</strong>: autenticacao, persistencia e sincronizacao em tempo real com menor overhead de infraestrutura.</li>
+<li><strong>Alternativas Consideradas</strong>: backend REST customizado, provedores cloud alternativos.</li>
+<li><strong>Impactos</strong>: simplifica operacao e escala; aumenta acoplamento com servicos Firebase.</li>
+</ul>
+<h3>Decisao: usar Flutter Modular para composicao por modulos e rotas</h3>
+<ul>
+<li><strong>Rationale</strong>: organizacao clara de binds e rotas por modulo funcional.</li>
+<li><strong>Alternativas Consideradas</strong>: service locator puro sem estrutura modular.</li>
+<li><strong>Impactos</strong>: melhora separacao de responsabilidades; requer padronizacao de convencoes por modulo.</li>
+</ul>
+<h3>Decisao: usar MobX para estado reativo</h3>
+<ul>
+<li><strong>Rationale</strong>: modelo observavel direto para controllers e atualizacao da UI.</li>
+<li><strong>Alternativas Consideradas</strong>: Redux, Bloc, Provider puro.</li>
+<li><strong>Impactos</strong>: boa produtividade para estado local e assincrono; exige controle de complexidade em controllers.</li>
+</ul>
+<h3>Decisao: adotar OneSignal para notificacoes push</h3>
+<ul>
+<li><strong>Rationale</strong>: segmentacao de audiencia e operacao multicanal simplificada.</li>
+<li><strong>Alternativas Consideradas</strong>: FCM puro para todos os cenarios.</li>
+<li><strong>Impactos</strong>: melhora campanhas e engajamento; adiciona dependencia externa no pipeline de notificacoes.</li>
+</ul>
+<h3>Decisao: tratar Graphify como fonte auxiliar</h3>
+<ul>
+<li><strong>Rationale</strong>: acelerar descoberta de relacoes tecnicas sem comprometer confiabilidade documental.</li>
+<li><strong>Alternativas Consideradas</strong>: promover inferencias automaticamente para fatos arquiteturais.</li>
+<li><strong>Impactos</strong>: documentacao permanece ancorada em codigo e docs primarias; exige curadoria manual continua.</li>
+</ul>
+<h2>Relacoes e Dependencias</h2>
+<table><thead><tr><th>Topico Relacionado</th><th>Tipo de Relacao</th><th>Natureza</th></tr></thead><tbody><tr><td><code>01-VISAO-CONTEXTO.md</code></td><td>Alinhamento</td><td>Decisoes sustentam fronteiras, atores e plataformas</td></tr><tr><td><code>02-MODULOS-COMPONENTES.md</code></td><td>Dependencia</td><td>Padroes de modularizacao, DI e estado refletem decisoes registradas</td></tr><tr><td><code>03-INTEGRAÇÕES-DADOS.md</code></td><td>Dependencia</td><td>Integracoes Firebase/OneSignal derivam das escolhas de arquitetura</td></tr><tr><td><code>ANEXO-GRAPHIFY-CURADORIA.md</code></td><td>Governanca</td><td>Confirma uso do Graphify como apoio e nao como fonte normativa</td></tr></tbody></table>
+<h2>Impactos e Rastreabilidade</h2>
+<ul>
+<li><strong>Afeta Modulos</strong>: <code>lib/app/modules/<em></code>, <code>lib/app/shared/</em></code>, inicializacao global do app.</li>
+<li><strong>Referencias no Codigo</strong>: <code>lib/main.dart</code>, <code>lib/app/app_module.dart</code>, <code>lib/app/app_controller.dart</code>, <code>pubspec.yaml</code>.</li>
+<li><strong>Documentacao Relacionada</strong>: <code>docs/arquitetura/INDICE.md</code>, <code>docs/arquitetura/COBERTURA-MINIMA.md</code>, <code>docs/IMPLEMENTACAO_ONESIGNAL.md</code>.</li>
+<li><strong>Evidencia</strong>: validacao cruzada com estrutura de <code>lib/app/modules</code> e <code>graphify-out/*</code>.</li>
+</ul>
+<h2>Notas de Atualizacao</h2>
+<p>Este documento foi validado contra:</p>
+<ul>
+<li>✓ Estrutura real do repositorio em 2026-06-13</li>
+<li>✓ Modulos existentes em <code>lib/app/modules/</code></li>
+<li>✓ Composicao global em <code>lib/app/app_module.dart</code></li>
+<li>✓ Integracoes e bootstrap em <code>lib/main.dart</code></li>
+<li>✓ Curadoria registrada em <code>ANEXO-GRAPHIFY-CURADORIA.md</code></li>
+</ul>
+<p><strong>Proxima revisao</strong>: sempre que houver mudancas em modularizacao, estrategia de estado, integracoes externas ou plataforma alvo.</p>
+        </article>
+      </section>
+    
+
+      <section id="anexo-graphify" class="doc-section">
+        <header class="section-header">
+          <h2>Anexo Graphify Curadoria</h2>
+          <p class="source-link">
+            Fonte normativa: <a href="./ANEXO-GRAPHIFY-CURADORIA.md">ANEXO-GRAPHIFY-CURADORIA.md</a>
+          </p>
+        </header>
+        <article class="markdown-content">
+          <h1>Anexo - Curadoria de Insumos Graphify</h1>
+<p><strong>Escopo</strong>: Registro das inferências arquiteturais levantadas a partir de <code>graphify-out/</code> e validadas manualmente contra código-fonte e documentação primária do repositório <strong>Última Atualização</strong>: 2026-06-13 <strong>Responsável</strong>: Equipe Técnica do Projeto</p>
+<h2>Contexto</h2>
+<p>Os artefatos em <code>graphify-out/</code> foram usados como apoio para descoberta inicial de relações entre bootstrap da aplicação, composição modular e integrações externas. Este anexo registra apenas os pontos que passaram por validação manual.</p>
+<h2>Fontes Consultadas</h2>
+<h3>Fontes auxiliares</h3>
+<ul>
+<li><code>graphify-out/GRAPH_REPORT.md</code></li>
+<li><code>graphify-out/graph.json</code></li>
+<li><code>graphify-out/manifest.json</code></li>
+</ul>
+<h3>Fontes primárias de validação</h3>
+<ul>
+<li><code>lib/main.dart</code></li>
+<li><code>lib/app/app_module.dart</code></li>
+<li><code>docs/IMPLEMENTACAO_ONESIGNAL.md</code></li>
+<li><code>docs/FLUTTER_WEB_SETUP_CONCLUIDO.md</code></li>
+<li><code>web/index_secure.html</code></li>
+</ul>
+<h2>Inferências levantadas e curadas</h2>
+<table><thead><tr><th>Item</th><th>Sinal inicial do Graphify</th><th>Validação manual</th><th>Status</th></tr></thead><tbody><tr><td>Bootstrap Firebase no startup</td><td>Community hub <code>firebase options env.dart main.dart</code> em <code>GRAPH_REPORT.md</code></td><td><code>lib/main.dart</code> inicializa <code>Firebase.initializeApp</code> com <code>DefaultFirebaseOptions.currentPlatform</code></td><td>Validado</td></tr><tr><td>Inicialização de push notifications no startup</td><td>Referência conjunta a <code>main.dart</code> e <code>PushNotificationService</code> em <code>graph.json</code> e buscas derivadas</td><td><code>lib/main.dart</code> instancia <code>PushNotificationService</code> e executa <code>initialize()</code> antes de <code>runApp</code></td><td>Validado</td></tr><tr><td>AppModule como ponto central de DI e rotas globais</td><td>Community hubs <code>app module.dart AppModule binds</code> e <code>home module.dart binds routes</code></td><td><code>lib/app/app_module.dart</code> registra <code>LocalUser</code>, <code>AuthRepository</code>, <code>PushNotificationService</code>, <code>AppController</code> e rotas globais</td><td>Validado</td></tr><tr><td>Pipeline documental de OneSignal</td><td>Hyperedge <code>hyperedge_onesignal_delivery_pipeline</code> com confiança <code>EXTRACTED</code> em <code>graph.json</code></td><td><code>docs/IMPLEMENTACAO_ONESIGNAL.md</code> consolida setup, testes e segurança da integração OneSignal já presente no app</td><td>Validado</td></tr><tr><td>Relação entre bootstrap web seguro e documentação de setup/CORS</td><td>Hyperedge <code>hyperedge_web_bootstrap_security_cors</code> com confiança <code>INFERRED</code> em <code>graph.json</code></td><td><code>web/index_secure.html</code> contém placeholders e guarda de configuração Firebase; <code>docs/FLUTTER_WEB_SETUP_CONCLUIDO.md</code> descreve o fluxo de configuração web</td><td>Validado com ressalva</td></tr></tbody></table>
+<h2>Ressalvas de curadoria</h2>
+<ul>
+<li>Itens marcados como <code>INFERRED</code> no Graphify não foram promovidos automaticamente a fatos arquiteturais.</li>
+<li>Relações ambíguas ou estritamente visuais, como conexões entre ícones, assets e branding, foram descartadas por não agregarem valor à arquitetura funcional.</li>
+<li>Hiperarestas documentais foram aceitas apenas quando o conteúdo primário do repositório confirmou a relação operacional descrita.</li>
+</ul>
+<h2>Decisões Arquiteturais</h2>
+<h3>Decisão: usar Graphify apenas para descoberta assistida</h3>
+<ul>
+<li><strong>Rationale</strong>: o grafo acelera a identificação de pontos de acoplamento e documentação relacionada, mas mistura evidências extraídas com inferências probabilísticas.</li>
+<li><strong>Alternativas Consideradas</strong>: promover automaticamente hubs e hyperedges a fatos arquiteturais foi descartado por risco de registrar relações não verificadas.</li>
+<li><strong>Impactos</strong>: a documentação arquitetural permanece lastreada em fontes primárias, com Graphify atuando como apoio de investigação.</li>
+</ul>
+<h2>Relações e Dependências</h2>
+<table><thead><tr><th>Tópico Relacionado</th><th>Tipo de Relação</th><th>Natureza</th></tr></thead><tbody><tr><td><code>02-MODULOS-COMPONENTES.md</code></td><td>Evidência complementar</td><td>Curadoria de composição modular e ponto central de DI</td></tr><tr><td><code>03-INTEGRAÇÕES-DADOS.md</code></td><td>Evidência complementar</td><td>Curadoria de bootstrap Firebase, push notifications e fluxo web</td></tr><tr><td><code>INDICE.md</code></td><td>Governança</td><td>Reforça o uso controlado de fontes auxiliares</td></tr></tbody></table>
+<h2>Impactos e Rastreabilidade</h2>
+<ul>
+<li><strong>Afeta Módulos</strong>: inicialização global, autenticação compartilhada e notificações</li>
+<li><strong>Referências no Código</strong>: <code>lib/main.dart</code>, <code>lib/app/app_module.dart</code>, <code>web/index_secure.html</code></li>
+<li><strong>Documentação Relacionada</strong>: <code>docs/IMPLEMENTACAO_ONESIGNAL.md</code>, <code>docs/FLUTTER_WEB_SETUP_CONCLUIDO.md</code></li>
+<li><strong>Evidência</strong>: <code>graphify-out/GRAPH_REPORT.md</code>, <code>graphify-out/graph.json</code>, <code>graphify-out/manifest.json</code></li>
+</ul>
+<h2>Notas de Atualização</h2>
+<p>Este documento foi validado contra:</p>
+<ul>
+<li>✓ Estrutura real do repositório em 2026-06-13</li>
+<li>✓ Código-fonte analisado em <code>lib/main.dart</code> e <code>lib/app/app_module.dart</code></li>
+<li>✓ Documentação técnica existente sobre OneSignal e setup web</li>
+<li>✓ Insumos de Graphify curados manualmente antes do registro</li>
+</ul>
+<p><strong>Próxima revisão</strong>: sempre que novos relatórios do Graphify forem usados para sustentar atualização arquitetural.</p>
+        </article>
+      </section>
+    
+
+      <section id="cobertura-minima" class="doc-section">
+        <header class="section-header">
+          <h2>Criterios de Cobertura Minima</h2>
+          <p class="source-link">
+            Fonte normativa: <a href="./COBERTURA-MINIMA.md">COBERTURA-MINIMA.md</a>
+          </p>
+        </header>
+        <article class="markdown-content">
+          <h1>Critérios de Cobertura Mínima Arquitetural</h1>
+<p>Este documento define os critérios objetivos para cobertura mínima de documentação arquitetural.</p>
+<h2>Verificação de Completude</h2>
+<p>Após produzir a documentação baseline, verificar se os seguintes elementos estão presentes:</p>
+<h3>✓ Cobertura: Visão de Contexto</h3>
+<p>A documentação DEVE incluir:</p>
+<ul>
+<li>[ ] <strong>Definição executiva do sistema</strong>: O que é, qual é seu propósito principal</li>
+<li>[ ] <strong>Atores principais</strong>: Usuários, sistemas externos, dependências críticas</li>
+<li>[ ] <strong>Fronteiras arquiteturais</strong>: O que está dentro do escopo, o que está fora</li>
+<li>[ ] <strong>Integração com sistemas externos</strong>: Firebase, OneSignal, APIs, serviços de pagamento, etc</li>
+<li>[ ] <strong>Plataformas suportadas</strong>: Web, iOS, Android, admin, público</li>
+</ul>
+<p><strong>Artefato</strong>: <code>01-VISAO-CONTEXTO.md</code></p>
+<h3>✓ Cobertura: Módulos e Componentes</h3>
+<p>A documentação DEVE incluir:</p>
+<ul>
+<li>[ ] <strong>Mapa hierárquico de módulos</strong>: Estrutura de pastas em <code>lib/</code> com identificação clara</li>
+<li>[ ] <strong>Responsabilidades por camada</strong>:</li>
+<li>[ ] Camada de apresentação (UI/screens)</li>
+<li>[ ] Camada de negócios (services, providers, bloc)</li>
+<li>[ ] Camada de dados (repositories, models, local storage)</li>
+<li>[ ] Camada de integração (APIs, Firebase)</li>
+<li>[ ] <strong>Componentes reutilizáveis</strong>: Widgets, helpers, utilities</li>
+<li>[ ] <strong>Padrões de comunicação</strong>: Como componentes se relacionam (Provider, Bloc, callbacks)</li>
+<li>[ ] <strong>Referências no código</strong>: Caminhos específicos (<code>lib/features/</code>, <code>lib/core/</code>, etc)</li>
+</ul>
+<p><strong>Artefato</strong>: <code>02-MODULOS-COMPONENTES.md</code></p>
+<h3>✓ Cobertura: Integrações Externas e Dados</h3>
+<p>A documentação DEVE incluir:</p>
+<ul>
+<li>[ ] <strong>Serviços Firebase</strong>:</li>
+<li>[ ] Firebase Authentication (sign-up, sign-in, sign-out)</li>
+<li>[ ] Cloud Firestore (modelo de dados, coleções)</li>
+<li>[ ] Storage (armazenamento de arquivos)</li>
+<li>[ ] Analytics</li>
+<li>[ ] Hosting (distribuição web)</li>
+<li>[ ] <strong>Serviços de terceiros</strong>:</li>
+<li>[ ] OneSignal (notificações push)</li>
+<li>[ ] Outros (pagamento, SMS, maps, etc)</li>
+<li>[ ] <strong>Fluxos de dados críticos</strong>:</li>
+<li>[ ] Autenticação e autorização</li>
+<li>[ ] Sincronização de dados</li>
+<li>[ ] Persistência local vs remota</li>
+<li>[ ] Tratamento offline</li>
+<li>[ ] <strong>Segurança e proteção de dados sensíveis</strong>: Como credenciais, dados pessoais e tokens são tratados</li>
+<li>[ ] <strong>Tratamento de falhas</strong>: Retry, fallback, circuit breaker</li>
+</ul>
+<p><strong>Artefato</strong>: <code>03-INTEGRAÇÕES-DADOS.md</code></p>
+<h3>✓ Cobertura: Decisões Arquiteturais</h3>
+<p>A documentação DEVE incluir:</p>
+<ul>
+<li>[ ] <strong>Decisões principais tomadas</strong>:</li>
+<li>Framework (Flutter)</li>
+<li>Gerenciamento de estado (Provider, Bloc)</li>
+<li>Persistência local (sqflite, shared_preferences)</li>
+<li>Padrões de divisão de responsabilidades</li>
+<li>[ ] <strong>Rationale</strong>: Por que cada decisão foi tomada</li>
+<li>[ ] <strong>Alternativas consideradas e descartadas</strong>: Contexto de rejeição</li>
+<li>[ ] <strong>Impactos técnicos</strong>: Manutenção, performance, escalabilidade</li>
+</ul>
+<p><strong>Artefato</strong>: <code>04-DECISOES-ARQUITETURAIS.md</code></p>
+<h2>Processo de Validação</h2>
+<p>Para cada artefato produzido, verificar:</p>
+<ol>
+<li><strong>Contra código-fonte</strong>:</li>
+</ol>
+<ul>
+<li>Estrutura de pastas (<code>lib/</code>) corresponde à hierarquia documentada</li>
+<li>Componentes listados existem e estão localizáveis</li>
+<li>Responsabilidades descritas refletem o que está implementado</li>
+</ul>
+<ol>
+<li><strong>Contra Graphify</strong> (se aplicável):</li>
+</ol>
+<ul>
+<li>Relações documentadas coincidem com dependências reais</li>
+<li>Componentes importantes não foram omitidos</li>
+<li>Insumos de Graphify foram validados manualmente</li>
+</ul>
+<ul>
+<li>Inferências aceitas foram registradas com evidência primária e inferências rejeitadas não foram promovidas a fatos arquiteturais</li>
+</ul>
+<ol>
+<li><strong>Contra documentação oficial</strong>:</li>
+</ol>
+<ul>
+<li>Referências a Flutter, Firebase, OneSignal, etc estão de acordo com versões usadas no projeto</li>
+<li>Não há contradições com docs existentes em <code>docs/</code></li>
+</ul>
+<h2>Checklist de Conclusão</h2>
+<ul>
+<li>[ ] Visão de Contexto documentada e validada</li>
+<li>[ ] Módulos e Componentes mapeados</li>
+<li>[ ] Integrações Externas e Fluxos de Dados descritos</li>
+<li>[ ] Decisões Arquiteturais registradas</li>
+<li>[ ] Todos os artefatos referenciam código-fonte real</li>
+<li>[ ] Graphify foi consultado e insumos foram curados</li>
+<li>[ ] Há registro explícito da distinção entre fonte auxiliar e fonte normativa</li>
+<li>[ ] Nenhuma contradição entre artefatos</li>
+<li>[ ] Índice de navegação está atualizado</li>
+</ul>
+<h2>Revisão Final de Consistência e Rastreabilidade (2026-06-13)</h2>
+<h3>Resultado da revisão</h3>
+<ul>
+<li>✓ Estrutura <code>docs/arquitetura</code> contém os artefatos canônicos esperados (<code>INDICE</code>, contexto, módulos, integrações, decisões, cobertura e anexo Graphify)</li>
+<li>✓ Referências arquiteturais principais batem com a estrutura real do código em <code>lib/app/modules/</code>, <code>lib/app/shared/</code> e bootstrap em <code>lib/main.dart</code></li>
+<li>✓ Decisões técnicas centrais foram consolidadas em <code>04-DECISOES-ARQUITETURAIS.md</code></li>
+<li>✓ Distinção entre fonte normativa (código/docs oficiais) e fonte auxiliar (Graphify) está explícita no índice e no anexo de curadoria</li>
+</ul>
+<h3>Pontos validados na estrutura real do repositório</h3>
+<ul>
+<li><code>lib/app/modules/</code> contém os módulos de domínio e core citados na documentação</li>
+<li><code>lib/app/shared/</code> contém camadas compartilhadas (<code>auth</code>, <code>constants</code>, <code>services</code>, <code>utils</code>, <code>widgets</code>)</li>
+<li><code>lib/app/app_module.dart</code> e <code>lib/main.dart</code> sustentam a visão de composição e bootstrap registrada</li>
+</ul>
+<h3>Conclusão</h3>
+<p>Baseline arquitetural consistente com a estrutura atual do repositório na data da revisão. Próximas mudanças com impacto arquitetural devem seguir o gatilho e checklist definidos em <code>INDICE.md</code>.</p>
+        </article>
+      </section>
+    
+
+        <p class="footer">Artefato gerado localmente por scripts/generate-arquitetura-html.mjs. Nenhuma chamada externa e necessaria para leitura.</p>
+      </main>
+    </div>
+  </body>
+</html>
