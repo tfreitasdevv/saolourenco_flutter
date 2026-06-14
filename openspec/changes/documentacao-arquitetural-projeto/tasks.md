@@ -1,14 +1,14 @@
 ## 1. Estrutura Base de Documentação
 
-- [ ] 1.1 Criar e padronizar a estrutura de `docs/arquitetura` com índice principal e convenções de navegação
-- [ ] 1.2 Definir template mínimo para documentos arquiteturais (contexto, escopo, decisões, impactos e referências)
-- [ ] 1.3 Estabelecer critérios objetivos de cobertura mínima para visão de contexto, módulos/componentes, integrações e dados
+- [x] 1.1 Criar e padronizar a estrutura de `docs/arquitetura` com índice principal e convenções de navegação
+- [x] 1.2 Definir template mínimo para documentos arquiteturais (contexto, escopo, decisões, impactos e referências)
+- [x] 1.3 Estabelecer critérios objetivos de cobertura mínima para visão de contexto, módulos/componentes, integrações e dados
 
 ## 2. Produção do Baseline Arquitetural
 
-- [ ] 2.1 Documentar visão de contexto do sistema e principais fronteiras arquiteturais do app
-- [ ] 2.2 Documentar organização por camadas/módulos com responsabilidades e relações entre componentes
-- [ ] 2.3 Documentar integrações externas e fluxos de dados críticos em nível arquitetural
+- [x] 2.1 Documentar visão de contexto do sistema e principais fronteiras arquiteturais do app
+- [x] 2.2 Documentar organização por camadas/módulos com responsabilidades e relações entre componentes
+- [x] 2.3 Documentar integrações externas e fluxos de dados críticos em nível arquitetural
 
 ## 3. Uso de Insumos Graphify com Curadoria
 
